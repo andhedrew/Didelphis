@@ -13,7 +13,7 @@ export var max_fall_speed := 250
 export var friction := 4.5
 
 var velocity := Vector2.ZERO
-enum {IDLE, WALK, JUMP, DEAD}
+enum {IDLE, WALK, JUMP, FALL, DEAD, ATTACK}
 var state := IDLE
 var state_last_frame := state
 var state_timer := 0
@@ -74,12 +74,12 @@ func switch_state(input) -> void :
 	elif state == WALK: walk_state(input)
 	elif state == JUMP: jump_state(input)
 	elif state == DEAD: dead_state()
+	elif state == FALL: fall_state(input)
 
 
 func idle_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
-	if facing == UP:animation_player.play("idle_looking_up")
-	else:animation_player.play("idle")
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	apply_friction()
@@ -93,8 +93,7 @@ func idle_state(input):
 
 func walk_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
-	if facing == UP:animation_player.play("walk_looking_up")
-	else:animation_player.play("walk")
+	
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	apply_acceleration(input.x)
@@ -117,20 +116,11 @@ func jump_state(input):
 	var jump_release:= Input.is_action_just_released("jump")
 	var jump :=  Input.is_action_just_pressed("jump")
 	
-	if velocity.y > 0:
-		if facing == UP:animation_player.play("fall_looking_up")
-		else:animation_player.play("fall")
-		
-	else:
-		if facing == UP:animation_player.play("jump_looking_up")
-		else:animation_player.play("jump")
-	
+
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
 	elif is_on_floor()  or !coyote_timer.is_stopped():
 		velocity.y = jump_height
-	
-
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -139,8 +129,21 @@ func jump_state(input):
 			state = IDLE
 		else:
 			state = WALK
-	apply_acceleration(input.x)
 	
+	if velocity.y > 0:
+		state = FALL
+	apply_acceleration(input.x)
+
+
+func fall_state(input):
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if is_on_floor():
+		if input.x == 0:
+			state = IDLE
+		else:
+			state = WALK
+	apply_acceleration(input.x)
 
 
 func dead_state():
@@ -150,6 +153,7 @@ func dead_state():
 func state_timer():
 	if state_last_frame != state:
 		state_timer = 0
+		GameEvents.emit_signal("player_changed_state", state)
 	else:
 		state_timer += 1
 		
@@ -179,4 +183,4 @@ func apply_acceleration(amount):
 func _on_Hurtbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		health -= hitbox.damage
-		print_debug(health)
+	
