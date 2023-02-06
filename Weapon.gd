@@ -2,7 +2,6 @@ extends Node2D
 class_name Weapon
 
 export(PackedScene) var bullet_scene
-onready var animated_sprite := $AnimatedSprite
 onready var bullet_spawn := $BulletSpawn
 
 enum {RIGHT, DOWN, LEFT, UP}
@@ -22,7 +21,6 @@ func fire_weapon():
 	var xspeed := 0.0
 	var yspeed := 0.0
 	
-	animated_sprite.play("default")
 	bullet.position = bullet_spawn.global_position
 	
 	

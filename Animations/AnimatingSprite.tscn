@@ -125,7 +125,7 @@ tracks/0/keys = {
 "values": [ 7, 1, 7, 1 ]
 }
 
-[node name="Animating Sprite" type="Node2D"]
+[node name="AnimatingSprite" type="Node2D"]
 position = Vector2( -2, -14 )
 
 [node name="Model" type="Sprite" parent="."]
