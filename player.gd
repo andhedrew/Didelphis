@@ -2,6 +2,7 @@ extends Actor
 
 export(int) var health = 3
 export var gravity := 3.9
+export var extra_gravity_on_fall := 3
 export var move_speed := 100
 export var max_move_speed := 70
 export var acceleration := 7
@@ -82,11 +83,12 @@ func jump_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
 	
 	
-		
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
 	elif is_on_floor()  or !coyote_timer.is_stopped():
 		velocity.y = jump_height
+	
+
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -118,7 +120,10 @@ func flip_horizontal(input):
 
 func apply_gravity():
 	velocity.y += gravity
+	if velocity.y > 0:
+		velocity.y += extra_gravity_on_fall
 	velocity.y = min(velocity.y, max_fall_speed)
+		
 
 
 func apply_friction():
