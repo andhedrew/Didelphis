@@ -13,5 +13,5 @@ func _fire():
 	animated_sprite.play("default")
 	var bullet = bullet_scene.instance()
 	bullet.position = Vector2(0, 0)
-	bullet.velocity = Vector2(5, 0)
+	bullet.velocity = Vector2(bullet.speed, 0)
 	add_child(bullet)

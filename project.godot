@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
-"path": "res://Hitboxes/Hurtbox.gd"
+"path": "res://Hitboxes/TakeDamageBox.gd"
 }, {
 "base": "Node2D",
 "class": "Weapon",

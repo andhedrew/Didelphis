@@ -5,7 +5,7 @@
 [ext_resource path="res://Tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://World.gd" type="Script" id=4]
 [ext_resource path="res://Sprites/vfx.png" type="Texture" id=5]
-[ext_resource path="res://Weapons/Projectiles/projectile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Weapons/Projectiles/ProjectileSmallBlue.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
@@ -31,9 +31,6 @@ animations = [ {
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-
-[node name="Projectile" parent="Player" instance=ExtResource( 6 )]
-position = Vector2( 138, -5 )
 
 [node name="FrontTilemap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
