@@ -2,7 +2,8 @@ extends Node2D
 class_name Weapon
 
 export(PackedScene) var bullet_scene
-onready var animated_sprite = $AnimatedSprite
+onready var animated_sprite := $AnimatedSprite
+onready var bullet_spawn := $BulletSpawn
 
 enum {RIGHT, DOWN, LEFT, UP}
 var facing := RIGHT
@@ -17,10 +18,22 @@ func _physics_process(delta):
 
 
 func fire_weapon():
-	animated_sprite.play("default")
 	var bullet = bullet_scene.instance()
-	bullet.position = global_position
-	bullet.velocity = Vector2(bullet.speed * scale.x, 0)
+	var xspeed := 0.0
+	var yspeed := 0.0
+	
+	animated_sprite.play("default")
+	bullet.position = bullet_spawn.global_position
+	
+	
+	if facing == LEFT or facing == RIGHT:
+		xspeed = bullet.speed * scale.x
+	elif facing == UP:
+		yspeed = -bullet.speed
+	elif facing == DOWN:
+		yspeed = bullet.speed
+	
+	bullet.velocity = Vector2(xspeed, yspeed)
 	get_parent().get_parent().add_child(bullet)
 
 
