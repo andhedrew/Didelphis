@@ -23,7 +23,7 @@ var facing := RIGHT
 var default_facing := facing
 
 onready var coyote_timer := $CoyoteTimer
-onready var animated_sprite := $AnimatedSprite
+onready var animation_player := $AnimationPlayer
 
 var input := Vector2.ZERO
 
@@ -44,7 +44,8 @@ func _physics_process(delta):
 	state_timer()
 	apply_gravity()
 	switch_state(input)
-	flip_horizontal(input)
+	
+	
 	
 	if input.y == 0:
 		if input.x > 0:
@@ -60,6 +61,11 @@ func _physics_process(delta):
 	elif input.y > 0:
 		facing = DOWN
 	GameEvents.emit_signal("player_changed_facing_direction", facing)
+	
+	if facing == RIGHT:
+		transform.x.x = 1
+	elif  facing == LEFT:
+		transform.x.x = -1
 
 
 func switch_state(input) -> void :
@@ -72,7 +78,8 @@ func switch_state(input) -> void :
 
 func idle_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
-	animated_sprite.play("idle")
+	if facing == UP:animation_player.play("idle_looking_up")
+	else:animation_player.play("idle")
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	apply_friction()
@@ -86,7 +93,8 @@ func idle_state(input):
 
 func walk_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
-	animated_sprite.play("walk")
+	if facing == UP:animation_player.play("walk_looking_up")
+	else:animation_player.play("walk")
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	apply_acceleration(input.x)
@@ -110,9 +118,12 @@ func jump_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
 	
 	if velocity.y > 0:
-		animated_sprite.play("fall")
+		if facing == UP:animation_player.play("fall_looking_up")
+		else:animation_player.play("fall")
+		
 	else:
-		animated_sprite.play("jump")
+		if facing == UP:animation_player.play("jump_looking_up")
+		else:animation_player.play("jump")
 	
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
@@ -140,13 +151,6 @@ func state_timer():
 		state_timer += 1
 		
 	state_last_frame = state
-
-
-func flip_horizontal(input):
-	if input.x > 0:
-		animated_sprite.set_flip_h(false)
-	elif input.x < 0:
-		animated_sprite.set_flip_h(true)
 
 
 func apply_gravity():
