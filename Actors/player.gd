@@ -136,3 +136,9 @@ func apply_acceleration(amount):
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration_in_air)
+
+
+func _on_Hurtbox_area_entered(hitbox):
+	if hitbox is HitBox:
+		health -= hitbox.damage
+		print_debug(health)
