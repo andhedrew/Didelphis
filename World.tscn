@@ -247,6 +247,10 @@ drag_margin_right = 0.5
 drag_margin_bottom = 0.5
 editor_draw_drag_margin = true
 
+[node name="CoyoteTimer" type="Timer" parent="Player"]
+wait_time = 0.15
+one_shot = true
+
 [node name="FrontTilemap" type="TileMap" parent="."]
 tile_set = SubResource( 19 )
 cell_size = Vector2( 32, 32 )
