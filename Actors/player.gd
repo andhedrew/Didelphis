@@ -4,7 +4,7 @@ export(int) var health = 3
 export var gravity := 3.9
 export var extra_gravity_on_fall := 3
 export var move_speed := 100
-export var max_move_speed := 70
+export var max_move_speed := 80
 export var acceleration := 7
 export var acceleration_in_air := 5
 export var jump_height := -150
@@ -24,6 +24,12 @@ onready var animated_sprite := $AnimatedSprite
 
 func _ready():
 	pass
+
+func _input(event):
+	var attack = Input.is_action_just_pressed("attack")
+	
+	if attack:
+		GameEvents.emit_signal("player_attacked")
 
 func _physics_process(delta):
 	var input := Vector2.ZERO
@@ -46,7 +52,7 @@ func switch_state(input) -> void :
 
 func idle_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
-	
+	animated_sprite.play("idle")
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	apply_friction()
@@ -60,6 +66,7 @@ func idle_state(input):
 
 func walk_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
+	animated_sprite.play("walk")
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	apply_acceleration(input.x)
@@ -82,6 +89,10 @@ func jump_state(input):
 	var jump_release:= Input.is_action_just_released("jump")
 	var jump :=  Input.is_action_just_pressed("jump")
 	
+	if velocity.y > 0:
+		animated_sprite.play("fall")
+	else:
+		animated_sprite.play("jump")
 	
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
