@@ -23,7 +23,7 @@ var facing := RIGHT
 var default_facing := facing
 
 onready var coyote_timer := $CoyoteTimer
-onready var animation_player := $AnimationPlayer
+onready var animation_player := $Model/AnimationPlayer
 
 var input := Vector2.ZERO
 
@@ -135,7 +135,10 @@ func jump_state(input):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_floor():
-		state = IDLE
+		if input.x == 0:
+			state = IDLE
+		else:
+			state = WALK
 	apply_acceleration(input.x)
 	
 
