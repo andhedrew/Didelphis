@@ -18,21 +18,26 @@ var state := IDLE
 var state_last_frame := state
 var state_timer := 0
 
+enum {RIGHT, DOWN, LEFT, UP}
+var facing := RIGHT
+var default_facing := facing
 
 onready var coyote_timer := $CoyoteTimer
 onready var animated_sprite := $AnimatedSprite
+
+var input := Vector2.ZERO
 
 func _ready():
 	pass
 
 func _input(event):
 	var attack = Input.is_action_just_pressed("attack")
-	
 	if attack:
 		GameEvents.emit_signal("player_attacked")
 
+
 func _physics_process(delta):
-	var input := Vector2.ZERO
+	
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
 
@@ -40,6 +45,21 @@ func _physics_process(delta):
 	apply_gravity()
 	switch_state(input)
 	flip_horizontal(input)
+	
+	if input.y == 0:
+		if input.x > 0:
+			facing = RIGHT
+			default_facing = facing
+		elif input.x < 0:
+			facing = LEFT
+			default_facing = facing
+		else:
+			facing = default_facing
+	elif input.y < 0:
+		facing = UP
+	elif input.y > 0:
+		facing = DOWN
+	GameEvents.emit_signal("player_changed_facing_direction", facing)
 
 
 func switch_state(input) -> void :
