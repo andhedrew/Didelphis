@@ -136,8 +136,6 @@ func jump_state(input, attack):
 		state = ATTACK
 	
 	apply_acceleration(input.x)
-	
-	
 
 
 func fall_state(input, attack):
