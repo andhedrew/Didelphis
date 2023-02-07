@@ -1,10 +1,11 @@
-extends Sprite
+extends Node2D
 enum {IDLE, WALK, JUMP, FALL, DEAD, ATTACK}
 var state := IDLE
 enum {RIGHT, DOWN, LEFT, UP}
 var facing := RIGHT
 
 onready var animation_player := $AnimationPlayer
+
 
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")

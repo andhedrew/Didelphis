@@ -45,8 +45,6 @@ func _physics_process(delta):
 	apply_gravity()
 	switch_state(input)
 	
-	
-	
 	if input.y == 0:
 		if input.x > 0:
 			facing = RIGHT
@@ -61,13 +59,11 @@ func _physics_process(delta):
 	elif input.y > 0:
 		facing = DOWN
 	GameEvents.emit_signal("player_changed_facing_direction", facing)
-	
-	if facing == RIGHT:
+
+	if input.x > 0:
 		transform.x.x = 1
-	elif  facing == LEFT:
+	elif input.x < 0:
 		transform.x.x = -1
-
-
 func switch_state(input) -> void :
 	
 	if state == IDLE: idle_state(input)
