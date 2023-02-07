@@ -26,18 +26,14 @@ onready var coyote_timer := $CoyoteTimer
 onready var animation_player := $Model/AnimationPlayer
 
 var input := Vector2.ZERO
+var attack := false
 
 func _ready():
 	pass
 
-func _input(event):
-	var attack = Input.is_action_just_pressed("attack")
-	if attack:
-		GameEvents.emit_signal("player_attacked")
-
 
 func _physics_process(delta):
-	
+	attack = Input.is_action_just_pressed("attack")
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
 
@@ -66,14 +62,15 @@ func _physics_process(delta):
 		transform.x.x = -1
 func switch_state(input) -> void :
 	
-	if state == IDLE: idle_state(input)
-	elif state == WALK: walk_state(input)
-	elif state == JUMP: jump_state(input)
+	if state == IDLE: idle_state(input, attack)
+	elif state == WALK: walk_state(input, attack)
+	elif state == JUMP: jump_state(input, attack)
+	elif state == ATTACK: attack_state(input)
 	elif state == DEAD: dead_state()
-	elif state == FALL: fall_state(input)
+	elif state == FALL: fall_state(input, attack)
 
 
-func idle_state(input):
+func idle_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -85,9 +82,12 @@ func idle_state(input):
 	
 	if jump:
 		state = JUMP
+	
+	if attack:
+		state = ATTACK
 
 
-func walk_state(input):
+func walk_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
 	
 	
@@ -106,9 +106,12 @@ func walk_state(input):
 	
 	if !is_on_floor() and coyote_timer.is_stopped():
 		state = JUMP
+	
+	if attack:
+		state = ATTACK
 
 
-func jump_state(input):
+func jump_state(input, attack):
 	var jump_release:= Input.is_action_just_released("jump")
 	var jump :=  Input.is_action_just_pressed("jump")
 	
@@ -128,10 +131,16 @@ func jump_state(input):
 	
 	if velocity.y > 0:
 		state = FALL
+	
+	if attack:
+		state = ATTACK
+	
 	apply_acceleration(input.x)
+	
+	
 
 
-func fall_state(input):
+func fall_state(input, attack):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_floor():
@@ -140,6 +149,20 @@ func fall_state(input):
 		else:
 			state = WALK
 	apply_acceleration(input.x)
+	
+	if attack:
+		state = ATTACK
+
+
+func attack_state(input):
+	if state_timer < 1:
+		GameEvents.emit_signal("player_attacked")
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	apply_friction()
+	
+	if state_timer > 20:
+		state = IDLE
 
 
 func dead_state():

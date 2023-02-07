@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerSprite.gd" type="Script" id=2]
@@ -8,6 +8,61 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 12.25 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "attack_looking_up"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 50, 51, 52 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 50, 51, 52 ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "fall"
@@ -262,17 +317,19 @@ position = Vector2( -2, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 6
-frame = 7
+frame = 42
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( -2, -14 )
 texture = ExtResource( 5 )
 hframes = 10
 vframes = 6
-frame = 7
+frame = 42
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
+anims/attack = SubResource( 10 )
+anims/attack_looking_up = SubResource( 11 )
 anims/fall = SubResource( 6 )
 anims/fall_looking_up = SubResource( 7 )
 anims/idle = SubResource( 2 )

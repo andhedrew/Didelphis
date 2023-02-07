@@ -27,7 +27,8 @@ func _physics_process(delta):
 		if facing == UP:animation_player.play("fall_looking_up")
 		else:animation_player.play("fall")
 	elif state == ATTACK:
-		pass
+		if facing == UP:animation_player.play("attack_looking_up")
+		else:animation_player.play("attack")
 	elif state == DEAD:
 		pass
 
