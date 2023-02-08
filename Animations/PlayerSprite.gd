@@ -7,6 +7,7 @@ var facing := RIGHT
 onready var animation_player := $AnimationPlayer
 onready var effects_player := $EffectsPlayer
 
+var landing := false
 
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")
@@ -15,27 +16,34 @@ func _ready():
 
 
 func _physics_process(delta):
-	
-	if state == IDLE:
-		if facing == UP:animation_player.play("idle_looking_up")
-		else:animation_player.play("idle")
-	elif state == WALK:
-		if facing == UP:animation_player.play("walk_looking_up")
-		else:animation_player.play("walk")
-	elif state == JUMP:
-		if facing == UP:animation_player.play("jump_looking_up")
-		else:animation_player.play("jump")
-	elif state == FALL:
-		if facing == UP:animation_player.play("fall_looking_up")
-		else:animation_player.play("fall")
-	elif state == ATTACK:
-		if facing == UP:animation_player.play("attack_looking_up")
-		else:animation_player.play("attack")
-	elif state == DEAD:
-		pass
+	if !landing:
+		if state == IDLE:
+			if facing == UP:animation_player.play("idle_looking_up")
+			else:animation_player.play("idle")
+		elif state == WALK:
+			if facing == UP:animation_player.play("walk_looking_up")
+			else:animation_player.play("walk")
+		elif state == JUMP:
+			if facing == UP:animation_player.play("jump_looking_up")
+			else:animation_player.play("jump")
+		elif state == FALL:
+			if facing == UP:animation_player.play("fall_looking_up")
+			else:animation_player.play("fall")
+		elif state == ATTACK:
+			if facing == UP:animation_player.play("attack_looking_up")
+			else:animation_player.play("attack")
+		elif state == DEAD:
+			pass
+
 
 func _set_state(player_state):
+	if state == FALL and (player_state == IDLE or player_state == WALK): 
+		if facing == UP:animation_player.play("landing_looking_up")
+		else:animation_player.play("landing")
+		landing = true
+	
 	state = player_state
+	
 
 func _set_facing(player_facing_direction):
 	facing = player_facing_direction
@@ -43,3 +51,6 @@ func _set_facing(player_facing_direction):
 
 func _damage_effects(damage_amount):
 	effects_player.play("take_damage")
+
+func _finished_landing() -> void:
+	landing = false

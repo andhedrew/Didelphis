@@ -23,6 +23,7 @@ var facing := RIGHT
 var default_facing := facing
 
 onready var coyote_timer := $CoyoteTimer
+var was_on_floor := false
 onready var animation_player := $Model/AnimationPlayer
 
 var input := Vector2.ZERO
@@ -60,8 +61,9 @@ func _physics_process(delta):
 		transform.x.x = 1
 	elif input.x < 0:
 		transform.x.x = -1
+
+
 func switch_state(input) -> void :
-	
 	if state == IDLE: idle_state(input, attack)
 	elif state == WALK: walk_state(input, attack)
 	elif state == JUMP: jump_state(input, attack)
@@ -80,7 +82,7 @@ func idle_state(input, attack):
 	if input.x != 0:
 		state = WALK
 	
-	if jump:
+	if jump or !is_on_floor():
 		state = JUMP
 	
 	if attack:
@@ -90,13 +92,14 @@ func idle_state(input, attack):
 func walk_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
 	
-	
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
 	apply_acceleration(input.x)
-	var was_on_floor = is_on_floor()
 	
 	if was_on_floor and !is_on_floor():
 		coyote_timer.start()
+	
+	was_on_floor = is_on_floor()
 	
 	if input.x == 0:
 		state = IDLE
@@ -115,10 +118,10 @@ func jump_state(input, attack):
 	var jump_release:= Input.is_action_just_released("jump")
 	var jump :=  Input.is_action_just_pressed("jump")
 	
-
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
 	elif is_on_floor()  or !coyote_timer.is_stopped():
+		coyote_timer.stop()
 		velocity.y = jump_height
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
