@@ -5,11 +5,13 @@ enum {RIGHT, DOWN, LEFT, UP}
 var facing := RIGHT
 
 onready var animation_player := $AnimationPlayer
+onready var effects_player := $EffectsPlayer
 
 
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")
 	GameEvents.connect("player_changed_state", self, "_set_state")
+	GameEvents.connect("player_took_damage", self, "_damage_effects")
 
 
 func _physics_process(delta):
@@ -37,3 +39,7 @@ func _set_state(player_state):
 
 func _set_facing(player_facing_direction):
 	facing = player_facing_direction
+
+
+func _damage_effects(damage_amount):
+	effects_player.play("take_damage")

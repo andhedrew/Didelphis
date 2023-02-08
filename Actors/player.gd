@@ -200,4 +200,9 @@ func apply_acceleration(amount):
 func _on_Hurtbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		health -= hitbox.damage
+		velocity = (self.global_position - hitbox.global_position) * hitbox.knockback_force
+		velocity.y  = jump_height*0.5
+		GameEvents.emit_signal("player_took_damage", hitbox.damage)
+		
+		
 	

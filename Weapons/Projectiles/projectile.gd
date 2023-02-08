@@ -11,6 +11,7 @@ var lifespan_tracker := 0.0
 
 func _ready():
 	lifespan_tracker = lifespan * 60
+	$AnimatedSprite.frame = 0
 	$AnimatedSprite.play("default")
 
 func _physics_process(delta):
@@ -24,5 +25,3 @@ func _physics_process(delta):
 	else:
 		yield($AnimatedSprite, "animation_finished")
 		queue_free()
-	
-	

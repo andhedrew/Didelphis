@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerSprite.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 12.25 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 6, 12 )
 
 [sub_resource type="Animation" id=10]
 resource_name = "attack"
@@ -282,8 +285,40 @@ tracks/1/keys = {
 "values": [ 31, 10, 30, 10 ]
 }
 
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "take_damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.14902, 0.14902, 0.780392 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 222, -112 )
+collision_layer = 2
+collision_mask = 113
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -306,8 +341,12 @@ one_shot = true
 
 [node name="Hurtbox" parent="." instance=ExtResource( 1 )]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 16
 monitorable = false
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -12 )
+shape = SubResource( 12 )
 
 [node name="Model" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -317,14 +356,12 @@ position = Vector2( -2, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 6
-frame = 42
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( -2, -14 )
 texture = ExtResource( 5 )
 hframes = 10
 vframes = 6
-frame = 42
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
@@ -339,4 +376,10 @@ anims/jump_looking_up = SubResource( 9 )
 anims/walk = SubResource( 3 )
 anims/walk_looking_up = SubResource( 5 )
 
+[node name="EffectsPlayer" type="AnimationPlayer" parent="Model"]
+anims/RESET = SubResource( 13 )
+anims/take_damage = SubResource( 14 )
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
+[editable path="Hurtbox"]
