@@ -15,9 +15,9 @@ _global_script_classes=[ {
 "path": "res://Actors/actor.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "Enemy",
+"class": "BaseEnemy",
 "language": "GDScript",
-"path": "res://Actors/enemies/Enemy.gd"
+"path": "res://Actors/enemies/BaseEnemy.gd"
 }, {
 "base": "Area2D",
 "class": "HitBox",
@@ -36,7 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
-"Enemy": "",
+"BaseEnemy": "",
 "HitBox": "",
 "HurtBox": "",
 "Weapon": ""

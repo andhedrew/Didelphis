@@ -4,7 +4,7 @@
 [ext_resource path="res://Weapons/BaseWeapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://World.gd" type="Script" id=4]
-[ext_resource path="res://Actors/enemies/Mushroom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Actors/enemies/Paroot.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Weapons/Projectiles/projectile.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node"]

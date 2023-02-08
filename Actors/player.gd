@@ -156,6 +156,7 @@ func fall_state(input, attack):
 
 
 func attack_state(input):
+	var jump :=  Input.is_action_just_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -164,6 +165,9 @@ func attack_state(input):
 	
 	if state_timer > 20:
 		state = IDLE
+	
+	if jump:
+		state = JUMP
 
 
 func dead_state():
@@ -206,6 +210,3 @@ func _on_Hurtbox_area_entered(hitbox):
 		velocity = (self.global_position - hitbox.global_position) * hitbox.knockback_force
 		velocity.y  = jump_height*0.5
 		GameEvents.emit_signal("player_took_damage", hitbox.damage)
-		
-		
-	
