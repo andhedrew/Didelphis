@@ -5,7 +5,8 @@ func _ready():
 	pass 
 
 func _physics_process(delta):
-	pass
+	state_timer()
+	switch_state()
 	if invulnerable and $InvulnerableTimer.is_stopped():
 		invulnerable = false
 
@@ -21,7 +22,7 @@ func apply_gravity():
 func idle_state():
 	pass
 
-func walk_state():
+func move_state():
 	var found_wall := is_on_wall()
 	var found_ledge = not ledge_check_right.is_colliding() or not ledge_check_left.is_colliding()
 	animation_player.play("walk")
@@ -53,6 +54,10 @@ func  fall_state():
 	pass
 
 
-func  damaged_state():
-	pass
+func  hurt_state():
+	apply_gravity()
+	apply_friction()
+	move()
+	if state_timer > 100:
+		state = MOVE
 

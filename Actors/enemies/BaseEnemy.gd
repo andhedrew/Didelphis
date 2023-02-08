@@ -3,8 +3,10 @@ class_name BaseEnemy
 
 signal died
 
-enum {IDLE, WALK, JUMP, FALL, DEAD, ATTACK, DAMAGED}
-var state := WALK
+enum {IDLE, MOVE, JUMP, FALL, DEAD, ATTACK, HURT}
+var state := MOVE
+var state_last_frame := state
+var state_timer := 0
 enum {RIGHT, DOWN, LEFT, UP}
 var facing := RIGHT
 
@@ -17,7 +19,8 @@ var direction:= Vector2.RIGHT
 export var max_move_speed := 25
 export var acceleration := 5
 export var acceleration_in_air := 5
-export var jump_height := 40
+export var friction := 4.5
+export var jump_height := -80
 var invulnerable := false
 export var gravity := 3.9
 export var max_fall_speed := 250
@@ -34,13 +37,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta):
-	switch_state()
+	pass
 
 func move() -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 func take_damage(amount: int, damaging_hitbox) -> void:
-	state = DAMAGED
+	state = HURT
 	health -= amount
 	velocity = (self.global_position - damaging_hitbox.global_position) * damaging_hitbox.knockback_force
 	velocity.y = jump_height*0.5
@@ -71,20 +74,25 @@ func apply_acceleration(amount):
 	else:
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration_in_air)
 
+
+func apply_friction():
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, friction)
+
 func switch_state() -> void :
 	if state == IDLE: idle_state()
-	elif state == WALK: walk_state()
+	elif state == MOVE: move_state()
 	elif state == JUMP: jump_state()
 	elif state == ATTACK: attack_state()
 	elif state == DEAD: dead_state()
 	elif state == FALL: fall_state()
-	elif state == DAMAGED: damaged_state()
+	elif state == HURT: hurt_state()
 
 
 func idle_state():
 	pass
 
-func walk_state():
+func move_state():
 	pass
 
 
@@ -104,5 +112,12 @@ func  fall_state():
 	pass
 
 
-func  damaged_state():
+func  hurt_state():
 	pass
+
+func state_timer():
+	if state_last_frame != state:
+		state_timer = 0
+	else:
+		state_timer += 1
+	state_last_frame = state
