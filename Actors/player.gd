@@ -159,6 +159,10 @@ func attack_state(input):
 	var jump :=  Input.is_action_just_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
+	
+	if state_timer < 1 and facing == DOWN:
+		velocity.y = jump_height*0.5
+		
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	apply_friction()
@@ -189,7 +193,6 @@ func apply_gravity():
 	if velocity.y > 0:
 		velocity.y += extra_gravity_on_fall
 	velocity.y = min(velocity.y, max_fall_speed)
-		
 
 
 func apply_friction():

@@ -6,7 +6,7 @@
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 9, 9.5 )
+extents = Vector2( 7.5, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 9.5, 10 )
@@ -78,7 +78,7 @@ collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -2, -9.5 )
+position = Vector2( -0.5, -9.5 )
 shape = SubResource( 8 )
 
 [node name="ledge_check_right" type="RayCast2D" parent="."]
@@ -116,7 +116,7 @@ wait_time = 0.5
 [node name="Model" type="Node2D" parent="."]
 
 [node name="Model" type="Sprite" parent="Model"]
-position = Vector2( 0, -14 )
+position = Vector2( -2, -14 )
 texture = ExtResource( 1 )
 hframes = 3
 
