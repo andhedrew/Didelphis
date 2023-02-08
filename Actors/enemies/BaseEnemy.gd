@@ -24,15 +24,17 @@ export var jump_height := -80
 var invulnerable := false
 export var gravity := 3.9
 export var max_fall_speed := 250
+export(bool) var can_be_knocked_back =  true
 
 onready var hitbox:= $hitbox
+onready var hurtbox:= $hurtbox
 onready var ledge_check_right := $ledge_check_right
 onready var ledge_check_left := $ledge_check_left
 onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
 
 func _ready() -> void:
-	pass
+	hurtbox.connect("area_entered", self, "_when_hitbox_area_entered")
 	#assert(spritesheet, "%s needs a spritesheet" % [name])
 
 
@@ -45,9 +47,11 @@ func move() -> void:
 func take_damage(amount: int, damaging_hitbox) -> void:
 	state = HURT
 	health -= amount
-	velocity = (self.global_position - damaging_hitbox.global_position) * damaging_hitbox.knockback_force
-	velocity.y = jump_height*0.5
+	if can_be_knocked_back:
+		velocity = (self.global_position - damaging_hitbox.global_position) * damaging_hitbox.knockback_force
+		velocity.y = jump_height*0.5
 	effects_player.play("take_damage")
+	animation_player.play("hurt")
 	$InvulnerableTimer.start()
 	if health <= 0:
 		die()
@@ -121,3 +125,7 @@ func state_timer():
 	else:
 		state_timer += 1
 	state_last_frame = state
+
+func _when_hitbox_area_entered(hitbox):
+	if hitbox is HitBox:
+		take_damage(hitbox.damage, hitbox)

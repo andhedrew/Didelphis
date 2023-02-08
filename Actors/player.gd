@@ -24,6 +24,7 @@ var default_facing := facing
 
 onready var coyote_timer := $CoyoteTimer
 var was_on_floor := false
+var in_air_timer := 0
 onready var animation_player := $Model/AnimationPlayer
 
 var input := Vector2.ZERO
@@ -61,6 +62,11 @@ func _physics_process(delta):
 		transform.x.x = 1
 	elif input.x < 0:
 		transform.x.x = -1
+	
+	if is_on_floor():
+		in_air_timer = 0
+	else:
+		in_air_timer  += 1
 
 
 func switch_state(input) -> void :
@@ -127,6 +133,7 @@ func jump_state(input, attack):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_floor():
+		
 		if input.x == 0:
 			state = IDLE
 		else:
@@ -161,7 +168,7 @@ func attack_state(input):
 		GameEvents.emit_signal("player_attacked")
 	
 	if state_timer < 1 and facing == DOWN:
-		velocity.y = jump_height*0.5
+		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -211,5 +218,5 @@ func _on_Hurtbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		health -= hitbox.damage
 		velocity = (self.global_position - hitbox.global_position) * hitbox.knockback_force
-		velocity.y  = jump_height*0.5
+		velocity.y  = max(jump_height+in_air_timer, velocity.y)
 		GameEvents.emit_signal("player_took_damage", hitbox.damage)
