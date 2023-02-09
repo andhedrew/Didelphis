@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Actors/Enemies/Bat/Bat.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Enemies/Paroot/Paroot.png" type="Texture" id=2]
@@ -9,6 +9,10 @@
 extents = Vector2( 7.5, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 12, 12.5 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 9, 9.5 )
 
 [sub_resource type="Animation" id=14]
 resource_name = "hurt"
@@ -99,7 +103,7 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
-position = Vector2( -1, -10 )
+position = Vector2( -2, -10.5 )
 shape = SubResource( 15 )
 
 [node name="hitbox" parent="." instance=ExtResource( 5 )]
@@ -107,6 +111,10 @@ collision_layer = 16
 collision_mask = 2
 monitoring = false
 knockback_force = 5.0
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2( -2, -9.5 )
+shape = SubResource( 16 )
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -131,3 +139,4 @@ anims/take_damage = SubResource( 12 )
 [connection signal="area_entered" from="hurtbox" to="." method="when_hitbox_area_entered"]
 
 [editable path="hurtbox"]
+[editable path="hitbox"]

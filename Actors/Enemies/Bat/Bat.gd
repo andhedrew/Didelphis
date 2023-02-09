@@ -26,7 +26,6 @@ func move_state():
 
 
 func  hurt_state():
-
-	move()
+	move_state()
 	if state_timer > 100:
 		state = MOVE
