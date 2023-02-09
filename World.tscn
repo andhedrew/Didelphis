@@ -33,4 +33,17 @@ position = Vector2( 565, -178 )
 position = Vector2( 312, -85 )
 max_move_speed = 40
 
+[node name="Control" type="Control" parent="."]
+margin_right = 134.0
+margin_bottom = 13.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+margin_right = 134.0
+margin_bottom = 13.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/HBoxContainer"]
+margin_bottom = 13.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+
 [editable path="Player/BaseWeapon"]

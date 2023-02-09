@@ -1,8 +1,8 @@
 extends Node2D
-enum {IDLE, WALK, JUMP, FALL, DEAD, ATTACK}
-var state := IDLE
-enum {RIGHT, DOWN, LEFT, UP}
-var facing := RIGHT
+
+var state = Enums.State.IDLE
+
+var facing = Enums.Facing.RIGHT
 
 onready var animation_player := $AnimationPlayer
 onready var effects_player := $EffectsPlayer
@@ -17,28 +17,28 @@ func _ready():
 
 func _physics_process(delta):
 	if !landing:
-		if state == IDLE:
-			if facing == UP:animation_player.play("idle_looking_up")
+		if state == Enums.State.IDLE:
+			if facing == Enums.Facing.UP:animation_player.play("idle_looking_up")
 			else:animation_player.play("idle")
-		elif state == WALK:
-			if facing == UP:animation_player.play("walk_looking_up")
+		elif state == Enums.State.WALK:
+			if facing == Enums.Facing.UP:animation_player.play("walk_looking_up")
 			else:animation_player.play("walk")
-		elif state == JUMP:
-			if facing == UP:animation_player.play("jump_looking_up")
+		elif state == Enums.State.JUMP:
+			if facing == Enums.Facing.UP:animation_player.play("jump_looking_up")
 			else:animation_player.play("jump")
-		elif state == FALL:
-			if facing == UP:animation_player.play("fall_looking_up")
+		elif state == Enums.State.FALL:
+			if facing == Enums.Facing.UP:animation_player.play("fall_looking_up")
 			else:animation_player.play("fall")
-		elif state == ATTACK:
-			if facing == UP:animation_player.play("attack_looking_up")
+		elif state == Enums.State.ATTACK:
+			if facing == Enums.Facing.UP:animation_player.play("attack_looking_up")
 			else:animation_player.play("attack")
-		elif state == DEAD:
+		elif state == Enums.State.DEAD:
 			pass
 
 
 func _set_state(player_state):
-	if state == FALL and (player_state == IDLE or player_state == WALK): 
-		if facing == UP:animation_player.play("landing_looking_up")
+	if state == Enums.State.FALL and (player_state == Enums.State.IDLE or player_state == Enums.State.WALK): 
+		if facing == Enums.Facing.UP:animation_player.play("landing_looking_up")
 		else:animation_player.play("landing")
 		landing = true
 	

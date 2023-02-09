@@ -52,6 +52,7 @@ config/icon="res://icon.png"
 
 GameEvents="*res://Autoloads/GameEvents.gd"
 CenterWindow="*res://Autoloads/center_window.gd"
+Enums="*res://Autoloads/Enums.gd"
 
 [debug]
 

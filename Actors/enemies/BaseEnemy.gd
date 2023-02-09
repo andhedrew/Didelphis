@@ -3,12 +3,10 @@ class_name BaseEnemy
 
 signal died
 
-enum {IDLE, MOVE, JUMP, FALL, DEAD, ATTACK, HURT}
-var state := MOVE
-var state_last_frame := state
+var state = Enums.State.MOVE
+var state_last_frame = state
 var state_timer := 0
-enum {RIGHT, DOWN, LEFT, UP}
-var facing := RIGHT
+var facing = Enums.Facing.RIGHT
 
 export(StreamTexture) var spritesheet
 export var damage := 1
@@ -45,7 +43,7 @@ func move() -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 func take_damage(amount: int, damaging_hitbox) -> void:
-	state = HURT
+	state = Enums.State.HURT
 	health -= amount
 	if can_be_knocked_back:
 		velocity = (self.global_position - damaging_hitbox.global_position) * damaging_hitbox.knockback_force
@@ -84,13 +82,13 @@ func apply_friction():
 		velocity.x = move_toward(velocity.x, 0, friction)
 
 func switch_state() -> void :
-	if state == IDLE: idle_state()
-	elif state == MOVE: move_state()
-	elif state == JUMP: jump_state()
-	elif state == ATTACK: attack_state()
-	elif state == DEAD: dead_state()
-	elif state == FALL: fall_state()
-	elif state == HURT: hurt_state()
+	if state == Enums.State.IDLE: idle_state()
+	elif state == Enums.State.MOVE: move_state()
+	elif state == Enums.State.JUMP: jump_state()
+	elif state == Enums.State.ATTACK: attack_state()
+	elif state == Enums.State.DEAD: dead_state()
+	elif state == Enums.State.FALL: fall_state()
+	elif state == Enums.State.HURT: hurt_state()
 
 
 func idle_state():

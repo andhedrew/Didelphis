@@ -9,7 +9,7 @@ func _ready():
 	flight_timer.one_shot = true
 	flight_timer.wait_time = flight_time
 	direction.y = 1
-	state = MOVE
+	state = Enums.State.MOVE
 
 func _physics_process(delta):
 	state_timer()
@@ -28,4 +28,4 @@ func move_state():
 func  hurt_state():
 	move_state()
 	if state_timer > 100:
-		state = MOVE
+		state = Enums.State.MOVE

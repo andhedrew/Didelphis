@@ -55,5 +55,5 @@ func  hurt_state():
 	apply_friction()
 	move()
 	if state_timer > 100:
-		state = MOVE
+		state = Enums.State.MOVE
 

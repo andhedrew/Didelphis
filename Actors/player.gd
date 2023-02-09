@@ -13,14 +13,14 @@ export var max_fall_speed := 250
 export var friction := 4.5
 
 var velocity := Vector2.ZERO
-enum {IDLE, WALK, JUMP, FALL, DEAD, ATTACK}
-var state := IDLE
-var state_last_frame := state
+
+var state = Enums.State.IDLE
+var state_last_frame = state
 var state_timer := 0
 
-enum {RIGHT, DOWN, LEFT, UP}
-var facing := RIGHT
-var default_facing := facing
+
+var facing = Enums.Facing.RIGHT
+var default_facing = facing
 
 onready var coyote_timer := $CoyoteTimer
 var was_on_floor := false
@@ -45,17 +45,17 @@ func _physics_process(delta):
 	
 	if input.y == 0:
 		if input.x > 0:
-			facing = RIGHT
+			facing = Enums.Facing.RIGHT
 			default_facing = facing
 		elif input.x < 0:
-			facing = LEFT
+			facing = Enums.Facing.LEFT
 			default_facing = facing
 		else:
 			facing = default_facing
 	elif input.y < 0:
-		facing = UP
+		facing = Enums.Facing.UP
 	elif input.y > 0:
-		facing = DOWN
+		facing = Enums.Facing.DOWN
 	GameEvents.emit_signal("player_changed_facing_direction", facing)
 
 	if input.x > 0:
@@ -70,12 +70,12 @@ func _physics_process(delta):
 
 
 func switch_state(input) -> void :
-	if state == IDLE: idle_state(input, attack)
-	elif state == WALK: walk_state(input, attack)
-	elif state == JUMP: jump_state(input, attack)
-	elif state == ATTACK: attack_state(input)
-	elif state == DEAD: dead_state()
-	elif state == FALL: fall_state(input, attack)
+	if state == Enums.State.IDLE: idle_state(input, attack)
+	elif state == Enums.State.WALK: walk_state(input, attack)
+	elif state == Enums.State.JUMP: jump_state(input, attack)
+	elif state == Enums.State.ATTACK: attack_state(input)
+	elif state == Enums.State.DEAD: dead_state()
+	elif state == Enums.State.FALL: fall_state(input, attack)
 
 
 func idle_state(input, attack):
@@ -86,13 +86,13 @@ func idle_state(input, attack):
 	apply_friction()
 	
 	if input.x != 0:
-		state = WALK
+		state = Enums.State.WALK
 	
 	if jump or !is_on_floor():
-		state = JUMP
+		state = Enums.State.JUMP
 	
 	if attack:
-		state = ATTACK
+		state = Enums.State.ATTACK
 
 
 func walk_state(input, attack):
@@ -108,16 +108,16 @@ func walk_state(input, attack):
 	was_on_floor = is_on_floor()
 	
 	if input.x == 0:
-		state = IDLE
+		state = Enums.State.IDLE
 	
 	if jump and (is_on_floor() or !coyote_timer.is_stopped()):
-		state = JUMP
+		state = Enums.State.JUMP
 	
 	if !is_on_floor() and coyote_timer.is_stopped():
-		state = JUMP
+		state = Enums.State.JUMP
 	
 	if attack:
-		state = ATTACK
+		state = Enums.State.ATTACK
 
 
 func jump_state(input, attack):
@@ -135,15 +135,15 @@ func jump_state(input, attack):
 	if is_on_floor():
 		
 		if input.x == 0:
-			state = IDLE
+			state = Enums.State.IDLE
 		else:
-			state = WALK
+			state = Enums.State.WALK
 	
 	if velocity.y > 0:
-		state = FALL
+		state = Enums.State.FALL
 	
 	if attack:
-		state = ATTACK
+		state = Enums.State.ATTACK
 	
 	apply_acceleration(input.x)
 
@@ -153,13 +153,13 @@ func fall_state(input, attack):
 	
 	if is_on_floor():
 		if input.x == 0:
-			state = IDLE
+			state = Enums.State.IDLE
 		else:
-			state = WALK
+			state = Enums.State.WALK
 	apply_acceleration(input.x)
 	
 	if attack:
-		state = ATTACK
+		state = Enums.State.ATTACK
 
 
 func attack_state(input):
@@ -167,7 +167,7 @@ func attack_state(input):
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
 	
-	if state_timer < 1 and facing == DOWN:
+	if state_timer < 1 and facing == Enums.Facing.DOWN:
 		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -175,10 +175,10 @@ func attack_state(input):
 	apply_friction()
 	
 	if state_timer > 20:
-		state = IDLE
+		state = Enums.State.IDLE
 	
 	if jump:
-		state = JUMP
+		state = Enums.State.JUMP
 
 
 func dead_state():
