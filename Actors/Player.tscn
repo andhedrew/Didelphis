@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
@@ -65,6 +65,49 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 50, 51, 52 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63, 64, 65, 66, 67 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63, 64, 65, 66, 67 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "die_in_air"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 69 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -415,20 +458,22 @@ script = ExtResource( 2 )
 position = Vector2( -2, -14 )
 texture = ExtResource( 4 )
 hframes = 10
-vframes = 6
-frame = 9
+vframes = 7
+frame = 60
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( -2, -14 )
 texture = ExtResource( 5 )
 hframes = 10
-vframes = 6
-frame = 41
+vframes = 7
+frame = 60
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
 anims/attack = SubResource( 10 )
 anims/attack_looking_up = SubResource( 11 )
+anims/die = SubResource( 17 )
+anims/die_in_air = SubResource( 18 )
 anims/fall = SubResource( 6 )
 anims/fall_looking_up = SubResource( 7 )
 anims/idle = SubResource( 2 )

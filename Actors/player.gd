@@ -1,4 +1,5 @@
 extends Actor
+class_name Player
 
 export(int) var health = 3
 export var gravity := 3.9
@@ -26,9 +27,11 @@ onready var coyote_timer := $CoyoteTimer
 var was_on_floor := false
 var in_air_timer := 0
 onready var animation_player := $Model/AnimationPlayer
+onready var hurtbox := $Hurtbox
 
 var input := Vector2.ZERO
 var attack := false
+
 
 func _ready():
 	pass
@@ -39,29 +42,12 @@ func _physics_process(delta):
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
 
-	state_timer()
+	timers()
 	apply_gravity()
 	switch_state(input)
 	
-	if input.y == 0:
-		if input.x > 0:
-			facing = Enums.Facing.RIGHT
-			default_facing = facing
-		elif input.x < 0:
-			facing = Enums.Facing.LEFT
-			default_facing = facing
-		else:
-			facing = default_facing
-	elif input.y < 0:
-		facing = Enums.Facing.UP
-	elif input.y > 0:
-		facing = Enums.Facing.DOWN
-	GameEvents.emit_signal("player_changed_facing_direction", facing)
-
-	if input.x > 0:
-		transform.x.x = 1
-	elif input.x < 0:
-		transform.x.x = -1
+	if state != Enums.State.DEAD and (input.x != 0 or input.y != 0):
+		handle_facing(input, facing)
 	
 	if is_on_floor():
 		in_air_timer = 0
@@ -182,10 +168,13 @@ func attack_state(input):
 
 
 func dead_state():
-	pass
+	set_collision_mask_bit(4, false)
+	apply_friction()
+	if !is_on_floor():
+		velocity = move_and_slide(velocity, Vector2.UP)
 
 
-func state_timer():
+func timers():
 	if state_last_frame != state:
 		state_timer = 0
 		GameEvents.emit_signal("player_changed_state", state)
@@ -193,6 +182,11 @@ func state_timer():
 		state_timer += 1
 		
 	state_last_frame = state
+	
+	if is_on_floor():
+		in_air_timer = 0
+	else:
+		in_air_timer  += 1
 
 
 func apply_gravity():
@@ -219,4 +213,30 @@ func _on_Hurtbox_area_entered(hitbox):
 		health -= hitbox.damage
 		velocity = (self.global_position - hitbox.global_position) * hitbox.knockback_force
 		velocity.y  = max(jump_height+in_air_timer, velocity.y)
-		GameEvents.emit_signal("player_took_damage", hitbox.damage)
+		GameEvents.emit_signal("player_took_damage", hitbox.damage, health)
+		if health == 0:
+			GameEvents.emit_signal("player_died")
+			state = Enums.State.DEAD
+			hurtbox.queue_free()
+
+
+func handle_facing(input, facing) -> void:
+	if input.y == 0:
+		if input.x > 0:
+			facing = Enums.Facing.RIGHT
+			default_facing = facing
+		elif input.x < 0:
+			facing = Enums.Facing.LEFT
+			default_facing = facing
+		else:
+			facing = default_facing
+	elif input.y < 0:
+		facing = Enums.Facing.UP
+	elif input.y > 0:
+		facing = Enums.Facing.DOWN
+	GameEvents.emit_signal("player_changed_facing_direction", facing)
+
+	if input.x > 0:
+		transform.x.x = 1
+	elif input.x < 0:
+		transform.x.x = -1

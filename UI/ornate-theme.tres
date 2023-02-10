@@ -266,19 +266,23 @@ content_margin_right = 0.0
 content_margin_top = 0.0
 content_margin_bottom = 0.0
 texture = ExtResource( 1 )
-region_rect = Rect2( 80, 65, 15, 15 )
-margin_left = 7.03435
-margin_right = 7.02759
-margin_top = 7.16963
-margin_bottom = 7.44018
-expand_margin_left = 7.0
-expand_margin_right = 7.0
+region_rect = Rect2( 80, 64, 16, 16 )
+margin_left = 7.0
+margin_right = 8.0
+margin_top = 5.0
+margin_bottom = 5.0
+expand_margin_left = 3.0
+expand_margin_right = 3.0
 expand_margin_top = 3.0
 expand_margin_bottom = 3.0
 
 [sub_resource type="StyleBoxTexture" id=39]
 texture = ExtResource( 1 )
-region_rect = Rect2( 10, 21, 3, 6 )
+region_rect = Rect2( 83, 84, 10, 8 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 5.0
+margin_bottom = 4.0
 
 [sub_resource type="AtlasTexture" id=40]
 atlas = ExtResource( 1 )
@@ -556,7 +560,7 @@ PopupMenu/styles/labeled_separator_right = SubResource( 35 )
 PopupMenu/styles/panel = SubResource( 36 )
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = SubResource( 37 )
-ProgressBar/colors/font_color = Color( 0.94, 0.94, 0.94, 1 )
+ProgressBar/colors/font_color = Color( 1, 1, 1, 1 )
 ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
 ProgressBar/fonts/font = SubResource( 57 )
 ProgressBar/styles/bg = SubResource( 38 )
