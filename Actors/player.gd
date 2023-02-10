@@ -84,10 +84,10 @@ func idle_state(input, attack):
 
 func walk_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
-	
+	apply_acceleration(input.x)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	apply_acceleration(input.x)
+	
 	
 	if was_on_floor and !is_on_floor():
 		coyote_timer.start()
