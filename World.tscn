@@ -1,14 +1,24 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Weapons/BaseWeapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://World.gd" type="Script" id=4]
-[ext_resource path="res://Actors/Enemies/Bat/Bat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Actors/Enemies/DandiRaven/DandiRaven.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Weapons/Projectiles/projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Actors/Enemies/Paroot/Paroot.tscn" type="PackedScene" id=7]
-[ext_resource path="res://UI/ornate-theme.tres" type="Theme" id=8]
+[ext_resource path="res://UI/thistledown-theme.tres" type="Theme" id=8]
 [ext_resource path="res://HealthBar.gd" type="Script" id=9]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 311, -91, 0, 0, 0, 0, 310, -186 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 311, -91, 0, 0, 0, 0, 312.347, -112.889, 0, 0, 0, 0, 311, -171 )
+}
 
 [node name="World" type="Node"]
 script = ExtResource( 4 )
@@ -24,11 +34,6 @@ position = Vector2( 362, -84 )
 
 [node name="Paroot2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 565, -178 )
-
-[node name="Bat" parent="." instance=ExtResource( 5 )]
-position = Vector2( 312, -85 )
-scale = Vector2( -1, 1 )
-max_move_speed = 40
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -52,5 +57,61 @@ max_value = 3.0
 value = 3.0
 percent_visible = false
 script = ExtResource( 9 )
+
+[node name="MovementPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementPath"]
+position = Vector2( 311, -91 )
+rotation = -1.55671
+rotate = false
+
+[node name="DandiRaven" parent="MovementPath/PathFollow2D" instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
+rotation = 1.55671
+scale = Vector2( 1, 1 )
+
+[node name="MovementPath2" type="Path2D" parent="."]
+position = Vector2( 180, -98 )
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementPath2"]
+position = Vector2( 311, -91 )
+rotation = -1.55671
+rotate = false
+
+[node name="DandiRaven" parent="MovementPath2/PathFollow2D" instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
+rotation = 1.55671
+scale = Vector2( 1, 1 )
+
+[node name="MovementPath3" type="Path2D" parent="."]
+position = Vector2( 441, -82 )
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementPath3"]
+position = Vector2( 311.838, -134.83 )
+rotation = -1.55671
+offset = 43.89
+rotate = false
+
+[node name="DandiRaven" parent="MovementPath3/PathFollow2D" instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
+rotation = 1.55671
+scale = Vector2( 1, 1 )
+
+[node name="MovementPath4" type="Path2D" parent="."]
+position = Vector2( 501, -82 )
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MovementPath4"]
+position = Vector2( 311, -91 )
+rotation = -1.55671
+rotate = false
+
+[node name="DandiRaven" parent="MovementPath4/PathFollow2D" instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
+rotation = 1.55671
+scale = Vector2( 1, 1 )
 
 [editable path="Player/BaseWeapon"]

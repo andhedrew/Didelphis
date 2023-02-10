@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Actors/Enemies/Bat/Bat.gd" type="Script" id=1]
-[ext_resource path="res://Actors/Enemies/Paroot/Paroot.png" type="Texture" id=2]
+[ext_resource path="res://Actors/Enemies/DandiRaven/DandiRaven.gd" type="Script" id=1]
+[ext_resource path="res://Actors/Enemies/DandiRaven/DandiRaven.png" type="Texture" id=2]
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=5]
 
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 3 ]
+"values": [ 4 ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -40,10 +40,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2 ]
+"values": [ 0, 1, 2, 3 ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "values": [ Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.14902, 0.14902, 0.780392 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="Bat" type="KinematicBody2D"]
+[node name="DandiRaven" type="KinematicBody2D"]
 position = Vector2( -1, 0 )
 collision_layer = 4
 collision_mask = 5
@@ -125,7 +125,7 @@ wait_time = 0.5
 position = Vector2( -2, -14 )
 texture = ExtResource( 2 )
 hframes = 5
-frame = 3
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 anims/hurt = SubResource( 14 )
@@ -135,6 +135,8 @@ anims/walk = SubResource( 13 )
 root_node = NodePath("../..")
 anims/RESET = SubResource( 11 )
 anims/take_damage = SubResource( 12 )
+
+[node name="PatrolPointA" type="Position2D" parent="."]
 
 [connection signal="area_entered" from="hurtbox" to="." method="when_hitbox_area_entered"]
 

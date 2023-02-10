@@ -46,13 +46,14 @@ func _physics_process(delta):
 	apply_gravity()
 	switch_state(input)
 	
-	if state != Enums.State.DEAD and (input.x != 0 or input.y != 0):
-		handle_facing(input, facing)
+	if state != Enums.State.DEAD:
+		handle_facing(input)
 	
 	if is_on_floor():
 		in_air_timer = 0
 	else:
 		in_air_timer  += 1
+
 
 
 func switch_state(input) -> void :
@@ -220,7 +221,7 @@ func _on_Hurtbox_area_entered(hitbox):
 			hurtbox.queue_free()
 
 
-func handle_facing(input, facing) -> void:
+func handle_facing(input) -> void:
 	if input.y == 0:
 		if input.x > 0:
 			facing = Enums.Facing.RIGHT
