@@ -442,6 +442,10 @@ editor_draw_drag_margin = true
 wait_time = 0.15
 one_shot = true
 
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
 [node name="Hurtbox" parent="." instance=ExtResource( 1 )]
 collision_layer = 2
 collision_mask = 16
@@ -488,7 +492,5 @@ anims/walk_looking_up = SubResource( 5 )
 [node name="EffectsPlayer" type="AnimationPlayer" parent="Model"]
 anims/RESET = SubResource( 13 )
 anims/take_damage = SubResource( 14 )
-
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="Hurtbox"]

@@ -24,8 +24,11 @@ var facing = Enums.Facing.RIGHT
 var default_facing = facing
 
 onready var coyote_timer := $CoyoteTimer
+onready var invulnerable_timer := $InvulnerableTimer
 var was_on_floor := false
 var in_air_timer := 0
+var player_colliding := false
+var colliding_hitbox: HitBox
 onready var animation_player := $Model/AnimationPlayer
 onready var hurtbox := $Hurtbox
 
@@ -34,7 +37,8 @@ var attack := false
 
 
 func _ready():
-	pass
+	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
+	hurtbox.connect("area_exited", self, "_exited_hitbox")
 
 
 func _physics_process(delta):
@@ -54,6 +58,8 @@ func _physics_process(delta):
 	else:
 		in_air_timer  += 1
 
+	if player_colliding and invulnerable_timer.is_stopped():
+		take_damage()
 
 
 func switch_state(input) -> void :
@@ -209,16 +215,16 @@ func apply_acceleration(amount):
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration_in_air)
 
 
-func _on_Hurtbox_area_entered(hitbox):
-	if hitbox is HitBox:
-		health -= hitbox.damage
-		velocity = (self.global_position - hitbox.global_position) * hitbox.knockback_force
-		velocity.y  = max(jump_height+in_air_timer, velocity.y)
-		GameEvents.emit_signal("player_took_damage", hitbox.damage, health)
-		if health == 0:
-			GameEvents.emit_signal("player_died")
-			state = Enums.State.DEAD
-			hurtbox.queue_free()
+func take_damage():
+	health -= colliding_hitbox.damage
+	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
+	velocity.y  = max(jump_height+in_air_timer, velocity.y)
+	invulnerable_timer.start()
+	GameEvents.emit_signal("player_took_damage", colliding_hitbox.damage, health)
+	if health == 0:
+		GameEvents.emit_signal("player_died")
+		state = Enums.State.DEAD
+		hurtbox.queue_free()
 
 
 func handle_facing(input) -> void:
@@ -241,3 +247,15 @@ func handle_facing(input) -> void:
 		transform.x.x = 1
 	elif input.x < 0:
 		transform.x.x = -1
+
+
+func _collided_with_hitbox(hitbox) -> void:
+	player_colliding = true
+	colliding_hitbox = hitbox
+
+
+func _exited_hitbox(hitbox) -> void:
+	player_colliding = false
+	colliding_hitbox = null
+	
+	
