@@ -50,7 +50,7 @@ func _physics_process(delta):
 	apply_gravity()
 	switch_state(input)
 	
-	if state != Enums.State.DEAD:
+	if state != Enums.State.DEAD and state != Enums.State.ATTACK:
 		handle_facing(input)
 	
 	if is_on_floor():
@@ -254,8 +254,9 @@ func _collided_with_hitbox(hitbox) -> void:
 	colliding_hitbox = hitbox
 
 
-func _exited_hitbox(hitbox) -> void:
-	player_colliding = false
-	colliding_hitbox = null
+func _exited_hitbox(exiting_hitbox) -> void:
+	if exiting_hitbox == colliding_hitbox:
+		player_colliding = false
+		colliding_hitbox = null
 	
 	

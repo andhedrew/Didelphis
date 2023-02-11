@@ -17,7 +17,7 @@ var direction:= Vector2.RIGHT
 export var max_move_speed := 25
 export var acceleration := 5
 export var acceleration_in_air := 5
-export var friction := 4.5
+export var friction := 6
 export var jump_height := -80
 var invulnerable := false
 export var gravity := 3.9
@@ -56,9 +56,12 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 
 
 func die() -> void:
+	var explode := preload("res://Particles/death_explosion.tscn").instance()
+	explode.position = global_position
+	get_node("/root/World").add_child(explode)
+	
 	emit_signal("died")
 	visible = false
-	
 	hitbox.queue_free()
 	collision_layer = 0
 	collision_mask = 0
