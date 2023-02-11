@@ -63,12 +63,13 @@ func _physics_process(delta):
 
 
 func switch_state(input) -> void :
-	if state == Enums.State.IDLE: idle_state(input, attack)
-	elif state == Enums.State.WALK: walk_state(input, attack)
-	elif state == Enums.State.JUMP: jump_state(input, attack)
-	elif state == Enums.State.ATTACK: attack_state(input)
-	elif state == Enums.State.DEAD: dead_state()
-	elif state == Enums.State.FALL: fall_state(input, attack)
+	match state:
+		Enums.State.IDLE: idle_state(input, attack)
+		Enums.State.WALK: walk_state(input, attack)
+		Enums.State.JUMP: jump_state(input, attack)
+		Enums.State.ATTACK: attack_state(input)
+		Enums.State.DEAD: dead_state()
+		Enums.State.FALL: fall_state(input, attack)
 
 
 func idle_state(input, attack):
@@ -258,5 +259,3 @@ func _exited_hitbox(exiting_hitbox) -> void:
 	if exiting_hitbox == colliding_hitbox:
 		player_colliding = false
 		colliding_hitbox = null
-	
-	

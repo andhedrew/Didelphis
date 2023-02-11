@@ -85,13 +85,14 @@ func apply_friction():
 		velocity.x = move_toward(velocity.x, 0, friction)
 
 func switch_state() -> void :
-	if state == Enums.State.IDLE: idle_state()
-	elif state == Enums.State.MOVE: move_state()
-	elif state == Enums.State.JUMP: jump_state()
-	elif state == Enums.State.ATTACK: attack_state()
-	elif state == Enums.State.DEAD: dead_state()
-	elif state == Enums.State.FALL: fall_state()
-	elif state == Enums.State.HURT: hurt_state()
+	match state:
+		Enums.State.IDLE: idle_state()
+		Enums.State.JUMP: jump_state()
+		Enums.State.ATTACK: attack_state()
+		Enums.State.DEAD: dead_state()
+		Enums.State.FALL: fall_state()
+		Enums.State.MOVE: move_state()
+		Enums.State.HURT: hurt_state()
 
 
 func idle_state():
