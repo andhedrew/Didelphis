@@ -492,4 +492,6 @@ anims/walk_looking_up = SubResource( 5 )
 anims/RESET = SubResource( 13 )
 anims/take_damage = SubResource( 14 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [editable path="Hurtbox"]

@@ -58,7 +58,7 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 func die() -> void:
 	var explode := preload("res://Particles/death_explosion.tscn").instance()
 	explode.position = global_position
-	get_node("/root/World").add_child(explode)
+	get_node("/root/").add_child(explode)
 	
 	emit_signal("died")
 	visible = false
