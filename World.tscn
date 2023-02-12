@@ -518,6 +518,7 @@ position = Vector2( 565, -178 )
 [node name="BaseWeapon" parent="Player" instance=ExtResource( 2 )]
 position = Vector2( 0, -13 )
 bullet_scene = ExtResource( 6 )
+attack_delay_in_seconds = 20.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
