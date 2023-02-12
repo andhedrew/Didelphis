@@ -6,8 +6,8 @@ export(float) var attack_delay_in_seconds := 50
 onready var bullet_spawn := $BulletSpawn
 
 
-enum {RIGHT, DOWN, LEFT, UP}
-var facing := RIGHT
+
+var facing = Enums.Facing.RIGHT
 
 func _ready():
 	GameEvents.connect("player_attacked", self, "fire_weapon")
@@ -25,18 +25,18 @@ func fire_weapon():
 	var yspeed := 0.0
 	
 	bullet.position = bullet_spawn.global_position
+	bullet.set_collision_mask(4)
 	
-	
-	if facing == LEFT:
+	if facing == Enums.Facing.LEFT:
 		xspeed = bullet.speed * -transform.x.x
 		bullet.rotation_degrees = 180
-	elif facing == RIGHT:
+	elif facing == Enums.Facing.RIGHT:
 		xspeed = bullet.speed * transform.x.x
 		bullet.rotation_degrees = 0
-	elif facing == UP:
+	elif facing == Enums.Facing.UP:
 		yspeed = -bullet.speed
 		bullet.rotation_degrees = 270
-	elif facing == DOWN:
+	elif facing == Enums.Facing.DOWN:
 		yspeed = bullet.speed
 		bullet.rotation_degrees = 90
 	

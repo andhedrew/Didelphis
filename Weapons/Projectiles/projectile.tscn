@@ -28,8 +28,8 @@ animations = [ {
 radius = 15.0333
 
 [node name="Projectile" type="KinematicBody2D"]
-collision_layer = 8
-collision_mask = 5
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 damage = 1
 speed = 4.0
@@ -37,12 +37,12 @@ lifespan = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]
-collision_layer = 8
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 knockback_force = 6.0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
