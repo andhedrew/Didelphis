@@ -37,7 +37,6 @@ lifespan = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-frame = 2
 playing = true
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]
