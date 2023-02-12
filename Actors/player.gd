@@ -9,6 +9,7 @@ export var max_move_speed := 80
 export var acceleration := 7
 export var acceleration_in_air := 5
 export var jump_height := -150
+var attack_delay := 1.5
 
 export var max_fall_speed := 250
 export var friction := 4.5
@@ -47,8 +48,16 @@ func _physics_process(delta):
 	input.y = Input.get_axis("up", "down")
 
 	timers()
-	apply_gravity()
-	switch_state(input)
+	apply_gravity(delta)
+	
+	match state:
+		Enums.State.IDLE: idle_state(input, attack)
+		Enums.State.WALK: walk_state(input, attack)
+		Enums.State.JUMP: jump_state(input, attack)
+		Enums.State.ATTACK: attack_state(input, delta)
+		Enums.State.DEAD: dead_state()
+		Enums.State.FALL: fall_state(input, attack)
+
 	
 	if state != Enums.State.DEAD and state != Enums.State.ATTACK:
 		handle_facing(input)
@@ -60,16 +69,6 @@ func _physics_process(delta):
 
 	if player_colliding and invulnerable_timer.is_stopped():
 		take_damage()
-
-
-func switch_state(input) -> void :
-	match state:
-		Enums.State.IDLE: idle_state(input, attack)
-		Enums.State.WALK: walk_state(input, attack)
-		Enums.State.JUMP: jump_state(input, attack)
-		Enums.State.ATTACK: attack_state(input)
-		Enums.State.DEAD: dead_state()
-		Enums.State.FALL: fall_state(input, attack)
 
 
 func idle_state(input, attack):
@@ -116,11 +115,11 @@ func walk_state(input, attack):
 
 func jump_state(input, attack):
 	var jump_release:= Input.is_action_just_released("jump")
-	var jump :=  Input.is_action_just_pressed("jump")
+	var jump :=  Input.is_action_pressed("jump")
 	
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
-	elif is_on_floor()  or !coyote_timer.is_stopped():
+	elif jump and (is_on_floor()  or !coyote_timer.is_stopped()):
 		coyote_timer.stop()
 		velocity.y = jump_height
 	
@@ -156,7 +155,7 @@ func fall_state(input, attack):
 		state = Enums.State.ATTACK
 
 
-func attack_state(input):
+func attack_state(input, delta):
 	var jump :=  Input.is_action_just_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
@@ -168,7 +167,7 @@ func attack_state(input):
 	
 	apply_friction()
 	
-	if state_timer > 20:
+	if state_timer > attack_delay:
 		state = Enums.State.IDLE
 	
 	if jump:
@@ -197,7 +196,7 @@ func timers():
 		in_air_timer  += 1
 
 
-func apply_gravity():
+func apply_gravity(delta):
 	velocity.y += gravity
 	if velocity.y > 0:
 		velocity.y += extra_gravity_on_fall

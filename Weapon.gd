@@ -2,7 +2,9 @@ extends Node2D
 class_name Weapon
 
 export(PackedScene) var bullet_scene
+export(float) var attack_delay_in_seconds := 50
 onready var bullet_spawn := $BulletSpawn
+
 
 enum {RIGHT, DOWN, LEFT, UP}
 var facing := RIGHT
@@ -10,6 +12,7 @@ var facing := RIGHT
 func _ready():
 	GameEvents.connect("player_attacked", self, "fire_weapon")
 	GameEvents.connect("player_changed_facing_direction", self, "_change_facing_direction")
+	get_parent().attack_delay = attack_delay_in_seconds
 
 func _physics_process(delta):
 	pass
