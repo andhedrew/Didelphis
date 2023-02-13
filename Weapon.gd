@@ -30,6 +30,7 @@ func fire_weapon():
 	if facing == Enums.Facing.LEFT:
 		xspeed = bullet.speed * -transform.x.x
 		bullet.rotation_degrees = 180
+		bullet.scale.y = -1
 	elif facing == Enums.Facing.RIGHT:
 		xspeed = bullet.speed * transform.x.x
 		bullet.rotation_degrees = 0
