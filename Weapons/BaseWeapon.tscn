@@ -38,6 +38,7 @@ _bundled = {
 position = Vector2( -2, -14 )
 script = ExtResource( 2 )
 bullet_scene = SubResource( 4 )
+pass_through_environment = true
 
 [node name="BulletSpawn" type="Position2D" parent="."]
 position = Vector2( 16, 0 )

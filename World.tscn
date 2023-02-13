@@ -515,6 +515,7 @@ position = Vector2( 362, -84 )
 position = Vector2( 565, -178 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 98, -109 )
 
 [node name="BaseWeapon" parent="Player" instance=ExtResource( 2 )]
 position = Vector2( 0, -13 )

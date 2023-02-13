@@ -4,15 +4,14 @@ class_name Player
 export(int) var health = 3
 export var gravity := 3.9
 export var extra_gravity_on_fall := 3
-export var move_speed := 100
-export var max_move_speed := 80
+export var max_move_speed := 120
 export var acceleration := 7
 export var acceleration_in_air := 5
 export var jump_height := -150
 var attack_delay := 1.5
 
 export var max_fall_speed := 250
-export var friction := 4.5
+export var friction := 6.5
 
 var velocity := Vector2.ZERO
 

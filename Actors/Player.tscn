@@ -6,8 +6,8 @@
 [ext_resource path="res://Sprites/Player.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/player_weapon_claw.png" type="Texture" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 12.25 )
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 8, 12 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6, 12 )
@@ -420,14 +420,13 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 222, -112 )
 collision_layer = 2
 collision_mask = 113
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -12.25 )
-shape = SubResource( 1 )
+position = Vector2( 0, -12 )
+shape = SubResource( 19 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -459,18 +458,18 @@ shape = SubResource( 12 )
 script = ExtResource( 2 )
 
 [node name="PlayerModel" type="Sprite" parent="Model"]
-position = Vector2( -2, -14 )
+position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 7
-frame = 32
+frame = 40
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
-position = Vector2( -2, -14 )
+position = Vector2( 1, -14 )
 texture = ExtResource( 5 )
 hframes = 10
 vframes = 7
-frame = 32
+frame = 40
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
