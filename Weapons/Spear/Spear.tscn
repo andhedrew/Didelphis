@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Weapons/Projectiles/projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/tiles.png" type="Texture" id=3]
+[ext_resource path="res://Weapons/BulletSpawn.gd" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.0
+
+[sub_resource type="PackedScene" id=4]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [ NodePath("Hitbox") ],
+"names": PoolStringArray( "Projectile", "damage", "speed", "AnimatedSprite", "frames", "CollisionShape2D", "shape" ),
+"node_count": 3,
+"node_paths": [ NodePath("."), NodePath("./Hitbox") ],
+"nodes": PoolIntArray( -1, -1, 2147483647, 0, -1, 2, 1, 1, 2, 2, 0, 1073741824, -1, 2147483647, 262147, -1, 1, 4, 3, 0, 1073741825, -1, 2147483647, 262149, -1, 1, 6, 4, 0 ),
+"variants": [ ExtResource( 1 ), 5, 9.0, SubResource( 2 ), SubResource( 3 ) ],
+"version": 2
+}
+
+[node name="BaseWeapon" type="Node2D"]
+position = Vector2( -2, -14 )
+script = ExtResource( 2 )
+bullet_scene = SubResource( 4 )
+pass_through_environment = true
+
+[node name="BulletSpawn" type="Position2D" parent="."]
+position = Vector2( 16, 0 )
+script = ExtResource( 4 )

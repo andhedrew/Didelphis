@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Weapons/BaseWeapon.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://HealthBar.gd" type="Script" id=9]
 [ext_resource path="res://Sprites/bg.png" type="Texture" id=10]
 [ext_resource path="res://Actors/Enemies/SpitterPlant/SpitterPlant.tscn" type="PackedScene" id=11]
+[ext_resource path="res://AmmoBar.gd" type="Script" id=12]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -521,6 +522,7 @@ position = Vector2( 98, -109 )
 position = Vector2( 0, -13 )
 bullet_scene = ExtResource( 6 )
 attack_delay_in_seconds = 20.0
+max_ammo = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -533,11 +535,21 @@ theme = ExtResource( 8 )
 margin_left = 11.0
 margin_top = 9.0
 margin_right = 114.0
-margin_bottom = 17.0
+margin_bottom = 18.0
 max_value = 3.0
 value = 3.0
 percent_visible = false
 script = ExtResource( 9 )
+
+[node name="AmmoBar" type="ProgressBar" parent="CanvasLayer/Control"]
+margin_left = 11.0
+margin_top = 25.0
+margin_right = 78.0
+margin_bottom = 34.0
+max_value = 3.0
+value = 3.0
+percent_visible = false
+script = ExtResource( 12 )
 
 [node name="MovementPath" type="Path2D" parent="."]
 curve = SubResource( 1 )

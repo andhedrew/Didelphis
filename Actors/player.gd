@@ -9,6 +9,7 @@ export var acceleration := 7
 export var acceleration_in_air := 5
 export var jump_height := -150
 var attack_delay := 1.5
+var reloading: bool = false
 
 export var max_fall_speed := 250
 export var friction := 6.5
@@ -39,10 +40,11 @@ var attack := false
 func _ready():
 	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
 	hurtbox.connect("area_exited", self, "_exited_hitbox")
+	GameEvents.connect("weapon_reloading", self, "_reloading")
 
 
 func _physics_process(delta):
-	attack = Input.is_action_just_pressed("attack")
+	attack = Input.is_action_just_pressed("attack") and !reloading
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
 
@@ -257,3 +259,6 @@ func _exited_hitbox(exiting_hitbox) -> void:
 	if exiting_hitbox == colliding_hitbox:
 		player_colliding = false
 		colliding_hitbox = null
+
+func _reloading(ammo_amount, max_ammo) -> void:
+	reloading = true
