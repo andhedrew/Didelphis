@@ -505,7 +505,6 @@ script = ExtResource( 4 )
 motion_mirroring = Vector2( 640, 360 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-visible = false
 texture = ExtResource( 10 )
 centered = false
 
@@ -593,11 +592,21 @@ rotation = 1.55671
 [node name="SpitterPlant" parent="." instance=ExtResource( 11 )]
 position = Vector2( -86, -64 )
 
+[node name="SpitterPlant2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 944, -208 )
+scale = Vector2( -1, 1 )
+
+[node name="SpitterPlant3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1050, -256 )
+scale = Vector2( -1, 1 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 98, -109 )
 
 [node name="BaseWeapon" parent="Player" instance=ExtResource( 2 )]
 weapon_spritesheet = ExtResource( 6 )
+attack_delay_in_seconds = 5.0
+reload_time = 0.5
 
 [node name="ForegroundTileMap" type="TileMap" parent="."]
 tile_set = SubResource( 3 )

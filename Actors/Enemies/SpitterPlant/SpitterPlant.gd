@@ -26,6 +26,7 @@ func apply_gravity():
 	velocity.y = min(velocity.y, max_fall_speed)
 
 func idle_state():
+	animation_player.play("idle")
 	apply_gravity()
 	move()
 	
@@ -41,6 +42,7 @@ func  jump_state():
 
 
 func  attack_state():
+	animation_player.play("attack")
 	if state_timer > attack_delay:
 		var bullet = bullet_scene.instance()
 		var xspeed := 0.0
@@ -64,6 +66,7 @@ func  attack_state():
 		bullet.velocity = Vector2(xspeed, yspeed)
 		get_parent().get_parent().add_child(bullet)
 		
+		yield(animation_player, "animation_finished")
 		state = Enums.State.IDLE
 
 
@@ -76,6 +79,7 @@ func  fall_state():
 
 
 func  hurt_state():
+	animation_player.play("hurt")
 	apply_gravity()
 	apply_friction()
 	move()

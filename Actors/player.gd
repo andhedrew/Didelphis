@@ -2,8 +2,8 @@ extends Actor
 class_name Player
 
 export(int) var health = 3
-export var gravity := 3.9
-export var extra_gravity_on_fall := 3
+export var gravity := 3.9*55
+export var extra_gravity_on_fall := 3*55
 export var max_move_speed := 120
 export var acceleration := 7
 export var acceleration_in_air := 5
@@ -198,9 +198,9 @@ func timers():
 
 
 func apply_gravity(delta):
-	velocity.y += gravity
+	velocity.y += gravity*delta
 	if velocity.y > 0:
-		velocity.y += extra_gravity_on_fall
+		velocity.y += extra_gravity_on_fall*delta
 	velocity.y = min(velocity.y, max_fall_speed)
 
 
