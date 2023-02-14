@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
 [ext_resource path="res://Actors/player.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/Player.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/player_weapon_claw.png" type="Texture" id=5]
+[ext_resource path="res://Actors/WeaponHolder.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 8, 12 )
@@ -493,5 +494,8 @@ anims/RESET = SubResource( 13 )
 anims/take_damage = SubResource( 14 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="WeaponHolder" type="Node2D" parent="."]
+script = ExtResource( 6 )
 
 [editable path="Hurtbox"]

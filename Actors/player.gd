@@ -4,9 +4,11 @@ class_name Player
 export(int) var health = 3
 export var gravity := 3.9*55
 export var extra_gravity_on_fall := 3*55
+
 export var max_move_speed := 120
 export var acceleration := 7
 export var acceleration_in_air := 5
+
 export var jump_height := -150
 var attack_delay := 1.5
 var reloading: bool = false
@@ -27,9 +29,11 @@ var default_facing = facing
 onready var coyote_timer := $CoyoteTimer
 onready var invulnerable_timer := $InvulnerableTimer
 var was_on_floor := false
+
 var in_air_timer := 0
 var player_colliding := false
 var colliding_hitbox: HitBox
+
 onready var animation_player := $Model/AnimationPlayer
 onready var hurtbox := $Hurtbox
 
@@ -248,6 +252,7 @@ func handle_facing(input) -> void:
 		transform.x.x = 1
 	elif input.x < 0:
 		transform.x.x = -1
+
 
 
 func _collided_with_hitbox(hitbox) -> void:

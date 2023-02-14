@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Actors/Enemies/BaseEnemy.gd"
 }, {
 "base": "Area2D",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://Combat/Bullets/bullet.gd"
+}, {
+"base": "Area2D",
 "class": "HitBox",
 "language": "GDScript",
 "path": "res://Hitboxes/Hitbox.gd"
@@ -37,11 +42,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://Weapon.gd"
+"path": "res://Combat/Weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "BaseEnemy": "",
+"Bullet": "",
 "HitBox": "",
 "HurtBox": "",
 "Player": "",

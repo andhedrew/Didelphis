@@ -42,32 +42,7 @@ func  jump_state():
 
 
 func  attack_state():
-	animation_player.play("attack")
-	if state_timer > attack_delay:
-		var bullet = bullet_scene.instance()
-		var xspeed := 0.0
-		var yspeed := 0.0
-		
-		bullet.position = bullet_spawn.global_position
-		bullet.set_collision_mask(2)
-		if facing == Enums.Facing.LEFT:
-			xspeed = bullet.speed * -transform.x.x
-			bullet.rotation_degrees = 180
-		elif facing == Enums.Facing.RIGHT:
-			xspeed = bullet.speed * transform.x.x
-			bullet.rotation_degrees = 0
-		elif facing == Enums.Facing.UP:
-			yspeed = -bullet.speed
-			bullet.rotation_degrees = 270
-		elif facing == Enums.Facing.DOWN:
-			yspeed = bullet.speed
-			bullet.rotation_degrees = 90
-		
-		bullet.velocity = Vector2(xspeed, yspeed)
-		get_parent().get_parent().add_child(bullet)
-		
-		yield(animation_player, "animation_finished")
-		state = Enums.State.IDLE
+	pass
 
 
 func  dead_state():
