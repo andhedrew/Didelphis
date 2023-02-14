@@ -2,6 +2,7 @@ extends Node2D
 class_name Weapon
 
 export(PackedScene) var bullet_scene
+export(Texture) var weapon_spritesheet
 export(float) var attack_delay_in_seconds = 50.0
 export(bool) var pass_through_environment := false
 export(bool) var tracking_ammo
@@ -15,7 +16,7 @@ onready var bullet_spawn := $BulletSpawn
 var facing = Enums.Facing.RIGHT
 var state = Enums.State.IDLE
 
-var set_up_ammo_bar := false
+var set_up := false
 
 func _ready():
 	GameEvents.connect("player_attacked", self, "fire_weapon")
@@ -23,12 +24,17 @@ func _ready():
 	get_parent().attack_delay = attack_delay_in_seconds
 
 
+
 func _physics_process(delta):
-	if !set_up_ammo_bar and tracking_ammo:
-		ammo_amount = max_ammo
-		GameEvents.emit_signal("weapon_reloading", ammo_amount, max_ammo)
-		get_parent().reloading = false
-		set_up_ammo_bar = true
+	if !set_up:
+		var weapon_model = get_node("../Model/WeaponModel")
+		if weapon_model != null:
+			weapon_model.texture = weapon_spritesheet
+		if tracking_ammo:
+			ammo_amount = max_ammo
+			GameEvents.emit_signal("weapon_reloading", ammo_amount, max_ammo)
+			get_parent().reloading = false
+		set_up = true
 	
 	if ammo_amount == 0 and tracking_ammo:
 		state = Enums.State.RELOADING

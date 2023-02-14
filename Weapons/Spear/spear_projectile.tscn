@@ -41,15 +41,15 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource( 2 )
 bullet_sprite = ExtResource( 4 )
-damage = 3
+damage = 1
 speed = 5.0
 track_lifespan = true
 lifespan = 2.0
+knockback_force = 100.0
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 0
 collision_mask = 0
-knockback_force = 6.0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource( 4 )

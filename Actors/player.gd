@@ -165,7 +165,7 @@ func attack_state(input, delta):
 		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		
 	velocity = move_and_slide(velocity, Vector2.UP)
-	
+	apply_acceleration(input.x)
 	apply_friction()
 	
 	if state_timer > attack_delay:

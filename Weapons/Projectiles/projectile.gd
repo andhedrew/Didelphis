@@ -6,6 +6,7 @@ export(int) var damage
 export(float) var speed
 export(bool) var track_lifespan
 export(float) var lifespan
+export(float) var knockback_force
 onready var hitbox := get_node("Hitbox")
 onready var sprite_node := $Model/BulletSprite
 
@@ -19,6 +20,7 @@ func _ready():
 	lifespan_tracker = lifespan * 60
 	sprite_node.texture = bullet_sprite
 	sprite_node.hframes = bullet_sprite.get_width()/32
+	
 
 
 func _physics_process(delta):
@@ -27,6 +29,8 @@ func _physics_process(delta):
 		animation_player.play("bullet")
 		hitbox.set_collision_layer(get_collision_layer())
 		hitbox.set_collision_mask(get_collision_mask())
+		hitbox.damage = damage
+		hitbox.knockback_force = knockback_force
 		set_up_hitbox_and_animation = true
 	
 	
