@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_weapon_claw.png-28ed93f576d9fcb4f00b86eeaaf32f5e.stex"
+path="res://.import/player_weapon_bone_sword.png-9b9178171bfb8bd4bd56a4843795bd4f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/player_weapon_claw.png"
-dest_files=[ "res://.import/player_weapon_claw.png-28ed93f576d9fcb4f00b86eeaaf32f5e.stex" ]
+source_file="res://Sprites/player_weapon_bone_sword.png"
+dest_files=[ "res://.import/player_weapon_bone_sword.png-9b9178171bfb8bd4bd56a4843795bd4f.stex" ]
 
 [params]
 

@@ -31,6 +31,7 @@ func setup(
 	new_speed := default_speed,
 	random_rotation: float = 0.0
 ) -> void:
+	$Hitbox.damage = damage
 	transform = new_global_transform
 	max_range = new_range
 	speed = new_speed

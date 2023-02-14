@@ -603,7 +603,7 @@ scale = Vector2( -1, 1 )
 position = Vector2( 98, -109 )
 
 [node name="BoneSword" parent="Player" instance=ExtResource( 2 )]
-max_range = 100.0
+max_range = 50.0
 max_bullet_speed = 400.0
 
 [node name="ForegroundTileMap" type="TileMap" parent="."]

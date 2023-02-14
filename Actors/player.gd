@@ -173,7 +173,8 @@ func attack_state(input, delta):
 	apply_friction()
 	
 	if state_timer > attack_delay:
-		state = Enums.State.IDLE
+		pass
+		#state = Enums.State.IDLE
 	
 	if jump:
 		state = Enums.State.JUMP

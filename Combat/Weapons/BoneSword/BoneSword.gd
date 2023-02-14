@@ -2,7 +2,8 @@ extends Weapon
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("attack") and attack_delay_timer > attack_delay:
+		attack_delay_timer = 0
 		shoot()
 	
 	var up_down_axis := Input.get_axis("up", "down")
