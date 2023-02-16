@@ -7,4 +7,3 @@ signal player_changed_facing_direction # Parameter 1: facing direction
 signal player_died
 signal weapon_reloading
 
-

@@ -32,8 +32,7 @@ onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
 
 func _ready() -> void:
-	hurtbox.connect("area_entered", self, "_when_hitbox_area_entered")
-	#assert(spritesheet, "%s needs a spritesheet" % [name])
+	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
 
 
 func _physics_process(delta):
@@ -128,6 +127,6 @@ func state_timer():
 		state_timer += 1
 	state_last_frame = state
 
-func _when_hitbox_area_entered(hitbox):
+func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		take_damage(hitbox.damage, hitbox)

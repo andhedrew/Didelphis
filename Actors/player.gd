@@ -10,7 +10,7 @@ export var acceleration := 7
 export var acceleration_in_air := 5
 
 export var jump_height := -150
-var attack_delay := 1.5
+var attack_delay := 30
 var reloading: bool = false
 
 export var max_fall_speed := 250
@@ -173,8 +173,7 @@ func attack_state(input, delta):
 	apply_friction()
 	
 	if state_timer > attack_delay:
-		pass
-		#state = Enums.State.IDLE
+		state = Enums.State.IDLE
 	
 	if jump:
 		state = Enums.State.JUMP

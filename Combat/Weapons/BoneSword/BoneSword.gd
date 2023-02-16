@@ -2,7 +2,10 @@ extends Weapon
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack") and attack_delay_timer > attack_delay:
+	if attack_delay_timer < attack_delay:
+		get_parent().reloading = true
+	if event.is_action_pressed("attack") and attack_delay_timer > attack_delay and weapon_active:
+		get_parent().reloading = false
 		attack_delay_timer = 0
 		shoot()
 	
@@ -19,7 +22,6 @@ func _input(event: InputEvent) -> void:
 
 func shoot() -> void:
 	var bullet: Node = bullet_scene.instance()
-
 	add_child(bullet)
-	bullet.setup(global_transform, max_range, max_bullet_speed, _random_angle)
+	bullet.setup(global_transform, max_range, max_bullet_speed, bullet_spread, damage)
 	

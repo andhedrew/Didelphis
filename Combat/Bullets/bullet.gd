@@ -1,8 +1,7 @@
 class_name Bullet
 extends Area2D
 
-export var default_speed := .2
-export var damage := 1
+var default_speed := .2
 
 var max_range := 1000.0
 
@@ -29,13 +28,14 @@ func setup(
 	new_global_transform: Transform2D,
 	new_range: float,
 	new_speed := default_speed,
-	random_rotation: float = 0.0
+	bullet_spread: float = 0.0,
+	damage: int = 0
 ) -> void:
 	$Hitbox.damage = damage
 	transform = new_global_transform
+	position.y += rand_range(-bullet_spread, bullet_spread) 
 	max_range = new_range
 	speed = new_speed
-	randomize_rotation(random_rotation)
 
 
 func _destroy() -> void:
