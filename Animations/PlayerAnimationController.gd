@@ -11,6 +11,7 @@ var landing := false
 var played_death_animation := false
 var died_in_the_air := false
 var player: Actor
+var play_alt_slash_attack := false
 
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")
@@ -34,8 +35,14 @@ func _physics_process(delta):
 			if facing == Enums.Facing.UP:animation_player.play("fall_looking_up")
 			else:animation_player.play("fall")
 		elif state == Enums.State.ATTACK:
-			if facing == Enums.Facing.UP:animation_player.play("attack_looking_up")
-			else:animation_player.play("attack")
+			if facing == Enums.Facing.UP and !play_alt_slash_attack:
+				animation_player.play("attack_looking_up")
+			elif facing == Enums.Facing.UP and play_alt_slash_attack:
+				animation_player.play("alt_attack_looking_up")
+			elif play_alt_slash_attack: 
+				animation_player.play("attack") 
+			else: 
+				animation_player.play("alt_slash_attack") 
 		elif state == Enums.State.DEAD and !played_death_animation:
 			played_death_animation = true
 			animation_player.play("die")
@@ -50,6 +57,7 @@ func _set_state(next_state):
 		if facing == Enums.Facing.UP:animation_player.play("landing_looking_up")
 		else:animation_player.play("landing")
 		landing = true
+		
 	
 	if next_state == Enums.State.DEAD and (state == Enums.State.FALL or state == Enums.State.JUMP):
 		animation_player.play("die_in_air")

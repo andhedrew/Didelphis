@@ -64,7 +64,8 @@ func _physics_process(delta):
 		Enums.State.FALL: fall_state(input, attack)
 
 	
-	if state != Enums.State.DEAD and state != Enums.State.ATTACK:
+	if state != Enums.State.DEAD:
+		#if state != Enums.State.ATTACK or state_timer > 7:
 		handle_facing(input)
 	
 	if is_on_floor():
@@ -172,6 +173,10 @@ func attack_state(input, delta):
 	apply_acceleration(input.x)
 	apply_friction()
 	
+	if Input.is_action_just_pressed("attack"):
+		state_timer = 0
+		$Model.play_alt_slash_attack = !$Model.play_alt_slash_attack
+	
 	if state_timer > attack_delay:
 		state = Enums.State.IDLE
 	
@@ -252,7 +257,6 @@ func handle_facing(input) -> void:
 		transform.x.x = 1
 	elif input.x < 0:
 		transform.x.x = -1
-
 
 
 func _collided_with_hitbox(hitbox) -> void:

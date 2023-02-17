@@ -16,9 +16,7 @@ func _init() -> void:
 func _physics_process(delta:float) -> void:
 	var distance := speed * delta
 	var motion := transform.x * speed * delta
-	
 	position += motion
-	
 	_tavelled_distance += distance
 	if _tavelled_distance > max_range: 
 		_destroy()
@@ -40,7 +38,3 @@ func setup(
 
 func _destroy() -> void:
 	pass
-
-func randomize_rotation(max_angle: float) -> void:
-	rotation += randf() * max_angle - max_angle / 2.0
-

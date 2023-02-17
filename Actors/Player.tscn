@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
@@ -11,9 +11,65 @@ extents = Vector2( 8, 12 )
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6, 12 )
 
+[sub_resource type="Animation" id=21]
+resource_name = "alt_attack_looking_up"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 71 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 71 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "alt_slash_attack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 70 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 70 ]
+}
+
 [sub_resource type="Animation" id=10]
 resource_name = "attack"
-length = 0.6
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -460,17 +516,19 @@ script = ExtResource( 2 )
 position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
-vframes = 7
-frame = 40
+vframes = 8
+frame = 70
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 hframes = 10
-vframes = 7
-frame = 40
+vframes = 8
+frame = 70
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
+anims/alt_attack_looking_up = SubResource( 21 )
+anims/alt_slash_attack = SubResource( 20 )
 anims/attack = SubResource( 10 )
 anims/attack_looking_up = SubResource( 11 )
 anims/die = SubResource( 17 )
