@@ -10,10 +10,13 @@ func _ready():
 
 func _on_body_entered(body):
 	var slice_animation := preload("res://Animations/slice_animation.tscn").instance()
-	slice_animation.global_position = global_position
+	slice_animation.global_position = body.global_position
+	slice_animation.global_position.y -= 16
 	get_parent().get_parent().get_parent().add_child(slice_animation)
 	_destroy()
-	
+
+func _physics_process(delta):
+	speed += 5
 
 func _destroy():
 	set_physics_process(false)

@@ -5,7 +5,7 @@ func _ready():
 	pass 
 
 func _physics_process(delta):
-	state_timer()
+	timers()
 	switch_state()
 	if invulnerable and $InvulnerableTimer.is_stopped():
 		invulnerable = false

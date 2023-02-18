@@ -27,9 +27,13 @@ func setup(
 	new_range: float,
 	new_speed := default_speed,
 	bullet_spread: float = 0.0,
-	damage: int = 0
+	damage: int = 0,
+	collide_with_world: bool = true
 ) -> void:
 	$Hitbox.damage = damage
+	$Hitbox.collision_mask = collision_mask
+	if collide_with_world: 
+		$Hitbox.set_collision_mask_bit(0, true)
 	transform = new_global_transform
 	position.y += rand_range(-bullet_spread, bullet_spread) 
 	max_range = new_range

@@ -20,7 +20,7 @@ func _ready():
 
 func _physics_process(delta):
 	
-	state_timer()
+	timers()
 	switch_state()
 	
 	if path_follow.unit_offset < 0.05:

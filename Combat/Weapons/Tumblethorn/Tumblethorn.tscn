@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Combat/Weapons/BoneSword/BoneSword.gd" type="Script" id=1]
+[ext_resource path="res://Combat/Bullets/Tumblethorn/TumblethornBullet.tscn" type="PackedScene" id=2]
+
+[node name="Tumblethorn" type="Node2D"]
+position = Vector2( 7, -12 )
+script = ExtResource( 1 )
+bullet_scene = ExtResource( 2 )
+bullet_spread = 0.0
+max_range = 160.0
+max_bullet_speed = 40.0
+attack_delay = 60.0
+damage = 10

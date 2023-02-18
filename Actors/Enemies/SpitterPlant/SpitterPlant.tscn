@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Actors/Enemies/SpitterPlant/spitter_plant.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Enemies/SpitterPlant/SpitterPlant.gd" type="Script" id=2]
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Combat/Bullets/Tumblethorn/TumblethornBullet.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 7.5, 9.5 )
+extents = Vector2( 18.5, 6 )
 
 [sub_resource type="RectangleShape2D" id=9]
 
@@ -97,10 +98,14 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 2 )
 can_be_knocked_back = false
-attack_delay = 30.0
+bullet_scene = ExtResource( 5 )
+bullet_spread = 0.0
+max_range = 140.0
+max_bullet_speed = 40.0
+attack_delay = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -9.5 )
+position = Vector2( 0.5, -6 )
 shape = SubResource( 8 )
 
 [node name="ledge_check_right" type="RayCast2D" parent="."]

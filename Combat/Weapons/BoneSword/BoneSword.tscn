@@ -3,8 +3,9 @@
 [ext_resource path="res://Combat/Weapons/BoneSword/BoneSword.gd" type="Script" id=1]
 
 [node name="BoneSword" type="Node2D"]
-position = Vector2( 7, -12 )
+position = Vector2( 11, -11 )
 script = ExtResource( 1 )
 max_range = 50.0
 max_bullet_speed = 300.0
 attack_delay = 5.0
+collide_with_world = false

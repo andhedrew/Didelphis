@@ -9,7 +9,7 @@ var state_timer := 0
 var facing = Enums.Facing.RIGHT
 
 export(StreamTexture) var spritesheet
-export var damage := 1
+export(int, 0, 10, 1) var damage := 1
 export var health := 3
 var velocity := Vector2.ZERO
 
@@ -30,6 +30,8 @@ onready var ledge_check_right := $ledge_check_right
 onready var ledge_check_left := $ledge_check_left
 onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
+
+
 
 func _ready() -> void:
 	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
@@ -120,7 +122,7 @@ func  fall_state():
 func  hurt_state():
 	pass
 
-func state_timer():
+func timers():
 	if state_last_frame != state:
 		state_timer = 0
 	else:

@@ -22,6 +22,6 @@ func _input(event: InputEvent) -> void:
 
 func shoot() -> void:
 	var bullet: Node = bullet_scene.instance()
+	bullet.set_collision_mask_bit(2, true)
 	add_child(bullet)
-	bullet.setup(global_transform, max_range, max_bullet_speed, bullet_spread, damage)
-	
+	bullet.setup(global_transform, max_range, max_bullet_speed, bullet_spread, damage, collide_with_world)
