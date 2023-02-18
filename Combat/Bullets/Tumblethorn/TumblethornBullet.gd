@@ -13,7 +13,6 @@ func _on_body_entered(body):
 	slice_animation.global_position = body.global_position
 	slice_animation.global_position.y -= 16
 	get_parent().get_parent().get_parent().add_child(slice_animation)
-	_destroy()
 
 func _physics_process(delta):
 	speed += 5
