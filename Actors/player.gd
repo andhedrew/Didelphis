@@ -226,7 +226,6 @@ func apply_acceleration(amount):
 
 
 func take_damage():
-	health -= colliding_hitbox.damage
 	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
 	velocity.y  = max(jump_height+in_air_timer, velocity.y)
 	invulnerable_timer.start()
