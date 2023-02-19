@@ -170,6 +170,7 @@ func attack_state(input, delta):
 	var jump :=  Input.is_action_just_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
+		
 	if state_timer < 1 and facing == Enums.Facing.DOWN:
 		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		

@@ -8,7 +8,7 @@ var lead = lead_amount
 var target_lead = lead
 
 var noise := OpenSimplexNoise.new()
-export(float, 0, 1) var trauma = 0.0
+export(float, 0, .8) var trauma = 0.0
 export var max_x = 150
 export var max_y = 150
 export var max_r = 25
@@ -50,7 +50,7 @@ func _change_lead_position(player_facing_dir) -> void:
 
 
 func add_trauma(trauma_in):
-	trauma = clamp(trauma + trauma_in, 0, 1)
+	trauma = clamp(trauma + trauma_in, 0, .8)
 
 func _SCREENSHAKE() -> void:
 	add_trauma(0.2)

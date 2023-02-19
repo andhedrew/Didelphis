@@ -145,5 +145,6 @@ func timers():
 
 func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox:
+		OS.delay_msec(60)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
