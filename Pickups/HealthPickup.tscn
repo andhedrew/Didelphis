@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Sprites/coin.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Pickups/Health/HealthPickup.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/white_pixel.png" type="Texture" id=2]
 [ext_resource path="res://Pickups/HealthPickup.gd" type="Script" id=3]
 

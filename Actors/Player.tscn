@@ -7,7 +7,7 @@
 [ext_resource path="res://Animations/take_damage.tres" type="Animation" id=5]
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 8, 12 )
+extents = Vector2( 6.5, 12 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6, 12 )
@@ -466,18 +466,8 @@ collision_mask = 81
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -12 )
+position = Vector2( -0.5, -12 )
 shape = SubResource( 19 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-drag_margin_left = 0.5
-drag_margin_top = 0.5
-drag_margin_right = 0.5
-drag_margin_bottom = 0.5
-editor_draw_drag_margin = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.15
