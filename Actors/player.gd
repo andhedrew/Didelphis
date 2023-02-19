@@ -2,6 +2,8 @@ extends Actor
 class_name Player
 
 export(int) var health = 3
+var max_health = health
+var food: int = 0
 export var gravity := 3.9*55
 export var extra_gravity_on_fall := 3*55
 
@@ -44,6 +46,7 @@ var hurt_sound: AudioStreamSample = SoundPlayer.OOF
 
 
 func _ready():
+	z_index = SortLayer.PLAYER
 	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
 	hurtbox.connect("area_exited", self, "_exited_hitbox")
 	GameEvents.connect("weapon_reloading", self, "_reloading")

@@ -45,6 +45,16 @@ _global_script_classes=[ {
 "path": "res://Actors/player.gd"
 }, {
 "base": "Node2D",
+"class": "Prop",
+"language": "GDScript",
+"path": "res://Props/Prop.gd"
+}, {
+"base": "Node",
+"class": "SortingLayer",
+"language": "GDScript",
+"path": "res://Autoloads/SortingLayer.gd"
+}, {
+"base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://Combat/Weapons/Weapon.gd"
@@ -57,6 +67,8 @@ _global_script_class_icons={
 "HurtBox": "",
 "Pickup": "",
 "Player": "",
+"Prop": "",
+"SortingLayer": "",
 "Weapon": ""
 }
 
@@ -72,6 +84,7 @@ GameEvents="*res://Autoloads/GameEvents.gd"
 CenterWindow="*res://Autoloads/center_window.gd"
 Enums="*res://Autoloads/Enums.gd"
 SoundPlayer="*res://Autoloads/SoundPlayer.tscn"
+SortLayer="*res://Autoloads/SortingLayer.gd"
 
 [debug]
 

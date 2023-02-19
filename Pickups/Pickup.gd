@@ -7,6 +7,7 @@ var velocity := Vector2(0, 0)
 var friction := 0.5
 
 func _ready():
+	z_index = SortLayer.FOREGROUND
 	animation_player.play("idle")
 	$Area2D.connect("body_entered", self, "_on_body_entered")
 	if pickup_texture:

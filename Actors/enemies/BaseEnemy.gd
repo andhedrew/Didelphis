@@ -68,12 +68,13 @@ func die() -> void:
 		var spacing = 2
 		var starting_x = -(death_spritesheet.size()*(spacing*.5))
 		for sprite in death_spritesheet:
-			var pickup := preload("res://Pickups/Pickup.tscn").instance()
+			var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
 			pickup.pickup_texture = sprite
 			pickup.position = global_position
 			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
 			starting_x += spacing
-			get_node("/root/").add_child(pickup)
+			get_node("/root/World").add_child(pickup)
+	
 	visible = false
 	hitbox.queue_free()
 	collision_layer = 0
