@@ -6,6 +6,10 @@ const IMPACT_CELERY := preload("res://Sounds/impact_celery.wav")
 const OOF := preload("res://Sounds/oofHigh.wav")
 const PAROOT_SQUAWK = preload("res://Sounds/ParootSquawk1.wav")
 const PAROOT_SQUAWK2 = preload("res://Sounds/ParootSquawk2.wav")
+const PICKUP = preload("res://Sounds/Pickup.wav")
+
+
+
 onready var audio_players := $AudioPlayers
 
 func play_sound(sound):

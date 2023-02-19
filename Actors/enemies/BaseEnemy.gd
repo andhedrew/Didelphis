@@ -8,7 +8,7 @@ var state_last_frame = state
 var state_timer := 0
 var facing = Enums.Facing.RIGHT
 
-export(StreamTexture) var spritesheet
+export(Array, StreamTexture) var death_spritesheet = []
 export(AudioStreamSample) var hurt_sound := SoundPlayer.IMPACT_CELERY
 export(AudioStreamSample) var attack_sound := SoundPlayer.SWOOSH
 export(int, 0, 10, 1) var damage := 1
@@ -62,8 +62,14 @@ func die() -> void:
 	var explode := preload("res://Particles/death_explosion.tscn").instance()
 	explode.position = global_position
 	get_node("/root/").add_child(explode)
-	
 	emit_signal("died")
+	
+	if death_spritesheet:
+		for sprite in death_spritesheet:
+			var pickup := preload("res://Pickups/Pickup.tscn").instance()
+			pickup.pickup_texture = sprite
+			pickup.position = global_position
+			get_node("/root/").add_child(pickup)
 	visible = false
 	hitbox.queue_free()
 	collision_layer = 0
@@ -74,6 +80,7 @@ func die() -> void:
 	#die_sound.play()
 	#yield(die_sound, "finished")
 	queue_free()
+	
 
 
 func apply_acceleration(amount):

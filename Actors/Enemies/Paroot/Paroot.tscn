@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Actors/Enemies/Paroot/Paroot.png" type="Texture" id=1]
 [ext_resource path="res://Actors/Enemies/Paroot/Paroot.gd" type="Script" id=2]
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Animations/take_damage.tres" type="Animation" id=5]
+[ext_resource path="res://Sprites/Pickups/paroot/paroot_pieces1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Pickups/paroot/paroot_pieces3.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Pickups/paroot/paroot_pieces2.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 7.5, 9.5 )
@@ -65,6 +68,7 @@ tracks/0/keys = {
 [node name="Paroot" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
+death_spritesheet = [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ]
 health = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

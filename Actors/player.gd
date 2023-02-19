@@ -262,8 +262,9 @@ func handle_facing(input) -> void:
 
 
 func _collided_with_hitbox(hitbox) -> void:
-	player_colliding = true
-	colliding_hitbox = hitbox
+	if hitbox is HitBox:
+		player_colliding = true
+		colliding_hitbox = hitbox
 
 
 func _exited_hitbox(exiting_hitbox) -> void:
