@@ -17,7 +17,6 @@ func _input(event: InputEvent) -> void:
 		rotation_degrees = 90
 	else:
 		rotation_degrees = 0
-		
 
 
 func shoot() -> void:

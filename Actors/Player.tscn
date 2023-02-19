@@ -4,6 +4,7 @@
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
 [ext_resource path="res://Actors/player.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/Player.png" type="Texture" id=4]
+[ext_resource path="res://Animations/take_damage.tres" type="Animation" id=5]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 8, 12 )
@@ -459,21 +460,6 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "take_damage"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.14902, 0.14902, 0.780392 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 113
@@ -517,13 +503,13 @@ position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 8
-frame = 70
+frame = 71
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 hframes = 10
 vframes = 8
-frame = 70
+frame = 71
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
@@ -546,7 +532,7 @@ anims/walk_looking_up = SubResource( 5 )
 
 [node name="EffectsPlayer" type="AnimationPlayer" parent="Model"]
 anims/RESET = SubResource( 13 )
-anims/take_damage = SubResource( 14 )
+anims/take_damage = ExtResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

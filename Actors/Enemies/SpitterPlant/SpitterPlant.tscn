@@ -5,6 +5,7 @@
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Combat/Bullets/Tumblethorn/TumblethornBullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Animations/take_damage.tres" type="Animation" id=6]
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 18.5, 6 )
@@ -78,21 +79,6 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "take_damage"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.14902, 0.14902, 0.780392 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [node name="SpitterPlant" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 5
@@ -156,7 +142,7 @@ anims/idle = SubResource( 15 )
 [node name="EffectsPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../..")
 anims/RESET = SubResource( 11 )
-anims/take_damage = SubResource( 12 )
+anims/take_damage = ExtResource( 6 )
 
 [node name="PlayerSensor" type="RayCast2D" parent="."]
 position = Vector2( 0, -10 )

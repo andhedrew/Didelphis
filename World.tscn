@@ -508,7 +508,19 @@ texture = ExtResource( 10 )
 centered = false
 
 [node name="Paroot" parent="." instance=ExtResource( 7 )]
-position = Vector2( 362, -84 )
+position = Vector2( 368, -64 )
+
+[node name="Paroot3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 240, -64 )
+
+[node name="Paroot" parent="Paroot3" instance=ExtResource( 7 )]
+position = Vector2( 472, -32 )
+
+[node name="Paroot2" parent="Paroot3" instance=ExtResource( 7 )]
+position = Vector2( 584, -32 )
+
+[node name="Paroot3" parent="Paroot3" instance=ExtResource( 7 )]
+position = Vector2( 896, -240 )
 
 [node name="Paroot2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 565, -178 )
