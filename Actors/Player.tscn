@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
 [ext_resource path="res://Actors/player.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/Player.png" type="Texture" id=4]
-[ext_resource path="res://Actors/TailSegment.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 8, 12 )
@@ -475,9 +474,6 @@ tracks/0/keys = {
 "values": [ Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.211765, 0.211765, 1 ), Color( 0.92549, 0.211765, 0.211765, 0 ), Color( 0.92549, 0.14902, 0.14902, 0.780392 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=22]
-radius = 1.41421
-
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 113
@@ -553,40 +549,5 @@ anims/RESET = SubResource( 13 )
 anims/take_damage = SubResource( 14 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2( -34, -25 )
-rotation = 1.5708
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
-position = Vector2( 27, 25 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
-position = Vector2( -27, -25 )
-shape = SubResource( 22 )
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Node2D"]
-node_a = NodePath("../StaticBody2D")
-node_b = NodePath("../TailSegment2")
-bias = 0.9
-
-[node name="TailSegment2" parent="Node2D" instance=ExtResource( 5 )]
-position = Vector2( 0, 0 )
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="Node2D/TailSegment2"]
-position = Vector2( 0, 3 )
-node_a = NodePath("..")
-node_b = NodePath("../TailSegment3")
-bias = 0.9
-
-[node name="TailSegment3" parent="Node2D/TailSegment2" instance=ExtResource( 5 )]
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="Node2D/TailSegment2/TailSegment3"]
-position = Vector2( 0, 3 )
-node_a = NodePath("..")
-node_b = NodePath("../TailSegment4")
-bias = 0.9
-
-[node name="TailSegment4" parent="Node2D/TailSegment2/TailSegment3" instance=ExtResource( 5 )]
 
 [editable path="Hurtbox"]

@@ -132,3 +132,4 @@ func timers():
 func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		take_damage(hitbox.damage, hitbox)
+		SoundPlayer.play_sound(SoundPlayer.IMPACT_CELERY)
