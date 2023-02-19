@@ -40,6 +40,8 @@ onready var hurtbox := $Hurtbox
 var input := Vector2.ZERO
 var attack := false
 
+var hurt_sound: AudioStreamSample = SoundPlayer.OOF
+
 
 func _ready():
 	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
@@ -226,6 +228,7 @@ func apply_acceleration(amount):
 
 
 func take_damage():
+	SoundPlayer.play_sound(hurt_sound)
 	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
 	velocity.y  = max(jump_height+in_air_timer, velocity.y)
 	invulnerable_timer.start()

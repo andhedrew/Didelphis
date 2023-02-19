@@ -9,6 +9,8 @@ var state_timer := 0
 var facing = Enums.Facing.RIGHT
 
 export(StreamTexture) var spritesheet
+export(AudioStreamSample) var hurt_sound := SoundPlayer.IMPACT_CELERY
+export(AudioStreamSample) var attack_sound := SoundPlayer.SWOOSH
 export(int, 0, 10, 1) var damage := 1
 export var health := 3
 var velocity := Vector2.ZERO
@@ -132,4 +134,4 @@ func timers():
 func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox:
 		take_damage(hitbox.damage, hitbox)
-		SoundPlayer.play_sound(SoundPlayer.IMPACT_CELERY)
+		SoundPlayer.play_sound(hurt_sound)

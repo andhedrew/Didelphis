@@ -3,6 +3,9 @@ extends Node
 const EXPLODE := preload("res://Sounds/explosion.wav")
 const SWOOSH := preload("res://Sounds/swoosh.wav")
 const IMPACT_CELERY := preload("res://Sounds/impact_celery.wav")
+const OOF := preload("res://Sounds/oofHigh.wav")
+const PAROOT_SQUAWK = preload("res://Sounds/ParootSquawk1.wav")
+const PAROOT_SQUAWK2 = preload("res://Sounds/ParootSquawk2.wav")
 onready var audio_players := $AudioPlayers
 
 func play_sound(sound):

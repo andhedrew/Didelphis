@@ -74,6 +74,7 @@ func  hurt_state():
 		state = Enums.State.IDLE
 
 func fire_bullet():
+		SoundPlayer.play_sound(attack_sound)
 		var bullet = bullet_scene.instance()
 		bullet.set_collision_mask_bit(1, true)
 		add_child(bullet)
