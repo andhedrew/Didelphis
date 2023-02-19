@@ -65,10 +65,14 @@ func die() -> void:
 	emit_signal("died")
 	
 	if death_spritesheet:
+		var spacing = 2
+		var starting_x = -(death_spritesheet.size()*(spacing*.5))
 		for sprite in death_spritesheet:
 			var pickup := preload("res://Pickups/Pickup.tscn").instance()
 			pickup.pickup_texture = sprite
 			pickup.position = global_position
+			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
+			starting_x += spacing
 			get_node("/root/").add_child(pickup)
 	visible = false
 	hitbox.queue_free()

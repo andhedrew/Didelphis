@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/paroot_pieces3.png-87d29bab991558500fc4dbf29c3c87aa.stex"
+path="res://.import/paroot_pieces1.png-4f821d8f97ce64a44af5184b8e859c47.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pickups/paroot/paroot_pieces3.png"
-dest_files=[ "res://.import/paroot_pieces3.png-87d29bab991558500fc4dbf29c3c87aa.stex" ]
+source_file="res://Sprites/Pickups/ParootPickups/paroot_pieces1.png"
+dest_files=[ "res://.import/paroot_pieces1.png-4f821d8f97ce64a44af5184b8e859c47.stex" ]
 
 [params]
 

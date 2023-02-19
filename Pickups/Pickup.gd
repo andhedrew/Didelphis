@@ -1,26 +1,36 @@
 class_name Pickup
-extends Area2D
+extends KinematicBody2D
 
 onready var animation_player := $AnimationPlayer as AnimationPlayer
 var pickup_texture
+var velocity := Vector2(0, 0)
+var friction := 0.5
 
 func _ready():
 	animation_player.play("idle")
-	connect("body_entered", self, "_on_body_entered")
+	$Area2D.connect("body_entered", self, "_on_body_entered")
 	if pickup_texture:
 		$Sprite.texture = pickup_texture
+	$Timer.start()
 
 func _physics_process(delta):
-	pass
+	velocity.y += .3
+	move_and_collide(velocity)
+	if is_on_floor():
+		apply_friction()
 
 func _on_body_entered(body) -> void:
-	if body is Player:
+	if body is Player and $Timer.is_stopped():
 		_pickup(body)
 		animation_player.play("destroy")
 		SoundPlayer.play_sound(SoundPlayer.PICKUP)
 		set_deferred("monitoring", false)
-	
-	#move_and_collide()
+		
 
 func _pickup(player: Player) -> void:
 	pass
+
+
+func apply_friction():
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, friction)

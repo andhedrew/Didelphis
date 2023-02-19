@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/paroot_pieces1.png-d195b6a06245dba6a96d59fb5e49f67b.stex"
+path="res://.import/DandyRavenPickup1.png-93c53b1ab214577f89c0009ebe1fbdef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pickups/paroot/paroot_pieces1.png"
-dest_files=[ "res://.import/paroot_pieces1.png-d195b6a06245dba6a96d59fb5e49f67b.stex" ]
+source_file="res://Sprites/Pickups/DandyRavenPickups/DandyRavenPickup1.png"
+dest_files=[ "res://.import/DandyRavenPickup1.png-93c53b1ab214577f89c0009ebe1fbdef.stex" ]
 
 [params]
 
