@@ -13,6 +13,8 @@ export(float, 0.0, 100.0, 1.0) var attack_delay := 30.0
 export(int, 0, 10, 1) var damage := 1
 export(bool) var collide_with_world := true
 
+export(float, 30.0, 500.0, 1.0) var player_knockback := 100
+
 export( AudioStreamSample ) var attack_sound := SoundPlayer.SWOOSH
 var attack_delay_timer := attack_delay+1
 var weapon_active := true

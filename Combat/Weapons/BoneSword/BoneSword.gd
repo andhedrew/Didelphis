@@ -20,6 +20,7 @@ func _input(event: InputEvent) -> void:
 
 
 func shoot() -> void:
+	get_parent().knockback(player_knockback)
 	var bullet: Node = bullet_scene.instance()
 	bullet.set_collision_mask_bit(2, true)
 	add_child(bullet)

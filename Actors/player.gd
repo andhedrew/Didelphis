@@ -170,7 +170,6 @@ func attack_state(input, delta):
 	var jump :=  Input.is_action_just_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_attacked")
-	
 	if state_timer < 1 and facing == Enums.Facing.DOWN:
 		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		
@@ -180,6 +179,7 @@ func attack_state(input, delta):
 	
 	if Input.is_action_just_pressed("attack"):
 		state_timer = 0
+		GameEvents.emit_signal("player_attacked")
 		$Model.play_alt_slash_attack = !$Model.play_alt_slash_attack
 	
 	if state_timer > attack_delay:
@@ -277,3 +277,9 @@ func _exited_hitbox(exiting_hitbox) -> void:
 
 func _reloading(ammo_amount, max_ammo) -> void:
 	reloading = true
+
+
+func knockback(amount) -> void:
+	match facing:
+		Enums.Facing.RIGHT: velocity.x -= amount
+		Enums.Facing.LEFT:  velocity.x += amount
