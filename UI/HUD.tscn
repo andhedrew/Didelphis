@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/HealthBar.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HealthBar" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HealthBar"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_bottom = 40.0
+
+[node name="TextureRect2" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 40.0
+
+[node name="TextureRect3" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 8.0
+margin_right = 8.0
+margin_bottom = 40.0
+
+[node name="TextureRect4" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 12.0
+margin_right = 12.0
+margin_bottom = 40.0
+
+[node name="TextureRect5" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 16.0
+margin_right = 16.0
+margin_bottom = 40.0
+
+[node name="TextureRect6" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 20.0
+margin_right = 20.0
+margin_bottom = 40.0
+
+[node name="TextureRect7" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 24.0
+margin_right = 24.0
+margin_bottom = 40.0
+
+[node name="TextureRect8" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 28.0
+margin_right = 28.0
+margin_bottom = 40.0
+
+[node name="TextureRect9" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 32.0
+margin_right = 32.0
+margin_bottom = 40.0
+
+[node name="TextureRect10" type="TextureRect" parent="HealthBar/HBoxContainer"]
+margin_left = 36.0
+margin_right = 36.0
+margin_bottom = 40.0
