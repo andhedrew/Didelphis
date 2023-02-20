@@ -59,8 +59,11 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 
 
 func die() -> void:
+	OS.delay_msec(80)
 	var explode := preload("res://Particles/death_explosion.tscn").instance()
 	explode.position = global_position
+	if rand_range(0,3) < 1:
+		explode.big = true
 	get_node("/root/").add_child(explode)
 	emit_signal("died")
 	
@@ -145,6 +148,6 @@ func timers():
 
 func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox:
-		OS.delay_msec(60)
+		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)

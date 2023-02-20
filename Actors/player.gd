@@ -4,6 +4,7 @@ class_name Player
 export(int) var health = 3
 var max_health = health
 var food: int = 0
+var coins: int = 0
 export var gravity := 3.9*55
 export var extra_gravity_on_fall := 3*55
 
@@ -70,8 +71,7 @@ func _physics_process(delta):
 
 	
 	if state != Enums.State.DEAD:
-		#if state != Enums.State.ATTACK or state_timer > 7:
-		handle_facing(input)
+			handle_facing(input)
 	
 	if is_on_floor():
 		in_air_timer = 0

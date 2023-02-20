@@ -48,9 +48,9 @@ func _change_lead_position(player_facing_dir) -> void:
 
 
 
-
 func add_trauma(trauma_in):
 	trauma = clamp(trauma + trauma_in, 0, .8)
+
 
 func _SCREENSHAKE() -> void:
 	add_trauma(0.2)
