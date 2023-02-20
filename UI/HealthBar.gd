@@ -13,16 +13,21 @@ onready var _row := $HBoxContainer as HBoxContainer
 
 func _ready() -> void:
 	set_health(10)
-	GameEvents.connect("player_health_changed", self, "_set_to_player_health")
+	GameEvents.connect("player_took_damage", self, "_set_to_player_health")
 
 func set_health(new_health: int) -> void:
 	health = new_health
+	var health_index = health
+	
+	
 	for index in _row.get_child_count():
 		var heart: TextureRect = _row.get_child(index)
-		if health > index:
+		if health_index >= 2:
 			heart.texture = TEXTURE_FULL
-		elif health-1 > index:
+			health_index -= 2
+		elif health_index == 1:
 			heart.texture = TEXTURE_HALF
+			health_index -= 1
 		else:
 			heart.texture = TEXTURE_EMPTY
 

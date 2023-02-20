@@ -236,8 +236,9 @@ func take_damage():
 	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
 	velocity.y  = max(jump_height+in_air_timer, velocity.y)
 	invulnerable_timer.start()
-	GameEvents.emit_signal("player_health_changed", colliding_hitbox.damage, health)
-	if health == 0:
+	GameEvents.emit_signal("player_took_damage", colliding_hitbox.damage, health)
+	
+	if health <= 0:
 		GameEvents.emit_signal("player_died")
 		state = Enums.State.DEAD
 		hurtbox.queue_free()

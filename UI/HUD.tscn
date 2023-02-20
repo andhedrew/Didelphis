@@ -2,7 +2,7 @@
 
 [ext_resource path="res://UI/HealthBar.gd" type="Script" id=1]
 
-[node name="Control" type="Control"]
+[node name="HUD" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 
