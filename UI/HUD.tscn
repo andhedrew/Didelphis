@@ -1,64 +1,87 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/HealthBar.gd" type="Script" id=1]
+[ext_resource path="res://UI/FoodLabel.gd" type="Script" id=2]
+[ext_resource path="res://UI/thistledown-theme.tres" type="Theme" id=3]
+[ext_resource path="res://UI/BoneCounter.gd" type="Script" id=4]
 
-[node name="HUD" type="Control"]
+[node name="HUD" type="PanelContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+theme = ExtResource( 3 )
 
-[node name="HealthBar" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 101.0
+margin_bottom = 34.0
+
+[node name="UI" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 94.0
+margin_bottom = 27.0
 script = ExtResource( 1 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HealthBar"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UI"]
+margin_right = 94.0
 
-[node name="TextureRect" type="TextureRect" parent="HealthBar/HBoxContainer"]
-margin_bottom = 40.0
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 
-[node name="TextureRect2" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 4.0
 margin_right = 4.0
-margin_bottom = 40.0
 
-[node name="TextureRect3" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 8.0
 margin_right = 8.0
-margin_bottom = 40.0
 
-[node name="TextureRect4" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 12.0
 margin_right = 12.0
-margin_bottom = 40.0
 
-[node name="TextureRect5" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 16.0
 margin_right = 16.0
-margin_bottom = 40.0
 
-[node name="TextureRect6" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 20.0
 margin_right = 20.0
-margin_bottom = 40.0
 
-[node name="TextureRect7" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect7" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 24.0
 margin_right = 24.0
-margin_bottom = 40.0
 
-[node name="TextureRect8" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect8" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 28.0
 margin_right = 28.0
-margin_bottom = 40.0
 
-[node name="TextureRect9" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect9" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 32.0
 margin_right = 32.0
-margin_bottom = 40.0
 
-[node name="TextureRect10" type="TextureRect" parent="HealthBar/HBoxContainer"]
+[node name="TextureRect10" type="TextureRect" parent="MarginContainer/UI/HBoxContainer"]
 margin_left = 36.0
 margin_right = 36.0
-margin_bottom = 40.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/UI"]
+margin_top = 4.0
+margin_right = 94.0
+margin_bottom = 27.0
+
+[node name="FoodCounter" type="Label" parent="MarginContainer/UI/HBoxContainer3"]
+margin_right = 28.0
+margin_bottom = 23.0
+text = "Food:"
+script = ExtResource( 2 )
+
+[node name="Spacer" type="Label" parent="MarginContainer/UI/HBoxContainer3"]
+margin_left = 32.0
+margin_right = 56.0
+margin_bottom = 23.0
+text = "  |  "
+
+[node name="BoneCounter" type="Label" parent="MarginContainer/UI/HBoxContainer3"]
+margin_left = 60.0
+margin_right = 94.0
+margin_bottom = 23.0
+text = "Bones:"
+script = ExtResource( 4 )
