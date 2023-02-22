@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name BaseEnemy
+class_name Enemy
 
 signal died
 
@@ -26,6 +26,7 @@ var invulnerable := false
 export var gravity := 3.9
 export var max_fall_speed := 250
 export(bool) var can_be_knocked_back =  true
+var executed := false
 
 onready var hitbox:= $hitbox
 onready var hurtbox:= $hurtbox
@@ -34,10 +35,12 @@ onready var ledge_check_left := $ledge_check_left
 onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
 
+var targeted := false
 
 
 func _ready() -> void:
 	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
+	GameEvents.connect("player_executed", self, "_execute")
 
 
 func _physics_process(delta):
@@ -55,23 +58,23 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 	effects_player.play("take_damage")
 	animation_player.play("hurt")
 	$InvulnerableTimer.start()
-	if health <= 0:
+	if health <= 3:
 		wounded = true
 	if wounded:
 		effects_player.play("wounded")
-		#bleed
-
+	if health <= 0:
+		die()
 
 func die() -> void:
 	OS.delay_msec(80)
 	var explode := preload("res://Particles/death_explosion.tscn").instance()
 	explode.position = global_position
-	if rand_range(0,3) < 1:
+	if executed:
 		explode.big = true
 	get_node("/root/").add_child(explode)
 	emit_signal("died")
 	
-	if death_spritesheet:
+	if death_spritesheet and executed:
 		var spacing = 2
 		var starting_x = -(death_spritesheet.size()*(spacing*.5))
 		for sprite in death_spritesheet:
@@ -83,11 +86,11 @@ func die() -> void:
 			get_node("/root/World").add_child(pickup)
 	
 	visible = false
-	hitbox.queue_free()
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
 	
+	hitbox.queue_free()
 	#die_sound.pitch_scale = rand_range(0.95, 1.05)
 	#die_sound.play()
 	#yield(die_sound, "finished")
@@ -154,3 +157,20 @@ func _hitbox_area_entered(hitbox):
 		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
+
+
+func is_enemy() -> void:
+	pass
+
+
+func _execute():
+	if targeted:
+		executed = true
+		var t = Timer.new()
+		t.set_wait_time(.5)
+		t.set_one_shot(true)
+		self.add_child(t)
+		t.start()
+		yield(t, "timeout")
+		t.queue_free()
+		die()

@@ -1,4 +1,4 @@
-extends BaseEnemy
+extends Enemy
 
 export var flight_time := 2
 onready var path_follow: PathFollow2D

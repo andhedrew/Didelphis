@@ -32,6 +32,9 @@ var default_facing = facing
 
 onready var coyote_timer := $CoyoteTimer
 onready var invulnerable_timer := $InvulnerableTimer
+onready var enemy_detector := $EnemyDetector
+var execution_available := false
+var execution_target := Node
 var was_on_floor := false
 
 var in_air_timer := 0
@@ -52,12 +55,15 @@ func _ready():
 	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
 	hurtbox.connect("area_exited", self, "_exited_hitbox")
 	GameEvents.connect("weapon_reloading", self, "_reloading")
+	enemy_detector.connect("body_entered", self, "_on_executable_enemy_detected")
+	enemy_detector.connect("body_exited", self, "_set_execution_false")
 
 
 func _physics_process(delta):
 	attack = Input.is_action_just_pressed("attack") and !reloading
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
+
 
 	timers()
 	apply_gravity(delta)
@@ -69,6 +75,7 @@ func _physics_process(delta):
 		Enums.State.ATTACK: attack_state(input, delta)
 		Enums.State.DEAD: dead_state()
 		Enums.State.FALL: fall_state(input, attack)
+		Enums.State.EXECUTE: execute_state()
 
 	
 	if state != Enums.State.DEAD:
@@ -147,10 +154,8 @@ func jump_state(input, attack):
 	if velocity.y > 0:
 		state = Enums.State.FALL
 	
-	if attack:
-		state = Enums.State.ATTACK
-	
 	apply_acceleration(input.x)
+	attack_or_execute(input, attack)
 
 
 func fall_state(input, attack):
@@ -163,8 +168,7 @@ func fall_state(input, attack):
 			state = Enums.State.WALK
 	apply_acceleration(input.x)
 	
-	if attack:
-		state = Enums.State.ATTACK
+	attack_or_execute(input, attack)
 
 
 func attack_state(input, delta):
@@ -189,6 +193,34 @@ func attack_state(input, delta):
 	
 	if jump:
 		state = Enums.State.JUMP
+
+
+func execute_state():
+	animation_player.play("execute")
+	if state_timer > 30:
+		state = Enums.State.FALL
+		execution_target = null
+
+func attack_or_execute(input, attack) -> void:
+	if attack and execution_available:
+		execution_target.targeted = true
+		GameEvents.emit_signal("player_executed")
+		state = Enums.State.EXECUTE
+	elif attack:
+		state = Enums.State.ATTACK
+
+
+func _on_executable_enemy_detected(body):
+	if body.has_method("is_enemy"):
+		if body.wounded:
+			execution_available = true;
+			execution_target = body
+
+
+func _set_execution_false(body) -> void:
+	execution_available = false;
+	if state != Enums.State.EXECUTE:
+		execution_target = null
 
 
 func dead_state():
@@ -286,3 +318,7 @@ func knockback(amount) -> void:
 	match facing:
 		Enums.Facing.RIGHT: velocity.x -= amount
 		Enums.Facing.LEFT:  velocity.x += amount
+
+
+func is_player() -> void:
+	pass

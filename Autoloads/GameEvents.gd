@@ -8,3 +8,4 @@ signal player_changed_facing_direction # Parameter 1: facing direction
 signal player_died
 signal weapon_reloading
 signal player_picked_up_pickup # Perameter: id string of pickup
+signal player_executed

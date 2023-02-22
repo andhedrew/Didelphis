@@ -122,6 +122,7 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 2 )
 death_spritesheet = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
+health = 6
 can_be_knocked_back = false
 bullet_scene = ExtResource( 5 )
 bullet_spread = 0.0

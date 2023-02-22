@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
@@ -11,6 +11,9 @@ extents = Vector2( 6.5, 12 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6, 12 )
+
+[sub_resource type="Animation" id=23]
+length = 0.001
 
 [sub_resource type="Animation" id=21]
 resource_name = "alt_attack_looking_up"
@@ -165,6 +168,33 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 69 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "execute"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../WeaponModel:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -460,6 +490,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 47.5, 27.5 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 81
@@ -492,23 +525,25 @@ script = ExtResource( 2 )
 position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
-vframes = 8
-frame = 71
+vframes = 9
+frame = 82
 
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 hframes = 10
-vframes = 8
-frame = 71
+vframes = 9
+frame = 82
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
+anims/RESET = SubResource( 23 )
 anims/alt_attack_looking_up = SubResource( 21 )
 anims/alt_slash_attack = SubResource( 20 )
 anims/attack = SubResource( 10 )
 anims/attack_looking_up = SubResource( 11 )
 anims/die = SubResource( 17 )
 anims/die_in_air = SubResource( 18 )
+anims/execute = SubResource( 24 )
 anims/fall = SubResource( 6 )
 anims/fall_looking_up = SubResource( 7 )
 anims/idle = SubResource( 2 )
@@ -525,5 +560,15 @@ anims/RESET = SubResource( 13 )
 anims/take_damage = ExtResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+modulate = Color( 0.909804, 0.470588, 0.219608, 1 )
+position = Vector2( 0, 16 )
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+position = Vector2( 0.5, 11.5 )
+shape = SubResource( 22 )
 
 [editable path="Hurtbox"]

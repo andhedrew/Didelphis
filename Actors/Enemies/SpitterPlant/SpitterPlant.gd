@@ -1,4 +1,4 @@
-extends BaseEnemy
+extends Enemy
 
 export(PackedScene) var bullet_scene
 export(float, 0.0, 160.0, 1.0) var bullet_spread := 10

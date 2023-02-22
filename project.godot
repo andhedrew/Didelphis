@@ -14,15 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/actor.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "BaseEnemy",
-"language": "GDScript",
-"path": "res://Actors/Enemies/BaseEnemy.gd"
-}, {
 "base": "Area2D",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://Combat/Bullets/bullet.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Actors/Enemies/BaseEnemy.gd"
 }, {
 "base": "Control",
 "class": "HealthBar",
@@ -66,8 +66,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
-"BaseEnemy": "",
 "Bullet": "",
+"Enemy": "",
 "HealthBar": "",
 "HitBox": "",
 "HurtBox": "",

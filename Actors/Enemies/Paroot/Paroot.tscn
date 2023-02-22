@@ -91,7 +91,7 @@ tracks/0/keys = {
 collision_layer = 4
 script = ExtResource( 2 )
 death_spritesheet = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ) ]
-health = 4
+health = 6
 max_move_speed = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

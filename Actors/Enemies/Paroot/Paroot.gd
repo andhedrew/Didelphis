@@ -1,4 +1,4 @@
-extends BaseEnemy
+extends Enemy
 
 var flipped := false
 func _ready():
