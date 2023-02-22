@@ -7,6 +7,7 @@ var state = Enums.State.MOVE
 var state_last_frame = state
 var state_timer := 0
 var facing = Enums.Facing.RIGHT
+var wounded := false
 
 export(Array, StreamTexture) var death_spritesheet = []
 export(AudioStreamSample) var hurt_sound := SoundPlayer.IMPACT_CELERY
@@ -55,7 +56,10 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 	animation_player.play("hurt")
 	$InvulnerableTimer.start()
 	if health <= 0:
-		die()
+		wounded = true
+	if wounded:
+		effects_player.play("wounded")
+		#bleed
 
 
 func die() -> void:
@@ -111,7 +115,6 @@ func switch_state() -> void :
 		Enums.State.FALL: fall_state()
 		Enums.State.MOVE: move_state()
 		Enums.State.HURT: hurt_state()
-
 
 func idle_state():
 	pass
