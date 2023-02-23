@@ -1,6 +1,7 @@
 extends Bullet
 
 onready var animation_player := $AnimationPlayer as AnimationPlayer
+onready var sprite := $Sprite
 
 func _ready():
 	$Hitbox.connect("body_entered", self, "_on_body_entered")
@@ -16,7 +17,7 @@ func _on_body_entered(body):
 	_destroy()
 	
 
-func _destroy():
+func _destroy(): 
 	set_physics_process(false)
 	set_deferred("monitoring", false)
 	animation_player.play("destroy")

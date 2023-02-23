@@ -19,3 +19,4 @@ func play_sound(sound):
 			audio_stream_player.stream = sound
 			audio_stream_player.play()
 			break
+

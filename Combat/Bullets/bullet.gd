@@ -3,28 +3,28 @@ extends Area2D
 
 var default_speed := .2
 
-var max_range := 1000.0
+var lifetime := 50.0
 
-var _tavelled_distance = 0.0
+var life = 0.0
 
 onready var speed := default_speed
 
 func _init() -> void:
 	set_as_toplevel(true)
 
-
+ 
 func _physics_process(delta:float) -> void:
 	var distance := speed * delta
 	var motion := transform.x * speed * delta
 	position += motion
-	_tavelled_distance += distance
-	if _tavelled_distance > max_range: 
+	life += 1
+	if life > lifetime: 
 		_destroy()
 
 
 func setup(
 	new_global_transform: Transform2D,
-	new_range: float,
+	new_lifetime: float,
 	new_speed := default_speed,
 	bullet_spread: float = 0.0,
 	damage: int = 0,
@@ -36,7 +36,7 @@ func setup(
 		$Hitbox.set_collision_mask_bit(0, true)
 	transform = new_global_transform
 	position.y += rand_range(-bullet_spread, bullet_spread) 
-	max_range = new_range
+	lifetime = new_lifetime
 	speed = new_speed
 
 
