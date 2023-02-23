@@ -204,7 +204,7 @@ func execute_state():
 func attack_or_execute(input, attack) -> void:
 	if attack and execution_available:
 		execution_target.targeted = true
-		GameEvents.emit_signal("player_executed")
+		GameEvents.emit_signal("player_executed", execution_target)
 		state = Enums.State.EXECUTE
 	elif attack:
 		state = Enums.State.ATTACK

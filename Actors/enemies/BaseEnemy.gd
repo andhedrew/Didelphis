@@ -163,8 +163,8 @@ func is_enemy() -> void:
 	pass
 
 
-func _execute():
-	if targeted:
+func _execute(execution_target):
+	if execution_target == self:
 		executed = true
 		var t = Timer.new()
 		t.set_wait_time(.5)
