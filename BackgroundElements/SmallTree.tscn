@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Props/Trees/sunny_tree_trunk.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Props/Trees/sunny_tree1_leaves.png" type="Texture" id=2]
+[ext_resource path="res://BackgroundElements/BackgroundElement.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Wave"
+length = 40.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Trunk:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 10.2, 29.4, 39.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -0.5, 0.5, 0.0 ]
+}
+
+[node name="SmallTree" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Trunk" type="Sprite" parent="."]
+rotation = 0.00573148
+texture = ExtResource( 1 )
+offset = Vector2( 0, -65 )
+
+[node name="Leaves" type="Sprite" parent="Trunk"]
+position = Vector2( 0.639944, -65.9969 )
+rotation = 0.00969627
+scale = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Wave = SubResource( 1 )

@@ -22,7 +22,7 @@ export var friction := 6.5
 
 var velocity := Vector2.ZERO
 
-var state = Enums.State.IDLE
+export var state = Enums.State.IDLE
 var state_last_frame = state
 var state_timer := 0
 
@@ -194,12 +194,9 @@ func attack_state(input, delta):
 	if jump:
 		state = Enums.State.JUMP
 
-
 func execute_state():
 	animation_player.play("execute")
-	if state_timer > 30:
-		state = Enums.State.FALL
-		execution_target = null
+	execution_target = null
 
 func attack_or_execute(input, attack) -> void:
 	if attack and execution_available:
