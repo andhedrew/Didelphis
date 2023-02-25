@@ -40,8 +40,6 @@ var targeted := false
 
 func _ready() -> void:
 	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
-	GameEvents.connect("player_executed", self, "_execute")
-
 
 func _physics_process(delta):
 	pass
@@ -64,6 +62,8 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 		effects_player.play("wounded")
 	if health <= 0:
 		die()
+	if executed:
+		_execute()
 
 func die() -> void:
 	OS.delay_msec(80)
@@ -157,7 +157,8 @@ func _hitbox_area_entered(hitbox):
 		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
-		if hitbox.execute and wounded and health <= 0:
+		if hitbox.execute and wounded:
+			health = 0
 			executed = true
 
 
@@ -165,14 +166,12 @@ func is_enemy() -> void:
 	pass
 
 
-func _execute(execution_target):
-	if execution_target == self:
-		executed = true
-		var t = Timer.new()
-		t.set_wait_time(.5)
-		t.set_one_shot(true)
-		self.add_child(t)
-		t.start()
-		yield(t, "timeout")
-		t.queue_free()
-		die()
+func _execute():
+	var t = Timer.new()
+	t.set_wait_time(.5)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	t.queue_free()
+	die()

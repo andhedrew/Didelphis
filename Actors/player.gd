@@ -311,6 +311,7 @@ func _exited_hitbox(exiting_hitbox) -> void:
 		player_colliding = false
 		colliding_hitbox = null
 
+
 func _reloading(ammo_amount, max_ammo) -> void:
 	reloading = true
 
