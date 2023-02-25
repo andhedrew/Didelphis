@@ -157,6 +157,8 @@ func _hitbox_area_entered(hitbox):
 		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
+		if hitbox.execute and wounded and health <= 0:
+			executed = true
 
 
 func is_enemy() -> void:

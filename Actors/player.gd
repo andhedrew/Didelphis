@@ -198,29 +198,17 @@ func attack_state(input, delta):
 		state = Enums.State.JUMP
 
 func execute_state():
+	if state_timer < 1:
+		GameEvents.emit_signal("player_executed")
 	animation_player.play("execute")
-	execution_target = null
+
 
 func attack_or_execute(input, attack) -> void:
-	if attack and execution_available:
-		execution_target.targeted = true
-		GameEvents.emit_signal("player_executed", execution_target)
+	if attack and Input.is_action_pressed("down"):
 		state = Enums.State.EXECUTE
 	elif attack:
 		state = Enums.State.ATTACK
 
-
-func _on_executable_enemy_detected(body):
-	if body.has_method("is_enemy"):
-		if body.wounded:
-			execution_available = true;
-			execution_target = body
-
-
-func _set_execution_false(body) -> void:
-	execution_available = false;
-	if state != Enums.State.EXECUTE:
-		execution_target = null
 
 
 func dead_state():

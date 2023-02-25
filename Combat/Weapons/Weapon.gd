@@ -28,6 +28,7 @@ func _ready():
 	var weapon_model = get_node("/root/World/Player/Model/WeaponModel")
 	GameEvents.connect("player_died", self, "_on_player_death")
 	GameEvents.connect("player_attacked", self, "_on_player_attack")
+	GameEvents.connect("player_executed", self, "_on_player_execute")
 	weapon_model.texture = sprite_sheet
 
 
@@ -39,4 +40,8 @@ func _on_player_death():
 
 
 func _on_player_attack():
+	pass
+
+
+func _on_player_execute():
 	pass
