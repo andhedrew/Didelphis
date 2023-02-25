@@ -6,7 +6,7 @@ const TEXTURE_EMPTY := preload("res://Sprites/UI Sprites/health/health3.png")
 const TEXTURE_HALF := preload("res://Sprites/UI Sprites/health/health2.png")
 const TEXTURE_FULL := preload("res://Sprites/UI Sprites/health/health1.png")
 
-var max_health := 10
+var max_health := 3
 var health := max_health setget set_health
 
 onready var _row := $HBoxContainer as HBoxContainer

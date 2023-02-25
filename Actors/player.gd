@@ -1,6 +1,9 @@
 extends Actor
 class_name Player
 
+
+export(Array, StreamTexture) var death_spritesheet = []
+var dropped_bodyparts := false
 export(int) var health = 3
 var max_health = health
 var food: int = 0
@@ -225,6 +228,19 @@ func dead_state():
 	apply_friction()
 	if !is_on_floor():
 		velocity = move_and_slide(velocity, Vector2.UP)
+	$Model/PlayerModel.visible = false
+	$Model/WeaponModel.visible = false
+	if death_spritesheet and !dropped_bodyparts:
+		var spacing = 2
+		var starting_x = -(death_spritesheet.size()*(spacing*.5))
+		for sprite in death_spritesheet:
+			var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
+			pickup.pickup_texture = sprite
+			pickup.position = global_position
+			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
+			starting_x += spacing
+			get_node("/root/World").add_child(pickup)
+			dropped_bodyparts = true;
 
 
 func timers():

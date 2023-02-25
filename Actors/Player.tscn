@@ -1,10 +1,14 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
 [ext_resource path="res://Actors/player.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Player.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/PlayerSprites/player.png" type="Texture" id=4]
 [ext_resource path="res://Animations/take_damage.tres" type="Animation" id=5]
+[ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup3.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup1.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup4.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 6.5, 12 )
@@ -128,7 +132,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=17]
 resource_name = "die"
-length = 0.8
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -136,10 +140,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.9, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 60, 61, 62, 63, 64, 65, 66 ]
+"values": [ 60, 61, 62, 63, 64, 65, 66, 67, 68 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("../WeaponModel:frame")
@@ -510,6 +514,7 @@ extents = Vector2( 47.5, 27.5 )
 collision_layer = 2
 collision_mask = 81
 script = ExtResource( 3 )
+death_spritesheet = [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ) ]
 state = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -535,18 +540,18 @@ shape = SubResource( 12 )
 [node name="Model" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
+[node name="WeaponModel" type="Sprite" parent="Model"]
+position = Vector2( 1, -14 )
+hframes = 10
+vframes = 9
+frame = 66
+
 [node name="PlayerModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 9
-frame = 82
-
-[node name="WeaponModel" type="Sprite" parent="Model"]
-position = Vector2( 1, -14 )
-hframes = 10
-vframes = 9
-frame = 82
+frame = 68
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
