@@ -3,10 +3,11 @@ extends Weapon
 func _input(event: InputEvent) -> void:
 	if attack_delay_timer < attack_delay:
 		get_parent().reloading = true
-	if event.is_action_pressed("attack") and attack_delay_timer > attack_delay and weapon_active:
+	
+	if attack_delay_timer > attack_delay and weapon_active:
 		get_parent().reloading = false
-		attack_delay_timer = 0
-		shoot()
+		
+	
 	
 	var up_down_axis := Input.get_axis("up", "down")
 	
@@ -26,3 +27,8 @@ func shoot() -> void:
 		add_child(bullet)
 		bullet.setup(global_transform, max_lifetime, max_bullet_speed, bullet_spread, damage, collide_with_world)
 		SoundPlayer.play_sound(attack_sound)
+
+func _on_player_attack():
+	if attack_delay_timer > attack_delay and weapon_active:
+		attack_delay_timer = 0
+		shoot()

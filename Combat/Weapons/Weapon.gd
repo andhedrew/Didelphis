@@ -26,12 +26,17 @@ func _physics_process(delta):
 func _ready():
 	assert(bullet_scene != null, 'Bullet Scene is not provided for "%s"' % [get_path()])
 	var weapon_model = get_node("/root/World/Player/Model/WeaponModel")
-	GameEvents.connect("player_died", self, "_make_weapon_inactive")
+	GameEvents.connect("player_died", self, "_on_player_death")
+	GameEvents.connect("player_attacked", self, "_on_player_attack")
 	weapon_model.texture = sprite_sheet
 
 
 func shoot() -> void:
 	pass
 
-func _make_weapon_inactive():
+func _on_player_death():
 	weapon_active = false
+
+
+func _on_player_attack():
+	pass

@@ -78,7 +78,7 @@ func _physics_process(delta):
 		Enums.State.EXECUTE: execute_state()
 
 	
-	if state != Enums.State.DEAD:
+	if state != Enums.State.DEAD and state !=  Enums.State.EXECUTE:
 			handle_facing(input)
 	
 	if is_on_floor():
