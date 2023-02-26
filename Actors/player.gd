@@ -35,10 +35,11 @@ var default_facing = facing
 
 onready var coyote_timer := $CoyoteTimer
 onready var invulnerable_timer := $InvulnerableTimer
-onready var enemy_detector := $EnemyDetector
+
 var execution_available := false
 var execution_target := Node
 var was_on_floor := false
+var can_double_jump := false
 
 var in_air_timer := 0
 var player_colliding := false
@@ -58,8 +59,7 @@ func _ready():
 	hurtbox.connect("area_entered", self, "_collided_with_hitbox")
 	hurtbox.connect("area_exited", self, "_exited_hitbox")
 	GameEvents.connect("weapon_reloading", self, "_reloading")
-	enemy_detector.connect("body_entered", self, "_on_executable_enemy_detected")
-	enemy_detector.connect("body_exited", self, "_set_execution_false")
+	GameEvents.connect("double_jump_refreshed", self, "_on_double_jump_refresh")
 
 
 func _physics_process(delta):
@@ -83,6 +83,7 @@ func _physics_process(delta):
 			handle_facing(input)
 	if is_on_floor():
 		in_air_timer = 0
+		can_double_jump = false
 	else:
 		in_air_timer  += 1
 	if player_colliding and invulnerable_timer.is_stopped():
@@ -141,10 +142,14 @@ func jump_state(input, attack):
 		coyote_timer.stop()
 		velocity.y = jump_height
 	
+	if jump_release and can_double_jump:
+		if jump: 
+			velocity.y = jump_height
+			can_double_jump = false
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_floor():
-		
 		if input.x == 0:
 			state = Enums.State.IDLE
 		else:
@@ -158,6 +163,13 @@ func jump_state(input, attack):
 
 
 func fall_state(input, attack):
+	var jump :=  Input.is_action_pressed("jump")
+	
+	if jump and can_double_jump: 
+		velocity.y = jump_height
+		can_double_jump = false
+		state = Enums.State.JUMP
+	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_floor():
@@ -194,9 +206,13 @@ func attack_state(input, delta):
 		state = Enums.State.JUMP
 
 func execute_state():
+	var jump :=  Input.is_action_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_executed")
-	animation_player.play("execute")
+	if jump and can_double_jump: 
+		velocity.y = jump_height
+		can_double_jump = false
+		state = Enums.State.JUMP
 
 
 func attack_or_execute(input, attack) -> void:
@@ -317,6 +333,9 @@ func knockback(amount) -> void:
 		Enums.Facing.RIGHT: velocity.x -= amount
 		Enums.Facing.LEFT:  velocity.x += amount
 
+
+func _on_double_jump_refresh() -> void:
+	can_double_jump = true
 
 func is_player() -> void:
 	pass

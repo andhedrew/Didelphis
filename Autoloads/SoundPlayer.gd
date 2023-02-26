@@ -7,6 +7,7 @@ const OOF := preload("res://Sounds/oofHigh.wav")
 const PAROOT_SQUAWK = preload("res://Sounds/ParootSquawk1.wav")
 const PAROOT_SQUAWK2 = preload("res://Sounds/ParootSquawk2.wav")
 const PICKUP = preload("res://Sounds/Pickup.wav")
+const SLICE_SQUISH_SMALL = preload("res://Sounds/SliceSquishSmall.wav")
 
 
 

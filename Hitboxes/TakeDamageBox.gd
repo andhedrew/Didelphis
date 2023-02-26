@@ -1,11 +1,12 @@
 extends Area2D
 class_name HurtBox
+export var display_damage_number := true
 
 func _ready():
 	connect("area_entered", self, "_display_damage_number")
 	
 func _display_damage_number(hitbox):
-	if hitbox is HitBox:
+	if hitbox is HitBox and display_damage_number:
 		var damage_number = preload("res://UI/damage_number.tscn").instance()
 		var parent = get_parent()
 		if parent is Prop:

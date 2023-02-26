@@ -6,21 +6,25 @@ var facing = Enums.Facing.RIGHT
 
 onready var animation_player := $AnimationPlayer
 onready var effects_player := $EffectsPlayer
+onready var landing_dust := $LandingPuffOfDust
 
 var landing := false
 var played_death_animation := false
 var died_in_the_air := false
 var player: Actor
 var play_alt_slash_attack := false
+var double_jump_available := false
 
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")
 	GameEvents.connect("player_changed_state", self, "_set_state")
 	GameEvents.connect("player_took_damage", self, "_damage_effects")
+	GameEvents.connect("double_jump_refreshed", self, "_double_jump_refreshed_effects")
 	player = get_parent()
 
 
 func _physics_process(delta):
+
 	if not landing and not died_in_the_air:
 		if state == Enums.State.IDLE:
 			if facing == Enums.Facing.UP:animation_player.play("idle_looking_up")
@@ -29,6 +33,7 @@ func _physics_process(delta):
 			if facing == Enums.Facing.UP:animation_player.play("walk_looking_up")
 			else:animation_player.play("walk")
 		elif state == Enums.State.JUMP:
+			$DoubleJumpCloud.emitting = false
 			if facing == Enums.Facing.UP:animation_player.play("jump_looking_up")
 			else:animation_player.play("jump")
 		elif state == Enums.State.FALL:
@@ -43,6 +48,8 @@ func _physics_process(delta):
 				animation_player.play("attack") 
 			else: 
 				animation_player.play("alt_slash_attack") 
+		elif state == Enums.State.EXECUTE:
+			animation_player.play("execute")
 
 
 func _set_state(next_state):
@@ -50,6 +57,8 @@ func _set_state(next_state):
 		if facing == Enums.Facing.UP:animation_player.play("landing_looking_up")
 		else:animation_player.play("landing")
 		landing = true
+		landing_dust.emitting = true
+		$DoubleJumpCloud.emitting = false
 		
 	
 	if next_state == Enums.State.DEAD and (state == Enums.State.FALL or state == Enums.State.JUMP):
@@ -65,6 +74,12 @@ func _set_facing(player_facing_direction):
 
 func _damage_effects(damage_amount, player_damage):
 	effects_player.play("take_damage")
+
+
+func _double_jump_refreshed_effects() -> void:
+	double_jump_available = true
+	effects_player.play("refresh_jump")
+	$DoubleJumpCloud.emitting = true
 
 func _finished_landing() -> void:
 	landing = false

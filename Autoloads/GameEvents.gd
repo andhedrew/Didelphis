@@ -9,3 +9,4 @@ signal player_died
 signal weapon_reloading
 signal player_picked_up_pickup # Perameter: id string of pickup
 signal player_executed
+signal double_jump_refreshed

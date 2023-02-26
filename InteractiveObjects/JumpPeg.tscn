@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://InteractiveObjects/JumpPeg.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/InteractableObjectSprites/JumpPegIdle.png" type="Texture" id=2]
+[ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/InteractableObjectSprites/JumpPegBroken2.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/InteractableObjectSprites/JumpPegBroken1.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.0
+
+[node name="JumpPeg" type="Area2D"]
+script = ExtResource( 1 )
+death_spritesheet = [ ExtResource( 4 ), ExtResource( 5 ) ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 1 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+display_damage_number = false
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 3
+
+[editable path="Hurtbox"]

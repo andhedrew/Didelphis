@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/PlayerAnimationController.gd" type="Script" id=2]
@@ -9,12 +9,63 @@
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup2.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup1.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup4.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/ParticleSprites/Cloud/CloudParticle.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 6.5, 12 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 6, 12 )
+
+[sub_resource type="CanvasItemMaterial" id=26]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=27]
+lifetime_randomness = 0.18
+emission_shape = 2
+emission_box_extents = Vector3( 10, 2, 1 )
+flag_disable_z = true
+spread = 52.67
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 5.0
+linear_accel_random = 1.0
+radial_accel = 10.0
+anim_speed = 1.0
+
+[sub_resource type="CanvasItemMaterial" id=28]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=29]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, -200 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=30]
+curve = SubResource( 29 )
+
+[sub_resource type="ParticlesMaterial" id=31]
+lifetime_randomness = 0.18
+emission_shape = 2
+emission_box_extents = Vector3( 2, 2, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( -100, 0, 0 )
+initial_velocity = 80.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 80.0
+linear_accel_random = 1.0
+linear_accel_curve = SubResource( 30 )
+radial_accel = 10.0
+damping = 50.0
 
 [sub_resource type="Animation" id=23]
 length = 0.001
@@ -176,7 +227,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=24]
 resource_name = "execute"
-length = 1.25
+length = 1.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -208,7 +259,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1.2 ),
+"times": PoolRealArray( 1.1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
@@ -507,8 +558,22 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 47.5, 27.5 )
+[sub_resource type="Animation" id=25]
+resource_name = "refresh_jump"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -540,18 +605,37 @@ shape = SubResource( 12 )
 [node name="Model" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
+[node name="DoubleJumpCloud" type="Particles2D" parent="Model"]
+material = SubResource( 26 )
+emitting = false
+amount = 4
+lifetime = 0.5
+preprocess = 5.0
+process_material = SubResource( 27 )
+texture = ExtResource( 10 )
+
+[node name="LandingPuffOfDust" type="Particles2D" parent="Model"]
+material = SubResource( 28 )
+emitting = false
+amount = 22
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 31 )
+texture = ExtResource( 10 )
+
 [node name="WeaponModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 hframes = 10
 vframes = 9
-frame = 81
+frame = 80
 
 [node name="PlayerModel" type="Sprite" parent="Model"]
 position = Vector2( 1, -14 )
 texture = ExtResource( 4 )
 hframes = 10
 vframes = 9
-frame = 81
+frame = 80
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Model"]
 root_node = NodePath("../PlayerModel")
@@ -576,18 +660,9 @@ anims/walk_looking_up = SubResource( 5 )
 
 [node name="EffectsPlayer" type="AnimationPlayer" parent="Model"]
 anims/RESET = SubResource( 13 )
+anims/refresh_jump = SubResource( 25 )
 anims/take_damage = ExtResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="EnemyDetector" type="Area2D" parent="."]
-modulate = Color( 0.909804, 0.470588, 0.219608, 1 )
-position = Vector2( 0, 16 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
-position = Vector2( 0.5, 11.5 )
-shape = SubResource( 22 )
 
 [editable path="Hurtbox"]
