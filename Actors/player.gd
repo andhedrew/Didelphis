@@ -67,7 +67,6 @@ func _physics_process(delta):
 	input.x = Input.get_axis("left", "right")
 	input.y = Input.get_axis("up", "down")
 
-
 	timers()
 	apply_gravity(delta)
 	
@@ -80,15 +79,12 @@ func _physics_process(delta):
 		Enums.State.FALL: fall_state(input, attack)
 		Enums.State.EXECUTE: execute_state()
 
-	
 	if state != Enums.State.DEAD and state !=  Enums.State.EXECUTE:
 			handle_facing(input)
-	
 	if is_on_floor():
 		in_air_timer = 0
 	else:
 		in_air_timer  += 1
-
 	if player_colliding and invulnerable_timer.is_stopped():
 		take_damage()
 

@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Combat/Weapons/BoneSword/BoneSword.gd" type="Script" id=1]
+[ext_resource path="res://Combat/Bullets/ClawSlash/ClawSlash.tscn" type="PackedScene" id=2]
 
 [node name="BoneSword" type="Node2D"]
 position = Vector2( 11, -11 )
 script = ExtResource( 1 )
+execute_bullet_scene = ExtResource( 2 )
 max_lifetime = 7.0
 max_bullet_speed = 600.0
 attack_delay = 5.0

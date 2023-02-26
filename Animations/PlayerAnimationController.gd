@@ -43,14 +43,7 @@ func _physics_process(delta):
 				animation_player.play("attack") 
 			else: 
 				animation_player.play("alt_slash_attack") 
-#		elif state == Enums.State.DEAD and !played_death_animation:
-#			played_death_animation = true
-#			animation_player.play("die")
-#	elif died_in_the_air:
-#		if player.is_on_floor() and state == Enums.State.DEAD and !played_death_animation:
-#			animation_player.play("die")
-#			animation_player.seek(0.3)
-#			played_death_animation = true
+
 
 func _set_state(next_state):
 	if state == Enums.State.FALL and (next_state == Enums.State.IDLE or next_state == Enums.State.WALK): 

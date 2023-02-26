@@ -6,7 +6,6 @@ var default_speed := .2
 var lifetime := 50.0
 
 var life = 0.0
-var execute := false
 
 onready var speed := default_speed
 
@@ -33,7 +32,6 @@ func setup(
 ) -> void:
 	$Hitbox.damage = damage
 	$Hitbox.collision_mask = collision_mask
-	$Hitbox.execute = execute
 	if collide_with_world: 
 		$Hitbox.set_collision_mask_bit(0, true)
 	transform = new_global_transform

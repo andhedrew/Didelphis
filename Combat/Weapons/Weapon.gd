@@ -1,8 +1,10 @@
 class_name Weapon
 
 extends Node2D
-
+ 
 export var bullet_scene: PackedScene = preload("res://Combat/Bullets/Slash/Slash.tscn")
+export var execute_bullet_scene: PackedScene = preload("res://Combat/Bullets/Slash/Slash.tscn")
+
 export var sprite_sheet: Texture = preload("res://Sprites/player_weapon_bone_sword.png")
 
 export(float, 0.0, 160.0, 1.0) var bullet_spread := 10
@@ -15,7 +17,7 @@ export(bool) var collide_with_world := true
 
 export(float, 30.0, 500.0, 1.0) var player_knockback := 100 
 
-export( AudioStreamSample ) var attack_sound := SoundPlayer.SWOOSH
+export( AudioStreamSample ) var attack_sound := SoundPlayer.SWOOSH 
 var attack_delay_timer := attack_delay+1
 var weapon_active := true
 

@@ -26,7 +26,7 @@ var invulnerable := false
 export var gravity := 3.9
 export var max_fall_speed := 250
 export(bool) var can_be_knocked_back =  true
-var executed := false
+var executable := false
 
 onready var hitbox:= $hitbox
 onready var hurtbox:= $hurtbox
@@ -40,9 +40,15 @@ var targeted := false
 
 func _ready() -> void:
 	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
+	GameEvents.connect("player_executed", self, "_on_player_executed")
 
 func _physics_process(delta):
-	pass
+	if health <= 1:
+		wounded = true
+	if wounded:
+		effects_player.play("wounded")
+	if health <= 0:
+		die()
 
 func move() -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -56,25 +62,18 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 	effects_player.play("take_damage")
 	animation_player.play("hurt")
 	$InvulnerableTimer.start()
-	if health <= 3:
-		wounded = true
-	if wounded:
-		effects_player.play("wounded")
-	if health <= 0:
-		die()
-	if executed:
-		_execute()
+	
 
 func die() -> void:
 	OS.delay_msec(80)
 	var explode := preload("res://Particles/death_explosion.tscn").instance()
 	explode.position = global_position
-	if executed:
+	if executable:
 		explode.big = true
 	get_node("/root/").add_child(explode)
 	emit_signal("died")
 	
-	if death_spritesheet and executed:
+	if death_spritesheet and executable:
 		var spacing = 2
 		var starting_x = -(death_spritesheet.size()*(spacing*.5))
 		for sprite in death_spritesheet:
@@ -91,9 +90,6 @@ func die() -> void:
 	set_physics_process(false)
 	
 	hitbox.queue_free()
-	#die_sound.pitch_scale = rand_range(0.95, 1.05)
-	#die_sound.play()
-	#yield(die_sound, "finished")
 	queue_free()
 	
 
@@ -153,13 +149,12 @@ func timers():
 	state_last_frame = state
 
 func _hitbox_area_entered(hitbox):
-	if hitbox is HitBox:
+	if hitbox is HitBox and $InvulnerableTimer.is_stopped():
 		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
-		if hitbox.execute and wounded:
-			health = 0
-			executed = true
+		if executable and wounded:
+			_execute()
 
 
 func is_enemy() -> void:
@@ -167,11 +162,9 @@ func is_enemy() -> void:
 
 
 func _execute():
-	var t = Timer.new()
-	t.set_wait_time(.5)
-	t.set_one_shot(true)
-	self.add_child(t)
-	t.start()
-	yield(t, "timeout")
-	t.queue_free()
+	yield(get_tree().create_timer(0.2), "timeout")
 	die()
+
+func _on_player_executed():
+	if wounded: 
+		executable = true

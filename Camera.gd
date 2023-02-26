@@ -23,6 +23,7 @@ func _ready():
 	target_node  = get_node(TargetNodepath)
 	
 	GameEvents.connect("player_attacked", self, "_SCREENSHAKE")
+	GameEvents.connect("player_executed", self, "_BIG_SCREENSHAKE")
 
 
 func _process(delta):
@@ -54,5 +55,10 @@ func add_trauma(trauma_in):
 
 func _SCREENSHAKE() -> void:
 	add_trauma(0.2)
+
+
+func _BIG_SCREENSHAKE() -> void:
+	yield(get_tree().create_timer(0.2), "timeout")
+	add_trauma(0.8)
 
 
