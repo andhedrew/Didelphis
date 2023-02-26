@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Sprites/ParticleSprites/Cloud/CloudParticle.png" type="Texture" id=1]
+[ext_resource path="res://Particles/puff_of_dust.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=28]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=29]
+min_value = -200.0
+max_value = 200.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, -200 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=30]
+curve = SubResource( 29 )
+
+[sub_resource type="ParticlesMaterial" id=31]
+lifetime_randomness = 0.18
+emission_shape = 2
+emission_box_extents = Vector3( 2, 2, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 90.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 80.0
+linear_accel_random = 1.0
+linear_accel_curve = SubResource( 30 )
+radial_accel = 53.93
+damping = 150.0
+damping_random = 0.19
+anim_speed = 1.0
+anim_speed_random = 0.8
+
+[node name="PuffOfDust" type="Particles2D"]
+material = SubResource( 28 )
+emitting = false
+amount = 5
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 31 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

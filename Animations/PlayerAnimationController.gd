@@ -6,7 +6,6 @@ var facing = Enums.Facing.RIGHT
 
 onready var animation_player := $AnimationPlayer
 onready var effects_player := $EffectsPlayer
-onready var landing_dust := $LandingPuffOfDust
 
 var landing := false
 var played_death_animation := false
@@ -57,7 +56,10 @@ func _set_state(next_state):
 		if facing == Enums.Facing.UP:animation_player.play("landing_looking_up")
 		else:animation_player.play("landing")
 		landing = true
+		var landing_dust = preload("res://Particles/puff_of_dust.tscn").instance()
+		landing_dust.position = global_position
 		landing_dust.emitting = true
+		get_tree().get_root().add_child(landing_dust)
 		$DoubleJumpCloud.emitting = false
 		
 	
