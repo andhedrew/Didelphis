@@ -26,7 +26,7 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 8.0
 
-[node name="JumpPeg" type="Area2D"]
+[node name="JumpPeg" type="KinematicBody2D"]
 script = ExtResource( 1 )
 death_spritesheet = [ ExtResource( 4 ), ExtResource( 5 ) ]
 
@@ -37,7 +37,6 @@ anims/idle = SubResource( 1 )
 collision_layer = 4
 collision_mask = 8
 monitorable = false
-display_damage_number = false
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 2 )

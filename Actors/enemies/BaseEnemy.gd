@@ -34,6 +34,7 @@ onready var ledge_check_right := $ledge_check_right
 onready var ledge_check_left := $ledge_check_left
 onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
+onready var invulnerable_timer := $InvulnerableTimer
 
 var targeted := false
 
@@ -49,6 +50,10 @@ func _physics_process(delta):
 		effects_player.play("wounded")
 	if health <= 0:
 		die()
+	
+	if invulnerable_timer.is_stopped():
+		invulnerable = false
+	else: invulnerable = true
 
 func move() -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -61,7 +66,7 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 		velocity.y = jump_height*0.5
 	effects_player.play("take_damage")
 	animation_player.play("hurt")
-	$InvulnerableTimer.start()
+	invulnerable_timer.start()
 	
 
 func die() -> void:
@@ -149,10 +154,26 @@ func timers():
 	state_last_frame = state
 
 func _hitbox_area_entered(hitbox):
-	if hitbox is HitBox and $InvulnerableTimer.is_stopped():
+	if hitbox is HitBox and !invulnerable:
+		
+		var slice_animation := preload("res://Animations/slice_animation.tscn").instance()
+		slice_animation.global_position = global_position
+		slice_animation.global_position.y -= 16
+		get_node("/root/").add_child(slice_animation)
+		
+		var damage_number = preload("res://UI/damage_number.tscn").instance()
+		
+		damage_number.label_position = global_position
+		damage_number.label_position.x += rand_range(-5,5)
+		damage_number.label_position.y -= rand_range(13,16)
+		damage_number.damage_label = str(0 - hitbox.damage)
+		damage_number.target.y = damage_number.label_position.y - 32
+		get_tree().get_root().add_child(damage_number)
+		
 		OS.delay_msec(40)
 		take_damage(hitbox.damage, hitbox)
 		SoundPlayer.play_sound(hurt_sound)
+		invulnerable_timer.start()
 		if executable and wounded:
 			_execute()
 
@@ -168,3 +189,4 @@ func _execute():
 func _on_player_executed():
 	if wounded: 
 		executable = true
+

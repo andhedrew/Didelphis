@@ -164,6 +164,7 @@ shape = SubResource( 10 )
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 
 [node name="Model" type="Node2D" parent="."]
 position = Vector2( 12, 6 )

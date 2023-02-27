@@ -5,6 +5,8 @@ onready var animation_player := $AnimationPlayer as AnimationPlayer
 var pickup_texture
 var velocity := Vector2(0, 0)
 var friction := 0.5
+var max_fall_speed := 5
+
 
 func _ready():
 	z_index = SortLayer.FOREGROUND
@@ -16,6 +18,7 @@ func _ready():
 
 func _physics_process(delta):
 	velocity.y += .3
+	velocity.y = min(velocity.y, max_fall_speed)
 	move_and_collide(velocity)
 	if is_on_floor():
 		apply_friction()

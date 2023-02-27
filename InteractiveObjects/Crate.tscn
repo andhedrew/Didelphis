@@ -1,0 +1,68 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://InteractiveObjects/Crate.gd" type="Script" id=1]
+[ext_resource path="res://Hitboxes/TakeDamageBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate3.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate6.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate7.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate4.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/InteractableObjectSprites/Crate/crate5.png" type="Texture" id=8]
+[ext_resource path="res://InteractiveObjects/CrateDrop.gd" type="Script" id=9]
+[ext_resource path="res://Pickups/HealthPickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Pickups/BonePickup.tscn" type="PackedScene" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 16 )
+
+[node name="Crate" type="Node2D"]
+script = ExtResource( 9 )
+drops = [ ExtResource( 10 ), ExtResource( 10 ), ExtResource( 11 ) ]
+
+[node name="Half_right" type="KinematicBody2D" parent="."]
+position = Vector2( 16, 0 )
+script = ExtResource( 1 )
+death_spritesheet = [ ExtResource( 5 ), ExtResource( 6 ) ]
+movement = "move_right"
+
+[node name="Half1" type="Sprite" parent="Half_right"]
+position = Vector2( -16, -16 )
+texture = ExtResource( 4 )
+
+[node name="Hurtbox" parent="Half_right" instance=ExtResource( 2 )]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="Half_right/Hurtbox" index="0"]
+position = Vector2( -8, -16 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Half_right"]
+position = Vector2( -8, -16 )
+shape = SubResource( 2 )
+
+[node name="Half_left" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+death_spritesheet = [ ExtResource( 7 ), ExtResource( 8 ) ]
+
+[node name="Half1" type="Sprite" parent="Half_left"]
+position = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="Hurtbox" parent="Half_left" instance=ExtResource( 2 )]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="Half_left/Hurtbox" index="0"]
+position = Vector2( -8, -16 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Half_left"]
+position = Vector2( -8, -16 )
+shape = SubResource( 2 )
+
+[editable path="Half_right/Hurtbox"]
+[editable path="Half_left/Hurtbox"]

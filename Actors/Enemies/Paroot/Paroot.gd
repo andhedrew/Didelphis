@@ -7,8 +7,7 @@ func _ready():
 func _physics_process(delta):
 	timers()
 	switch_state()
-	if invulnerable and $InvulnerableTimer.is_stopped():
-		invulnerable = false
+
 
 
 func apply_gravity():

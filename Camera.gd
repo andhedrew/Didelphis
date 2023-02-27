@@ -59,6 +59,6 @@ func _SCREENSHAKE() -> void:
 
 func _BIG_SCREENSHAKE() -> void:
 	yield(get_tree().create_timer(0.2), "timeout")
-	add_trauma(0.8)
+	add_trauma(1.5)
 
 

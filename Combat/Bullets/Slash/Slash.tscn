@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Combat/Bullets/Slash/Slash.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/swoosh.png" type="Texture" id=2]
+[ext_resource path="res://Animations/slice_animation.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Hitboxes/Hitbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
@@ -59,11 +60,13 @@ radius = 24.0208
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 1 )
+hit_effect = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -7, -2 )
 texture = ExtResource( 2 )
 hframes = 3
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/destroy = SubResource( 1 )

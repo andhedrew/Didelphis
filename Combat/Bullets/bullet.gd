@@ -1,6 +1,7 @@
 class_name Bullet
 extends Area2D
 
+export(PackedScene) var hit_effect  
 var default_speed := .2
 
 var lifetime := 50.0
@@ -17,6 +18,20 @@ func _physics_process(delta:float) -> void:
 	var distance := speed * delta
 	var motion := transform.x * speed * delta
 	position += motion
+	
+	## If you want tiles to be destructable:
+#	var ray = RayCast2D.new()
+#	ray.enabled = true
+#	ray.cast_to = motion
+#	add_child(ray)
+#	ray.force_raycast_update()
+#	if ray.is_colliding():
+#		var tilemap = ray.get_collider()
+#		var collision_point = ray.get_collision_point()
+#		var cell_vec = tilemap.world_to_map(collision_point)
+#		if tilemap.name == "RedTiles":
+#			tilemap.set_cellv(cell_vec, -1)
+#			queue_free()
 	life += 1
 	if life > lifetime: 
 		_destroy()

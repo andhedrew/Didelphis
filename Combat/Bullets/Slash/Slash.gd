@@ -1,5 +1,5 @@
 extends Bullet
-
+ 
 onready var animation_player := $AnimationPlayer as AnimationPlayer
 
 func _ready():
@@ -9,12 +9,11 @@ func _ready():
 	animation_player.play("idle")
 
 func _on_body_entered(body):
-	var slice_animation := preload("res://Animations/slice_animation.tscn").instance()
+	var slice_animation = hit_effect.instance()
 	slice_animation.global_position = body.global_position
 	slice_animation.global_position.y -= 16
-	get_parent().get_parent().get_parent().add_child(slice_animation)
+	get_tree().get_root().add_child(slice_animation)
 	_destroy()
-	
 
 func _destroy():
 	set_physics_process(false)

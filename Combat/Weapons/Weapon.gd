@@ -5,6 +5,7 @@ extends Node2D
 export var bullet_scene: PackedScene = preload("res://Combat/Bullets/Slash/Slash.tscn")
 export var execute_bullet_scene: PackedScene = preload("res://Combat/Bullets/Slash/Slash.tscn")
 
+
 export var sprite_sheet: Texture = preload("res://Sprites/player_weapon_bone_sword.png")
 
 export(float, 0.0, 160.0, 1.0) var bullet_spread := 10
