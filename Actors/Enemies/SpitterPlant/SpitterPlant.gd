@@ -8,9 +8,9 @@ func _physics_process(delta):
 		invulnerable = false
 	match scale.x:
 		1.0: facing = Enums.Facing.RIGHT
-		-1.0: facing = Enums.Facing.LEFT
+		-1.0: facing = Enums.Facing.LEFT 
 
-
+ 
 func apply_gravity():
 	velocity.y += gravity
 	velocity.y = min(velocity.y, max_fall_speed)
@@ -39,4 +39,3 @@ func  hurt_state():
 	move()
 	if state_timer > 100:
 		state = Enums.State.IDLE
-

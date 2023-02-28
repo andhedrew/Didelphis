@@ -19,7 +19,7 @@ func apply_gravity():
 func move_state():
 	var found_wall := is_on_wall()
 	var found_ledge = not ledge_check_right.is_colliding() or not ledge_check_left.is_colliding()
-	
+	 
 	if state_timer < 1:
 		wait_time = rand_range(min_wait_time, max_wait_time)
 
@@ -42,17 +42,18 @@ func move_state():
 	if state_timer > wait_time:
 		state = Enums.State.IDLE
  
+
 func idle_state() -> void:
-	if state_timer < 1:
-		wait_time = rand_range(min_wait_time, max_wait_time)
 	animation_player.play("idle")
-	
 	if player_sensor.is_colliding() and state_timer > attack_delay:
 		state = Enums.State.ATTACK
 	
 	apply_gravity()
 	apply_friction()
 	move()
+	
+	if state_timer < 1:
+		wait_time = rand_range(min_wait_time, max_wait_time)
 	if state_timer > wait_time:
 		state = Enums.State.MOVE
 
@@ -69,9 +70,6 @@ func  hurt_state():
 	if state_timer > 80:
 		state = Enums.State.MOVE
 
-
-func _on_attack() -> void:
-	state_timer = attack_delay
 
 
 func _exit_tree() -> void:

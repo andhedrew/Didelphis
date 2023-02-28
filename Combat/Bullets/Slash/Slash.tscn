@@ -54,7 +54,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 24.0208
+radius = 18.0
 
 [node name="Slash" type="Area2D"]
 collision_layer = 0
@@ -66,7 +66,7 @@ hit_effect = ExtResource( 3 )
 position = Vector2( -7, -2 )
 texture = ExtResource( 2 )
 hframes = 3
-frame = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/destroy = SubResource( 1 )
@@ -80,6 +80,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 6, 0 )
 shape = SubResource( 3 )
 
 [editable path="Hitbox"]

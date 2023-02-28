@@ -7,7 +7,8 @@
 position = Vector2( 11, -11 )
 script = ExtResource( 1 )
 execute_bullet_scene = ExtResource( 2 )
+bullet_spread = 0.0
 max_lifetime = 7.0
 max_bullet_speed = 600.0
 attack_delay = 5.0
-collide_with_world = false
+bullet_collide_with_world = false

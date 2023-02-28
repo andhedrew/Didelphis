@@ -63,9 +63,12 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "fire_bullet"
+} ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -138,7 +141,7 @@ can_be_knocked_back = false
 bullet_scene = ExtResource( 5 )
 bullet_spread = 0.0
 max_range = 140.0
-max_bullet_speed = 40.0
+max_bullet_speed = 120.0
 attack_delay = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

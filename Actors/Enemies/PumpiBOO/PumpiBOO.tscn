@@ -66,7 +66,7 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "_on_attack"
+"method": "fire_bullet"
 }, {
 "args": [  ],
 "method": "_on_attack_finished"
@@ -191,7 +191,7 @@ position = Vector2( 8, -17 )
 texture = ExtResource( 2 )
 hframes = 4
 vframes = 4
-frame = 8
+frame = 12
 
 [node name="EffectsParticles" type="Particles2D" parent="Model"]
 material = SubResource( 15 )
