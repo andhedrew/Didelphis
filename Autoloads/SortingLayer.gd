@@ -4,6 +4,7 @@ extends Node
 const BACKGROUND = -3
 const FOREGROUND = -1
 const PLAYER = 0
-const HUD = 1
+const IN_FRONT = 1
+const HUD = 2
 const EFFECTS = -1
 const PROPS = -2

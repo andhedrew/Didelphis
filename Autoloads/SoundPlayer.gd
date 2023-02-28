@@ -9,8 +9,9 @@ const PAROOT_SQUAWK2 = preload("res://Sounds/ParootSquawk2.wav")
 const PICKUP = preload("res://Sounds/Pickup.wav")
 const SLICE_SQUISH_SMALL = preload("res://Sounds/SliceSquishSmall.wav")
 const SLICE_SQUISH_MEDIUM = preload("res://Sounds/SliceSquishMedium.wav")
-
-
+const EH1 = preload("res://Sounds/eh.wav")
+const EH2 = preload("res://Sounds/eh2.wav")
+const EH3 = preload("res://Sounds/ehDisappointed.wav")
 
 onready var audio_players := $AudioPlayers
 

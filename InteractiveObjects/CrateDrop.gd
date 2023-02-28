@@ -5,7 +5,7 @@ var has_dropped := false
 
 
 func _ready():
-	pass
+	z_index = SortLayer.IN_FRONT
 
 
 func _physics_process(delta):

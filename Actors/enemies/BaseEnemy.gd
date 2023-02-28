@@ -1,8 +1,8 @@
 extends KinematicBody2D
 class_name Enemy
-
+ 
 signal died
-
+ 
 var state = Enums.State.MOVE
 var state_last_frame = state
 var state_timer := 0
@@ -50,6 +50,8 @@ func _physics_process(delta):
 		effects_player.play("wounded")
 	if health <= 0:
 		die()
+	
+	timers()
 	
 	if invulnerable_timer.is_stopped():
 		invulnerable = false
@@ -189,4 +191,9 @@ func _execute():
 func _on_player_executed():
 	if wounded: 
 		executable = true
+
+
+func apply_gravity():
+	velocity.y += gravity
+	velocity.y = min(velocity.y, max_fall_speed)
 

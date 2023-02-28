@@ -5,14 +5,8 @@ func _ready():
 	pass 
 
 func _physics_process(delta):
-	timers()
 	switch_state()
 
-
-
-func apply_gravity():
-	velocity.y += gravity
-	velocity.y = min(velocity.y, max_fall_speed)
 
 func idle_state():
 	pass

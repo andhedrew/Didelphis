@@ -19,8 +19,6 @@ func _ready():
 	transform.y.y = 0
 
 func _physics_process(delta):
-	
-	timers()
 	switch_state()
 	
 	if path_follow.unit_offset < 0.05:
