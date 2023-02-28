@@ -53,6 +53,8 @@ var attack := false
 
 var hurt_sound: AudioStreamSample = SoundPlayer.OOF
 
+var bag := []
+
 
 func _ready():
 	z_index = SortLayer.PLAYER

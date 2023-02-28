@@ -101,7 +101,7 @@ tracks/1/keys = {
 collision_layer = 4
 script = ExtResource( 1 )
 death_spritesheet = [ ExtResource( 6 ) ]
-health = 4
+health = 2
 can_be_knocked_back = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
