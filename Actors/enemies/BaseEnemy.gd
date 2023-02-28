@@ -1,42 +1,50 @@
 extends KinematicBody2D
 class_name Enemy
  
-signal died
- 
-var state = Enums.State.MOVE
+var state = Enums.State.IDLE
 var state_last_frame = state
 var state_timer := 0
+
 var facing = Enums.Facing.RIGHT
 var wounded := false
+var targeted := false
 
 export(Array, StreamTexture) var death_spritesheet = []
+
 export(AudioStreamSample) var hurt_sound := SoundPlayer.IMPACT_CELERY
 export(AudioStreamSample) var attack_sound := SoundPlayer.SWOOSH
+
 export(int, 0, 10, 1) var damage := 1
 export var health := 3
 var velocity := Vector2.ZERO
 
 var direction:= Vector2.RIGHT
+
 export var max_move_speed := 25
 export var acceleration := 5
 export var acceleration_in_air := 5
+
+export var gravity := 3.9
 export var friction := 6
 export var jump_height := -80
+
 var invulnerable := false
-export var gravity := 3.9
 export var max_fall_speed := 250
 export(bool) var can_be_knocked_back =  true
+
 var executable := false
 
 onready var hitbox:= $hitbox
 onready var hurtbox:= $hurtbox
+
 onready var ledge_check_right := $ledge_check_right
 onready var ledge_check_left := $ledge_check_left
+
 onready var animation_player := $Model/AnimationPlayer
 onready var effects_player := $Model/EffectsPlayer
+
 onready var invulnerable_timer := $InvulnerableTimer
 
-var targeted := false
 
 
 func _ready() -> void:
@@ -78,7 +86,6 @@ func die() -> void:
 	if executable:
 		explode.big = true
 	get_node("/root/").add_child(explode)
-	emit_signal("died")
 	
 	if death_spritesheet and executable:
 		var spacing = 2
@@ -188,6 +195,7 @@ func _execute():
 	yield(get_tree().create_timer(0.2), "timeout")
 	die()
 
+
 func _on_player_executed():
 	if wounded: 
 		executable = true
@@ -196,4 +204,3 @@ func _on_player_executed():
 func apply_gravity():
 	velocity.y += gravity
 	velocity.y = min(velocity.y, max_fall_speed)
-

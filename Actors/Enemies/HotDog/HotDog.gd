@@ -20,6 +20,7 @@ func idle_state():
 	if state_timer < 1:
 		wait_time = rand_range(min_wait_time, max_wait_time)
 	animation_player.play("idle")
+	apply_gravity()
 	if state_timer > wait_time:
 		state = Enums.State.MOVE
 

@@ -1,17 +1,11 @@
 extends ShootingEnemy
 
-func _ready():
-	state = Enums.State.IDLE
-	facing = Enums.Facing.RIGHT
-
-
 func _physics_process(delta):
 	timers()
 	apply_gravity()
 	switch_state()
 	if invulnerable and $InvulnerableTimer.is_stopped():
 		invulnerable = false
-	
 	match scale.x:
 		1.0: facing = Enums.Facing.RIGHT
 		-1.0: facing = Enums.Facing.LEFT

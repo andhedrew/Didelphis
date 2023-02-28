@@ -316,6 +316,7 @@ func _collided_with_hitbox(hitbox) -> void:
 	if hitbox is HitBox:
 		player_colliding = true
 		colliding_hitbox = hitbox
+		health -= hitbox.damage
 
 
 func _exited_hitbox(exiting_hitbox) -> void:

@@ -1,7 +1,7 @@
 class_name ShootingEnemy
 extends Enemy
 
-export(PackedScene) var bullet_scene
+export(PackedScene) var bullet_scene 
 export(float, 0.0, 160.0, 1.0) var bullet_spread := 10
 export(float, 50.0, 1000.0, 1.0) var max_range := 1000.0
  
@@ -25,10 +25,10 @@ func  attack_state():
 	apply_gravity()
 	apply_friction()
 	move()
+	
 	animation_player.play("attack")
 	if state_timer > 15 and state_timer < 17:
 		fire_bullet()
-	yield(animation_player, "animation_finished")
 	state = Enums.State.IDLE
 
 
@@ -38,3 +38,7 @@ func fire_bullet():
 		bullet.set_collision_mask_bit(1, true)
 		add_child(bullet)
 		bullet.setup($BulletSpawn.global_transform, max_range, max_bullet_speed, bullet_spread, damage, collide_with_world)
+
+
+func _on_attack_finished() -> void:
+	state = Enums.State.IDLE
