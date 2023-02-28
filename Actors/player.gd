@@ -31,6 +31,7 @@ var state_timer := 0
 
 
 var facing = Enums.Facing.RIGHT
+var facing_previous_frame = facing
 var default_facing = facing
 
 onready var coyote_timer := $CoyoteTimer
@@ -44,6 +45,7 @@ var can_double_jump := false
 var in_air_timer := 0
 var player_colliding := false
 var colliding_hitbox: HitBox
+var invulnerable := false
 
 onready var animation_player := $Model/AnimationPlayer
 onready var hurtbox := $Hurtbox
@@ -88,8 +90,13 @@ func _physics_process(delta):
 		can_double_jump = false
 	else:
 		in_air_timer  += 1
-	if player_colliding and invulnerable_timer.is_stopped():
+	if player_colliding and !invulnerable:
 		take_damage()
+	
+	if invulnerable_timer.is_stopped():
+		 invulnerable = false
+	else:
+		 invulnerable = true
 
 
 func idle_state(input, attack):
@@ -227,6 +234,10 @@ func attack_or_execute(input, attack) -> void:
 
 func dead_state():
 	set_collision_mask_bit(4, false)
+	visible = false
+	collision_layer = 0
+	collision_mask = 0
+	set_physics_process(false)
 	apply_friction()
 	if !is_on_floor():
 		velocity = move_and_slide(velocity, Vector2.UP)
@@ -306,8 +317,9 @@ func handle_facing(input) -> void:
 		facing = Enums.Facing.UP
 	elif input.y > 0:
 		facing = Enums.Facing.DOWN
-	GameEvents.emit_signal("player_changed_facing_direction", facing)
-
+	if facing_previous_frame != facing:
+		GameEvents.emit_signal("player_changed_facing_direction", facing)
+	facing_previous_frame = facing
 	if input.x > 0:
 		transform.x.x = 1
 	elif input.x < 0:

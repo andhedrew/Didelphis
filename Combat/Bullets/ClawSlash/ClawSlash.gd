@@ -10,7 +10,7 @@ func _ready():
 	animation_player.play("idle")
 
 func _on_body_entered(body):
-	if body.get_collision_layer() != 1:
+	if body.get_collision_layer() != 1 and !body.invulnerable:
 		var slice_animation = hit_effect.instance()
 		slice_animation.global_position = body.global_position
 		slice_animation.global_position.y -= 16

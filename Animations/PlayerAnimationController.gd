@@ -23,7 +23,7 @@ func _ready():
 
 
 func _physics_process(delta):
-
+	
 	if not landing and not died_in_the_air:
 		if state == Enums.State.IDLE:
 			if facing == Enums.Facing.UP:animation_player.play("idle_looking_up")
@@ -72,6 +72,16 @@ func _set_state(next_state):
 
 func _set_facing(player_facing_direction):
 	facing = player_facing_direction
+	if get_parent().is_on_floor():
+		var landing_dust = preload("res://Particles/puff_of_dust.tscn").instance()
+		landing_dust.position = global_position
+		if player_facing_direction == Enums.Facing.RIGHT:
+			landing_dust.position.x -= 16
+		elif player_facing_direction == Enums.Facing.LEFT:
+			landing_dust.position.x += 16
+		landing_dust.amount = 3
+		landing_dust.emitting = true
+		get_tree().get_root().add_child(landing_dust)
 
 
 func _damage_effects(damage_amount, player_damage):

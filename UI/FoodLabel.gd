@@ -12,3 +12,5 @@ func _process(delta):
 func _set_food_amount(type: String) -> void:
 	if type == "food":
 		value += 1
+	elif type == "food_lost":
+		value -= 1

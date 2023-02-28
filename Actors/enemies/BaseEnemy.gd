@@ -102,7 +102,6 @@ func die() -> void:
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	
 	hitbox.queue_free()
 	queue_free()
 	
