@@ -1,4 +1,4 @@
-extends ShootingEnemy
+extends ShootingEnemy 
 
 func _physics_process(delta):
 	timers()

@@ -10,7 +10,7 @@ var wounded := false
 var targeted := false
 
 export(Array, StreamTexture) var death_spritesheet = []
-
+ 
 export(AudioStreamSample) var hurt_sound := SoundPlayer.IMPACT_CELERY
 export(AudioStreamSample) var attack_sound := SoundPlayer.SWOOSH
 

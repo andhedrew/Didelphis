@@ -13,7 +13,7 @@ onready var bullet_spawn := $BulletSpawn
 onready var player_sensor := $PlayerSensor
  
 
-func idle_state() ->void:
+func idle_state() ->void: 
 	animation_player.play("idle")
 	apply_gravity()
 	move()
@@ -29,6 +29,7 @@ func  attack_state():
 	animation_player.play("attack")
 	if state_timer > 15 and state_timer < 17:
 		fire_bullet()
+	yield(animation_player, "animation_finished")
 	state = Enums.State.IDLE
 
 

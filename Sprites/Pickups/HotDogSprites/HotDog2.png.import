@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HotDog1.png-34d9bd1d6d0cedb99afa4b51dcf4e3d3.stex"
+path="res://.import/HotDog2.png-b3e85b7ef1a75a3a258c52bc954bfc79.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/PickupSprites/HotDogSprites/HotDog1.png"
-dest_files=[ "res://.import/HotDog1.png-34d9bd1d6d0cedb99afa4b51dcf4e3d3.stex" ]
+source_file="res://Sprites/Pickups/HotDogSprites/HotDog2.png"
+dest_files=[ "res://.import/HotDog2.png-b3e85b7ef1a75a3a258c52bc954bfc79.stex" ]
 
 [params]
 
