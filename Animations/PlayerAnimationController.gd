@@ -49,6 +49,8 @@ func _physics_process(delta):
 				animation_player.play("alt_slash_attack") 
 		elif state == Enums.State.EXECUTE:
 			animation_player.play("execute")
+		elif state == Enums.State.CUTSCENE:
+			animation_player.play("watch")
 
 
 func _set_state(next_state):

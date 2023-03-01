@@ -64,6 +64,8 @@ func _ready():
 	hurtbox.connect("area_exited", self, "_exited_hitbox")
 	GameEvents.connect("weapon_reloading", self, "_reloading")
 	GameEvents.connect("double_jump_refreshed", self, "_on_double_jump_refresh")
+	GameEvents.connect("cutscene_started", self, "_cutscene_started")
+	GameEvents.connect("cutscene_ended", self, "_cutscene_ended")
 
 
 func _physics_process(delta):
@@ -82,8 +84,9 @@ func _physics_process(delta):
 		Enums.State.DEAD: dead_state()
 		Enums.State.FALL: fall_state(input, attack)
 		Enums.State.EXECUTE: execute_state()
+		Enums.State.CUTSCENE: cutscene_state(input, delta)
 
-	if state != Enums.State.DEAD and state !=  Enums.State.EXECUTE:
+	if state != Enums.State.DEAD and state !=  Enums.State.EXECUTE and state !=  Enums.State.CUTSCENE:
 			handle_facing(input)
 	if is_on_floor():
 		in_air_timer = 0
@@ -115,6 +118,15 @@ func idle_state(input, attack):
 	if attack:
 		state = Enums.State.ATTACK
 
+
+func cutscene_state(input, delta) -> void:
+	apply_gravity(delta)
+	apply_friction()
+	velocity = move_and_slide(velocity, Vector2.UP)
+	if facing == Enums.Facing.RIGHT:
+		transform.x.x = 1
+	elif facing == Enums.Facing.LEFT:
+		transform.x.x = -1
 
 func walk_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
@@ -354,3 +366,10 @@ func _on_double_jump_refresh() -> void:
 
 func is_player() -> void:
 	pass
+
+func _cutscene_started() -> void:
+	state = Enums.State.CUTSCENE
+
+
+func _cutscene_ended() -> void:
+	state = Enums.State.IDLE
