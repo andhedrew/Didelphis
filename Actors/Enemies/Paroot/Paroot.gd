@@ -46,9 +46,9 @@ func  fall_state():
 func  hurt_state():
 	if state_timer < 1:
 		if rand_range(0,2) <= 1:
-			SoundPlayer.play_sound(SoundPlayer.PAROOT_SQUAWK)
+			SoundPlayer.play_sound("ParootSquawk1")
 		else:
-			SoundPlayer.play_sound(SoundPlayer.PAROOT_SQUAWK2)
+			SoundPlayer.play_sound("ParootSquawk2")
 	apply_gravity()
 	apply_friction()
 	move()

@@ -20,7 +20,7 @@ func _hitbox_area_entered(hitbox):
 
 
 func _exit_tree():
-	SoundPlayer.play_sound(SoundPlayer.SLICE_SQUISH_SMALL)
+	SoundPlayer.play_sound("SliceSquishSmall")
 	GameEvents.emit_signal("double_jump_refreshed")
 	if death_spritesheet:
 		var spacing = 2

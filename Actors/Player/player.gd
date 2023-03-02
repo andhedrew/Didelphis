@@ -53,7 +53,7 @@ onready var hurtbox := $Hurtbox
 var input := Vector2.ZERO
 var attack := false
 
-var hurt_sound: AudioStreamSample = SoundPlayer.OOF
+var hurt_sound: String = "oofHigh"
 
 var bag := []
 

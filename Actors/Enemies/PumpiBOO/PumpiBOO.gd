@@ -61,9 +61,9 @@ func idle_state() -> void:
 func  hurt_state():
 	if state_timer < 1:
 		if rand_range(0,2) <= 1:
-			SoundPlayer.play_sound(SoundPlayer.EH1)
+			SoundPlayer.play_sound("Eh")
 		else:
-			SoundPlayer.play_sound(SoundPlayer.EH2)
+			SoundPlayer.play_sound("Eh2")
 	apply_gravity()
 	apply_friction()
 	move()
@@ -73,4 +73,4 @@ func  hurt_state():
 
 
 func _exit_tree() -> void:
-	SoundPlayer.play_sound(SoundPlayer.EH3)
+	SoundPlayer.play_sound("ehDisappointed")

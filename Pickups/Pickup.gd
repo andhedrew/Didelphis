@@ -27,7 +27,7 @@ func _on_body_entered(body) -> void:
 	if body.has_method("is_player") and $Timer.is_stopped() and body.state != Enums.State.DEAD:
 		_pickup(body)
 		animation_player.play("destroy")
-		SoundPlayer.play_sound(SoundPlayer.PICKUP)
+		SoundPlayer.play_sound("pickup")
 		set_deferred("monitoring", false)
 		
 

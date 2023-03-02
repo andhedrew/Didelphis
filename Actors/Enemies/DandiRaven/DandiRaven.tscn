@@ -5,7 +5,7 @@
 [ext_resource path="res://Animations/take_damage.tres" type="Animation" id=3]
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Sprites/Pickups/DandyRavenPickups/DandyRavenPickup1.png" type="Texture" id=6]
+[ext_resource path="res://Actors/Enemies/DandiRaven/DandyRavenPickup1.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Particles/blood/blood.png" type="Texture" id=7]
 [ext_resource path="res://Animations/wounded_animation.tres" type="Animation" id=8]
 

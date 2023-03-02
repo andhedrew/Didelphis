@@ -26,7 +26,7 @@ func _hitbox_area_entered(hitbox):
 			queue_free()
 		else:
 			cut_in_half = true
-			SoundPlayer.play_sound(SoundPlayer.SLICE_SQUISH_MEDIUM)
+			SoundPlayer.play_sound("SliceSquishMedium")
 			if movement == "move_left":
 				velocity.x -= 15
 				velocity.y -= 100

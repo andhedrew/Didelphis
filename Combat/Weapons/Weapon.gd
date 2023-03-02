@@ -18,7 +18,7 @@ export(bool) var bullet_collide_with_world := true
 
 export(float, 30.0, 500.0, 1.0) var player_knockback := 100 
 
-export( AudioStreamSample ) var attack_sound := SoundPlayer.SWOOSH 
+export( String) var attack_sound := "swoosh"
 var attack_delay_timer := attack_delay+1
 var weapon_active := true
 

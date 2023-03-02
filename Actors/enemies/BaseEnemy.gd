@@ -11,8 +11,8 @@ var targeted := false
 
 export(Array, StreamTexture) var death_spritesheet = []
  
-export(AudioStreamSample) var hurt_sound = SoundPlayer.IMPACT_CELERY
-export(AudioStreamSample) var attack_sound = SoundPlayer.SWOOSH 
+export(String) var hurt_sound = "impact_celery"
+export(String) var attack_sound = "swoosh"
  
 export(int, 0, 10, 1) var damage := 1
 export var health := 3

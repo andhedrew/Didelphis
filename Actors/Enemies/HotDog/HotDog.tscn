@@ -5,8 +5,8 @@
 [ext_resource path="res://hitboxes/TakeDamageBox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hitboxes/hitbox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Animations/take_damage.tres" type="Animation" id=5]
-[ext_resource path="res://Sprites/Pickups/HotDogSprites/HotDog1.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/Pickups/HotDogSprites/HotDog2.png" type="Texture" id=7]
+[ext_resource path="res://Actors/Enemies/HotDog/HotDog1.png" type="Texture" id=6]
+[ext_resource path="res://Actors/Enemies/HotDog/HotDog2.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Particles/blood/blood.png" type="Texture" id=9]
 [ext_resource path="res://Animations/wounded_animation.tres" type="Animation" id=10]
 
@@ -105,7 +105,7 @@ tracks/0/keys = {
 [node name="HotDog" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-death_spritesheet = [ ExtResource( 7 ), ExtResource( 6 ) ]
+death_spritesheet = [ ExtResource( 6 ), ExtResource( 7 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, -9.5 )
