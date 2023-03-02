@@ -9,7 +9,7 @@
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup2.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup1.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Pickups/PlayerPickups/PlayerPickup4.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/ParticleSprites/Cloud/CloudParticle.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/ParticleSprites/cloud/CloudParticle.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 6.5, 12 )

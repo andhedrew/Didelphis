@@ -689,7 +689,7 @@ energy = 0.74
 [node name="Sky" type="ColorRect" parent="DayNightCycle/ParallaxBackground/ParallaxLayer"]
 margin_right = 640.0
 margin_bottom = 360.0
-color = Color( 0.72549, 0.72549, 0.72549, 1 )
+color = Color( 0.811765, 0.768627, 0.733333, 1 )
 
 [node name="LightOverlay" type="Node2D" parent="DayNightCycle/ParallaxBackground/ParallaxLayer"]
 script = ExtResource( 14 )

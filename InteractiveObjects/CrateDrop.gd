@@ -16,6 +16,11 @@ func _physics_process(delta):
 			for item in drops:
 				drop_item(item)
 			has_dropped = true
+	
+	if has_node("Half_left") and has_node("Half_right"):
+		if $Half_left.cut_in_half: $Half_right.cut_in_half = true
+		if $Half_right.cut_in_half: $Half_left.cut_in_half = true
+		
 
 
 func drop_item(my_drop: PackedScene) -> void:

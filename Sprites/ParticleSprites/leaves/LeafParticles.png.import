@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LeafParticles3.png-7132672ff9037c0f3bd830826bdeab0b.stex"
+path="res://.import/LeafParticles.png-aec895066cff90be093a9145d46d852c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Particles/LeafParticles3.png"
-dest_files=[ "res://.import/LeafParticles3.png-7132672ff9037c0f3bd830826bdeab0b.stex" ]
+source_file="res://Sprites/ParticleSprites/leaves/LeafParticles.png"
+dest_files=[ "res://.import/LeafParticles.png-aec895066cff90be093a9145d46d852c.stex" ]
 
 [params]
 

@@ -8,7 +8,7 @@
 [ext_resource path="res://Actors/Enemies/Paroot/ParootPieces2.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemies/Paroot/Paroot.png" type="Texture" id=7]
 [ext_resource path="res://Actors/Enemies/Paroot/ParootPieces3.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/Particles/blood/blood.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/ParticleSprites/blood/blood.png" type="Texture" id=9]
 [ext_resource path="res://Animations/wounded_animation.tres" type="Animation" id=10]
 
 [sub_resource type="RectangleShape2D" id=8]

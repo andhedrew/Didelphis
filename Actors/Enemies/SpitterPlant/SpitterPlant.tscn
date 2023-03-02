@@ -10,7 +10,7 @@
 [ext_resource path="res://Sprites/Pickups/SpitterPickups/SpitterPart2.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Pickups/SpitterPickups/SpitterPart3.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Pickups/SpitterPickups/SpitterPart4.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/Particles/blood/blood.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/ParticleSprites/blood/blood.png" type="Texture" id=11]
 [ext_resource path="res://Animations/wounded_animation.tres" type="Animation" id=12]
 
 [sub_resource type="RectangleShape2D" id=8]

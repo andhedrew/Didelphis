@@ -8,7 +8,7 @@
 [ext_resource path="res://Actors/Enemies/PumpiBOO/PumpiBOO12.png" type="Texture" id=6]
 [ext_resource path="res://Actors/Enemies/PumpiBOO/PumpiBOO13.png" type="Texture" id=7]
 [ext_resource path="res://Combat/Bullets/Stab/Stab.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Sprites/Particles/blood/blood.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/ParticleSprites/blood/blood.png" type="Texture" id=9]
 [ext_resource path="res://Animations/wounded_animation.tres" type="Animation" id=10]
 
 [sub_resource type="RectangleShape2D" id=8]

@@ -5,6 +5,7 @@ extends Node2D
 var health := 1
 
 func _ready() -> void:
+	z_index = SortLayer.FOREGROUND
 	$Hurtbox.connect("area_entered", self, "_hitbox_area_entered")
 
 func _hitbox_area_entered(hitbox):
