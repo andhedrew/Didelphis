@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Actor",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Actors/player.gd"
+"path": "res://Actors/Player/player.gd"
 }, {
 "base": "Node2D",
 "class": "Prop",

@@ -135,7 +135,7 @@ one_shot = true
 [node name="Model" type="Sprite" parent="Model"]
 position = Vector2( -2, -14 )
 texture = ExtResource( 1 )
-hframes = 5
+hframes = 4
 frame = 3
 
 [node name="EffectsParticles" type="Particles2D" parent="Model"]

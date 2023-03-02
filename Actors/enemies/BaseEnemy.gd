@@ -77,7 +77,6 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 	effects_player.play("take_damage")
 	animation_player.play("hurt")
 	invulnerable_timer.start()
-	
 
 func die() -> void:
 	OS.delay_msec(80)
@@ -89,21 +88,21 @@ func die() -> void:
 	
 	if death_spritesheet and executable:
 		var spacing = 2
-		var starting_x = -(death_spritesheet.size()*(spacing*.5))
+		var starting_x = (death_spritesheet.size()*(spacing*.5))
 		for sprite in death_spritesheet:
 			var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
 			pickup.pickup_texture = sprite
 			pickup.position = global_position
 			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
-			starting_x += spacing
+			starting_x -= spacing
 			get_node("/root/World").add_child(pickup)
 	
 	visible = false
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	hitbox.queue_free()
-	queue_free()
+	
+	call_deferred("queue_free")
 	
 
 
@@ -163,7 +162,6 @@ func timers():
 
 func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox and !invulnerable:
-		
 		var slice_animation := preload("res://Animations/slice_animation.tscn").instance()
 		slice_animation.global_position = global_position
 		slice_animation.global_position.y -= 16
