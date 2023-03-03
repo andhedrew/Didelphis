@@ -101,6 +101,8 @@ tracks/1/keys = {
 collision_layer = 4
 script = ExtResource( 1 )
 death_spritesheet = [ ExtResource( 6 ) ]
+hurt_vocalizations = [ "purr_growl_1", "purr_growl_2", "purr_growl_3" ]
+death_vocalization = "purr_growl_die"
 health = 2
 can_be_knocked_back = false
 

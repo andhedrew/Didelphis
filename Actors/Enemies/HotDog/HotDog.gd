@@ -54,7 +54,8 @@ func  attack_state():
 
 
 func  dead_state():
-	pass
+	if state_timer < 1:
+		SoundPlayer.play_sound("sad_dog_die")
 
 
 func  fall_state():
@@ -64,9 +65,9 @@ func  fall_state():
 func  hurt_state():
 	if state_timer < 1:
 		if rand_range(0,2) <= 1:
-			SoundPlayer.play_sound("ParootSquawk1")
+			SoundPlayer.play_sound("sad_dog_1")
 		else:
-			SoundPlayer.play_sound("ParootSquawk2")
+			SoundPlayer.play_sound("sad_dog_2")
 	apply_gravity()
 	apply_friction()
 	move()

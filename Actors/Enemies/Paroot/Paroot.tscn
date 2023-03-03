@@ -91,6 +91,8 @@ tracks/0/keys = {
 collision_layer = 4
 script = ExtResource( 1 )
 death_spritesheet = [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 8 ) ]
+hurt_vocalizations = [ "ParootSquawk1", "ParootSquawk2" ]
+death_vocalization = "ParootSquawk1"
 health = 4
 max_move_speed = 50
 

@@ -53,7 +53,9 @@ onready var hurtbox := $Hurtbox
 var input := Vector2.ZERO
 var attack := false
 
-var hurt_sound: String = "oofHigh"
+var hurt_vocalizations:= [ "player_vocal_1", "player_vocal_2", "player_vocal_3", "player_vocal_4","player_vocal_5" ]
+var death_sound:= "player_die"
+var impact_sound:= "punch"
 
 var bag := []
 
@@ -245,6 +247,9 @@ func attack_or_execute(input, attack) -> void:
 
 
 func dead_state():
+	if state_timer < 1:
+		SoundPlayer.play_sound(impact_sound)
+		SoundPlayer.play_sound(death_sound)
 	set_collision_mask_bit(4, false)
 	visible = false
 	collision_layer = 0
@@ -303,7 +308,9 @@ func apply_acceleration(amount):
 
 
 func take_damage():
-	SoundPlayer.play_sound(hurt_sound)
+	if hurt_vocalizations:
+		SoundPlayer.play_sound(hurt_vocalizations[randi() % hurt_vocalizations.size()])
+	SoundPlayer.play_sound(impact_sound)
 	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
 	velocity.y  = max(jump_height+in_air_timer, velocity.y)
 	invulnerable_timer.start()

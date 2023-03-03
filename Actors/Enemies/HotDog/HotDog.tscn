@@ -106,6 +106,8 @@ tracks/0/keys = {
 collision_layer = 4
 script = ExtResource( 2 )
 death_spritesheet = [ ExtResource( 6 ), ExtResource( 7 ) ]
+hurt_vocalizations = [ "sad_dog_1", "sad_dog_2" ]
+death_vocalization = "sad_dog_die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, -9.5 )
