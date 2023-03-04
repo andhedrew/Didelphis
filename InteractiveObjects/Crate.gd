@@ -31,7 +31,7 @@ func _hitbox_area_entered(hitbox):
 	if executed or cut_in_half:
 		OS.delay_msec(40)
 		if cut_in_half:
-			queue_free()
+			call_deferred("queue_free")
 		else:
 			cut_in_half = true
 			
@@ -41,3 +41,16 @@ func _hitbox_area_entered(hitbox):
 			else:
 				velocity.x += 15
 				velocity.y -= 100
+
+
+func _exit_tree():
+	if death_spritesheet:
+		var spacing = 2
+		var starting_x = (death_spritesheet.size()*(spacing*.5))
+		for sprite in death_spritesheet:
+			var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
+			pickup.pickup_texture = sprite
+			pickup.position = global_position
+			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
+			starting_x -= spacing
+			get_node("/root/World").add_child(pickup)

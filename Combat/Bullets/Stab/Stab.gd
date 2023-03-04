@@ -21,4 +21,4 @@ func _destroy():
 	set_deferred("monitoring", false)
 	animation_player.play("destroy")
 	yield(animation_player, "animation_finished")
-	queue_free()
+	call_deferred("queue_free")

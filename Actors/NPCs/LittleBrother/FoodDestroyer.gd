@@ -6,4 +6,5 @@ func _ready():
 
 
 func _destroy_food(food) -> void:
-	food.queue_free()
+	pass
+	food.call_deferred("queue_free")

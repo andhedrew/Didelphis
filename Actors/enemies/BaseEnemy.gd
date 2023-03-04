@@ -50,29 +50,25 @@ onready var invulnerable_timer := $InvulnerableTimer
 
 
 func _ready() -> void:
-	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
 	GameEvents.connect("player_executed", self, "_on_player_executed")
-	facing = Enums.Facing.LEFT
 	z_index = SortLayer.PLAYER
 
 
 func _physics_process(delta):
+	timers()
+	
 	if health <= 1:
 		wounded = true
 	if wounded:
 		effects_player.play("wounded")
-	if health <= 0:
-		die()
-	
-	timers()
-	
+		
 	if invulnerable_timer.is_stopped():
 		invulnerable = false
 	else: invulnerable = true
+	
 
 func move() -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
-
 
 
 
@@ -131,10 +127,9 @@ func timers():
 	state_last_frame = state
 
 
-func _hitbox_area_entered(hitbox):
+func when_hitbox_area_entered(hitbox):
 	if hitbox is HitBox and !invulnerable:
 		take_damage(hitbox.damage, hitbox)
-
 
 
 func take_damage(amount: int, damaging_hitbox) -> void:
@@ -143,9 +138,10 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 	OS.delay_msec(40)
 	
 	var slice_animation := preload("res://Animations/slice_animation.tscn").instance()
+	
+	get_node("/root/").add_child(slice_animation)
 	slice_animation.global_position = global_position
 	slice_animation.global_position.y -= 16
-	get_node("/root/").add_child(slice_animation)
 		
 	var damage_number = preload("res://UI/damage_number.tscn").instance()
 	damage_number.label_position = global_position
@@ -168,7 +164,7 @@ func take_damage(amount: int, damaging_hitbox) -> void:
 		SoundPlayer.play_sound(hurt_vocalizations[randi() % hurt_vocalizations.size()])
 	invulnerable_timer.start()
 	
-	if executable and wounded:
+	if executable:
 		_execute()
 
 
@@ -203,7 +199,6 @@ func die() -> void:
 	collision_layer = 0
 	collision_mask = 0
 	set_physics_process(false)
-	
 	call_deferred("queue_free")
 
 

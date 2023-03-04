@@ -17,7 +17,7 @@ var double_jump_available := false
 func _ready():
 	GameEvents.connect("player_changed_facing_direction", self, "_set_facing")
 	GameEvents.connect("player_changed_state", self, "_set_state")
-	GameEvents.connect("player_took_damage", self, "_damage_effects")
+	GameEvents.connect("player_health_changed", self, "_damage_effects")
 	GameEvents.connect("double_jump_refreshed", self, "_double_jump_refreshed_effects")
 	player = get_parent()
 
@@ -86,8 +86,12 @@ func _set_facing(player_facing_direction):
 		get_tree().get_root().add_child(landing_dust)
 
 
-func _damage_effects(damage_amount, player_damage):
-	effects_player.play("take_damage")
+func _damage_effects(damage_amount):
+	if damage_amount < 0:
+		effects_player.play("take_damage")
+	else:
+		effects_player.play("heal")
+
 
 
 func _double_jump_refreshed_effects() -> void:

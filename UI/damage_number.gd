@@ -16,7 +16,7 @@ func _process(delta):
 	label.text = damage_label
 	labelbg.text = damage_label
 	label.rect_global_position = label_position
-	labelbg.rect_global_position.x = label_position.x+1
+	labelbg.rect_global_position.x = label_position.x
 	labelbg.rect_global_position.y = label_position.y+1
 	label_position.y = lerp(label_position.y, target.y, 0.3)
 	

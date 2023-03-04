@@ -16,12 +16,11 @@ func _generate_food(player) -> void:
 		$"../AnimationPlayer".play("eat")
 		var spacing = 2
 		for item in player.bag:
-				var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
-				
+				var pickup := preload("res://Pickups/FoodForLittleBrother.tscn").instance()
 				pickup.pickup_texture = item
+				get_node("/root/World").call_deferred("add_child", pickup)
 				pickup.position = $FoodSpawn.global_position
 				pickup.velocity = Vector2(0, rand_range(-4, -6))
-				get_node("/root/World").add_child(pickup)
 				player.food -= 1
 				GameEvents.emit_signal("player_picked_up_pickup", "food_lost")
 				food_collected += 1
@@ -45,7 +44,7 @@ func _choose_emotion() -> void:
 		SoundPlayer.play_sound("little_brother_sad")
 		_play_sad()
 		food_collected = 0
-	collision_polygon.disabled = false
+	get_node("../CollisionPolygon2D").set_deferred("disabled", false)
 	
 	GameEvents.emit_signal("cutscene_ended")
 

@@ -13,7 +13,7 @@ onready var _row := $HBoxContainer as HBoxContainer
 
 func _ready() -> void:
 	set_health(10)
-	GameEvents.connect("player_took_damage", self, "_set_to_player_health")
+	GameEvents.connect("player_health_changed", self, "_on_player_health_changed")
 
 func set_health(new_health: int) -> void:
 	health = new_health
@@ -32,5 +32,5 @@ func set_health(new_health: int) -> void:
 			heart.texture = TEXTURE_EMPTY
 
 
-func _set_to_player_health(damage_amount, player_health):
-	set_health(player_health)
+func _on_player_health_changed(amount):
+	set_health(health+amount)

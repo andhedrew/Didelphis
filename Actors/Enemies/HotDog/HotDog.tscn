@@ -105,7 +105,7 @@ tracks/0/keys = {
 [node name="HotDog" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-death_spritesheet = [ ExtResource( 6 ), ExtResource( 7 ) ]
+death_spritesheet = [ ExtResource( 7 ), ExtResource( 6 ) ]
 hurt_vocalizations = [ "sad_dog_1", "sad_dog_2" ]
 death_vocalization = "sad_dog_die"
 
@@ -119,7 +119,7 @@ enabled = true
 cast_to = Vector2( 0, 2 )
 
 [node name="ledge_check_left" type="RayCast2D" parent="."]
-position = Vector2( -13, -2 )
+position = Vector2( -13, -1 )
 enabled = true
 cast_to = Vector2( 0, 2 )
 
@@ -150,12 +150,14 @@ position = Vector2( 1, 2 )
 
 [node name="Model" type="Sprite" parent="Model"]
 position = Vector2( -2, -14 )
+scale = Vector2( -1, 1 )
 texture = ExtResource( 1 )
 hframes = 7
 
 [node name="EffectsParticles" type="Particles2D" parent="Model"]
 material = SubResource( 15 )
 position = Vector2( -6, -13 )
+scale = Vector2( -1, 1 )
 emitting = false
 amount = 2
 lifetime = 0.5

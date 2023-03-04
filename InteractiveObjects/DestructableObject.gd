@@ -4,6 +4,7 @@ extends KinematicBody2D
 export(Array, StreamTexture) var death_spritesheet = []
 var executed := false
 var execution_timer := 0.0
+var active := true
 
 func _ready():
 	GameEvents.connect("player_executed", self, "_on_player_executed")
@@ -18,20 +19,6 @@ func _process(delta):
 func _hitbox_area_entered(hitbox):
 	pass
 
-
-func _exit_tree():
-	SoundPlayer.play_sound("SliceSquishSmall")
-	GameEvents.emit_signal("double_jump_refreshed")
-	if death_spritesheet:
-		var spacing = 2
-		var starting_x = -(death_spritesheet.size()*(spacing*.5))
-		for sprite in death_spritesheet:
-			var pickup := preload("res://Pickups/FoodPickup.tscn").instance()
-			pickup.pickup_texture = sprite
-			pickup.position = global_position
-			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
-			starting_x += spacing
-			get_node("/root/World").call_deferred("add_child", pickup) 
 
 func _on_player_executed():
 	executed = true

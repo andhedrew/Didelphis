@@ -10,7 +10,7 @@ func _ready():
 
 func _physics_process(delta):
 	if !has_node("Half_left") and !has_node("Half_right"):
-		queue_free()
+		call_deferred("queue_free")
 	elif has_node("Half_left"):
 		if $Half_left.cut_in_half and !has_dropped:
 			for item in drops:

@@ -5,7 +5,8 @@ onready var animation_player := $AnimationPlayer as AnimationPlayer
 var pickup_texture
 var velocity := Vector2(0, 0)
 var friction := 0.5
-var max_fall_speed := 5
+var max_fall_speed := 2
+var gravity := 4
 
 
 func _ready():
@@ -36,5 +37,4 @@ func _pickup(player) -> void:
 
 
 func apply_friction():
-	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, friction)
+	velocity.x = move_toward(velocity.x, 0, friction)

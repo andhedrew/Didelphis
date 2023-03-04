@@ -4,7 +4,7 @@ class_name Player
 
 export(Array, StreamTexture) var death_spritesheet = []
 var dropped_bodyparts := false
-export(int) var health = 3
+export(int) var health = 10
 var max_health = health
 var food: int = 0
 var coins: int = 0
@@ -45,6 +45,7 @@ var can_double_jump := false
 var in_air_timer := 0
 var player_colliding := false
 var colliding_hitbox: HitBox
+var incoming_damage := 0
 var invulnerable := false
 
 onready var animation_player := $Model/AnimationPlayer
@@ -95,6 +96,7 @@ func _physics_process(delta):
 		can_double_jump = false
 	else:
 		in_air_timer  += 1
+		
 	if player_colliding and !invulnerable:
 		take_damage()
 	
@@ -129,6 +131,7 @@ func cutscene_state(input, delta) -> void:
 		transform.x.x = 1
 	elif facing == Enums.Facing.LEFT:
 		transform.x.x = -1
+
 
 func walk_state(input, attack):
 	var jump :=  Input.is_action_just_pressed("jump")
@@ -229,11 +232,12 @@ func attack_state(input, delta):
 		state = Enums.State.JUMP
 
 func execute_state():
+	velocity = Vector2.ZERO
 	var jump :=  Input.is_action_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_executed")
 	if jump and can_double_jump: 
-		velocity.y = jump_height
+		velocity.y = jump_height*1.5
 		can_double_jump = false
 		state = Enums.State.JUMP
 
@@ -308,18 +312,21 @@ func apply_acceleration(amount):
 
 
 func take_damage():
+	health -= incoming_damage
+	
 	if hurt_vocalizations:
 		SoundPlayer.play_sound(hurt_vocalizations[randi() % hurt_vocalizations.size()])
 	SoundPlayer.play_sound(impact_sound)
 	velocity = (self.global_position - colliding_hitbox.global_position) * colliding_hitbox.knockback_force
 	velocity.y  = max(jump_height+in_air_timer, velocity.y)
 	invulnerable_timer.start()
-	GameEvents.emit_signal("player_took_damage", colliding_hitbox.damage, health)
-	
+	GameEvents.emit_signal("player_health_changed", -incoming_damage)
 	if health <= 0:
 		GameEvents.emit_signal("player_died")
 		state = Enums.State.DEAD
-		hurtbox.queue_free()
+		hurtbox.call_deferred("queue_free")
+	
+	
 
 
 func handle_facing(input) -> void:
@@ -349,13 +356,14 @@ func _collided_with_hitbox(hitbox) -> void:
 	if hitbox is HitBox:
 		player_colliding = true
 		colliding_hitbox = hitbox
-		health -= hitbox.damage
+		incoming_damage = hitbox.damage
 
 
 func _exited_hitbox(exiting_hitbox) -> void:
 	if exiting_hitbox == colliding_hitbox:
 		player_colliding = false
 		colliding_hitbox = null
+		incoming_damage = 0
 
 
 func _reloading(ammo_amount, max_ammo) -> void:

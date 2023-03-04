@@ -11,9 +11,9 @@ func _ready():
 func _on_body_entered(body):
 	if body.get_collision_layer() != 1 and !body.invulnerable:
 		var slice_animation = hit_effect.instance()
+		get_tree().get_root().add_child(slice_animation)
 		slice_animation.global_position = body.global_position
 		slice_animation.global_position.y -= 16
-		get_tree().get_root().add_child(slice_animation)
 	_destroy()
 
 func _destroy():
@@ -21,4 +21,4 @@ func _destroy():
 	set_deferred("monitoring", false)
 	animation_player.play("destroy")
 	yield(animation_player, "animation_finished")
-	queue_free()
+	call_deferred("queue_free")

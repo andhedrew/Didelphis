@@ -18,6 +18,6 @@ func _hitbox_area_entered(hitbox):
 	if hitbox is HitBox and !destroyed:
 		$Sprite.frame = 1
 		$Sprite/Particles2D.emitting = true
-		$Hurtbox.queue_free()
+		$Hurtbox.call_deferred("queue_free")
 		SoundPlayer.play_sound(destroy_sound)
 		destroyed = true

@@ -132,7 +132,7 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=9]
 radius = 12.0
 
-[node name="Pickup" type="KinematicBody2D"]
+[node name="HealthPickup" type="KinematicBody2D"]
 collision_layer = 32
 script = ExtResource( 3 )
 
