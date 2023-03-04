@@ -3,6 +3,7 @@ extends Enemy
 var flipped := false
 func _ready():
 	state = Enums.State.MOVE
+	
 
 func _physics_process(delta):
 	switch_state()

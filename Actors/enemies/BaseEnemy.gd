@@ -52,6 +52,8 @@ onready var invulnerable_timer := $InvulnerableTimer
 func _ready() -> void:
 	hurtbox.connect("area_entered", self, "_hitbox_area_entered")
 	GameEvents.connect("player_executed", self, "_on_player_executed")
+	facing = Enums.Facing.LEFT
+	z_index = SortLayer.PLAYER
 
 
 func _physics_process(delta):

@@ -101,12 +101,12 @@ position = Vector2( -0.5, -9.5 )
 shape = SubResource( 8 )
 
 [node name="ledge_check_right" type="RayCast2D" parent="."]
-position = Vector2( 1, -1 )
+position = Vector2( 6, -1 )
 enabled = true
 cast_to = Vector2( 0, 2 )
 
 [node name="ledge_check_left" type="RayCast2D" parent="."]
-position = Vector2( -1, -1 )
+position = Vector2( -9, -1 )
 enabled = true
 cast_to = Vector2( 0, 2 )
 

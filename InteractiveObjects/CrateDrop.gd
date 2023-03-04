@@ -15,6 +15,7 @@ func _physics_process(delta):
 		if $Half_left.cut_in_half and !has_dropped:
 			for item in drops:
 				drop_item(item)
+				SoundPlayer.play_sound("SliceSquishMedium")
 			has_dropped = true
 	
 	if has_node("Half_left") and has_node("Half_right"):

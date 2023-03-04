@@ -1,15 +1,14 @@
 extends Enemy
 
-var flipped := false
+var flipped := true
 var min_wait_time := 50
 var max_wait_time := 150
 var wait_time := rand_range(min_wait_time, max_wait_time)
 func _ready():
-	pass 
+	pass
 
 func _physics_process(delta):
 	switch_state()
-
 
 
 func apply_gravity():
