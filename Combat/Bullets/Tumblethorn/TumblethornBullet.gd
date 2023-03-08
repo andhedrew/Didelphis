@@ -14,7 +14,7 @@ func _on_body_entered(body):
 	slice_animation.global_position = body.global_position
 	slice_animation.global_position.y -= 16
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	speed += 5
 
 func _destroy():

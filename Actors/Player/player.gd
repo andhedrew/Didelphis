@@ -5,10 +5,9 @@ class_name Player
 export(Array, StreamTexture) var death_spritesheet = []
 var dropped_bodyparts := false
 export(int) var health = 10
+
 var max_health = health
 var food: int = 0
-var coins: int = 0
-var bones: int = 0
 export var gravity := 3.9*55
 export var extra_gravity_on_fall := 3*55
 
@@ -42,6 +41,11 @@ var execution_target := Node
 var was_on_floor := false
 var can_double_jump := false
 
+var dash: bool
+var dash_speed := 500
+var dash_time := 0
+var dash_duration := 5
+
 var in_air_timer := 0
 var player_colliding := false
 var colliding_hitbox: HitBox
@@ -53,7 +57,7 @@ onready var hurtbox := $Hurtbox
 
 var input := Vector2.ZERO
 var attack := false
-
+var jump := false
 var hurt_vocalizations:= [ "player_vocal_1", "player_vocal_2", "player_vocal_3", "player_vocal_4","player_vocal_5" ]
 var death_sound:= "player_die"
 var impact_sound:= "punch"
@@ -72,25 +76,23 @@ func _ready():
 
 
 func _physics_process(delta):
-	attack = Input.is_action_just_pressed("attack") and !reloading
-	input.x = Input.get_axis("left", "right")
-	input.y = Input.get_axis("up", "down")
-
+	get_input()
 	timers()
 	apply_gravity(delta)
 	
 	match state:
-		Enums.State.IDLE: idle_state(input, attack)
-		Enums.State.WALK: walk_state(input, attack)
-		Enums.State.JUMP: jump_state(input, attack)
-		Enums.State.ATTACK: attack_state(input, delta)
+		Enums.State.IDLE: idle_state()
+		Enums.State.WALK: walk_state()
+		Enums.State.JUMP: jump_state()
+		Enums.State.ATTACK: attack_state()
 		Enums.State.DEAD: dead_state()
-		Enums.State.FALL: fall_state(input, attack)
+		Enums.State.FALL: fall_state()
 		Enums.State.EXECUTE: execute_state()
-		Enums.State.CUTSCENE: cutscene_state(input, delta)
+		Enums.State.CUTSCENE: cutscene_state()
+		Enums.State.DASH: dash_state()
 
 	if state != Enums.State.DEAD and state !=  Enums.State.EXECUTE and state !=  Enums.State.CUTSCENE:
-			handle_facing(input)
+			handle_facing()
 	if is_on_floor():
 		in_air_timer = 0
 		can_double_jump = false
@@ -106,8 +108,15 @@ func _physics_process(delta):
 		 invulnerable = true
 
 
-func idle_state(input, attack):
-	var jump :=  Input.is_action_just_pressed("jump")
+func get_input() -> void:
+	attack = Input.is_action_just_pressed("attack")
+	if reloading: attack = false
+	input.x = Input.get_axis("left", "right")
+	input.y = Input.get_axis("up", "down")
+	jump =  Input.is_action_pressed("jump")
+	dash = Input.is_action_pressed("dash")
+
+func idle_state() -> void:
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
@@ -121,10 +130,13 @@ func idle_state(input, attack):
 	
 	if attack:
 		state = Enums.State.ATTACK
+	
+	if dash and facing != Enums.Facing.DOWN:
+		state = Enums.State.DASH
+		
 
 
-func cutscene_state(input, delta) -> void:
-	apply_gravity(delta)
+func cutscene_state() -> void:
 	apply_friction()
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if facing == Enums.Facing.RIGHT:
@@ -133,12 +145,9 @@ func cutscene_state(input, delta) -> void:
 		transform.x.x = -1
 
 
-func walk_state(input, attack):
-	var jump :=  Input.is_action_just_pressed("jump")
+func walk_state() -> void:
 	apply_acceleration(input.x)
 	velocity = move_and_slide(velocity, Vector2.UP)
-	
-	
 	
 	if was_on_floor and !is_on_floor():
 		coyote_timer.start()
@@ -156,11 +165,13 @@ func walk_state(input, attack):
 	
 	if attack:
 		state = Enums.State.ATTACK
+	
+	if dash and facing != Enums.Facing.DOWN:
+		state = Enums.State.DASH
 
 
-func jump_state(input, attack):
+func jump_state() -> void:
 	var jump_release:= Input.is_action_just_released("jump")
-	var jump :=  Input.is_action_pressed("jump")
 	
 	if jump_release and velocity.y < (jump_height/2):
 		velocity.y = jump_height/2
@@ -185,12 +196,10 @@ func jump_state(input, attack):
 		state = Enums.State.FALL
 	
 	apply_acceleration(input.x)
-	attack_or_execute(input, attack)
+	attack_or_execute()
 
 
-func fall_state(input, attack):
-	var jump :=  Input.is_action_pressed("jump")
-	
+func fall_state() -> void:
 	if jump and can_double_jump: 
 		velocity.y = jump_height
 		can_double_jump = false
@@ -205,22 +214,21 @@ func fall_state(input, attack):
 			state = Enums.State.WALK
 	apply_acceleration(input.x)
 	
-	attack_or_execute(input, attack)
+	attack_or_execute()
 
 
-func attack_state(input, delta):
-	var jump :=  Input.is_action_just_pressed("jump")
-	if state_timer < 1:
+func attack_state() -> void:
+	if state_timer < 1 and !reloading:
 		GameEvents.emit_signal("player_attacked")
 		
-	if state_timer < 1 and facing == Enums.Facing.DOWN:
+	if state_timer < 1 and facing == Enums.Facing.DOWN and !reloading:
 		velocity.y = min((jump_height)+in_air_timer, velocity.y)
 		
 	velocity = move_and_slide(velocity, Vector2.UP)
 	apply_acceleration(input.x)
 	apply_friction()
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and !reloading:
 		state_timer = 0
 		GameEvents.emit_signal("player_attacked")
 		$Model.play_alt_slash_attack = !$Model.play_alt_slash_attack
@@ -230,10 +238,10 @@ func attack_state(input, delta):
 	
 	if jump:
 		state = Enums.State.JUMP
+	
 
-func execute_state():
+func execute_state() -> void:
 	velocity = Vector2.ZERO
-	var jump :=  Input.is_action_pressed("jump")
 	if state_timer < 1:
 		GameEvents.emit_signal("player_executed")
 	if jump and can_double_jump: 
@@ -242,15 +250,15 @@ func execute_state():
 		state = Enums.State.JUMP
 
 
-func attack_or_execute(input, attack) -> void:
-	if attack and Input.is_action_pressed("down"):
-		state = Enums.State.EXECUTE
-	elif attack:
-		state = Enums.State.ATTACK
+func dash_state() -> void:
+	if state_timer < 1:
+		velocity.x = dash_speed*input.x
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if state_timer > dash_duration:
+		state = Enums.State.FALL
 
-
-
-func dead_state():
+func dead_state() -> void:
 	if state_timer < 1:
 		SoundPlayer.play_sound(impact_sound)
 		SoundPlayer.play_sound(death_sound)
@@ -277,7 +285,15 @@ func dead_state():
 			dropped_bodyparts = true;
 
 
-func timers():
+func attack_or_execute() -> void:
+	if attack and Input.is_action_pressed("down"):
+		state = Enums.State.EXECUTE
+	elif attack:
+		state = Enums.State.ATTACK
+
+
+
+func timers() -> void:
 	if state_last_frame != state:
 		state_timer = 0
 		GameEvents.emit_signal("player_changed_state", state)
@@ -292,26 +308,26 @@ func timers():
 		in_air_timer  += 1
 
 
-func apply_gravity(delta):
+func apply_gravity(delta) -> void:
 	velocity.y += gravity*delta
 	if velocity.y > 0:
 		velocity.y += extra_gravity_on_fall*delta
 	velocity.y = min(velocity.y, max_fall_speed)
 
 
-func apply_friction():
+func apply_friction() -> void:
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, friction)
 
 
-func apply_acceleration(amount):
+func apply_acceleration(amount) -> void:
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, max_move_speed * amount, acceleration_in_air)
 
 
-func take_damage():
+func take_damage() -> void:
 	health -= incoming_damage
 	
 	if hurt_vocalizations:
@@ -329,7 +345,7 @@ func take_damage():
 	
 
 
-func handle_facing(input) -> void:
+func handle_facing() -> void:
 	if input.y == 0:
 		if input.x > 0:
 			facing = Enums.Facing.RIGHT
@@ -388,3 +404,6 @@ func _cutscene_started() -> void:
 
 func _cutscene_ended() -> void:
 	state = Enums.State.IDLE
+
+
+

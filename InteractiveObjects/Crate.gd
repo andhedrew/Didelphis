@@ -53,4 +53,4 @@ func _exit_tree():
 			pickup.position = global_position
 			pickup.velocity = Vector2(starting_x, rand_range(-4, -6))
 			starting_x -= spacing
-			get_node("/root/World").add_child(pickup)
+			get_node("/root/World").call_deferred("add_child", pickup)

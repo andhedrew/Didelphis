@@ -23,7 +23,7 @@ var attack_delay_timer := attack_delay+1
 var weapon_active := true
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	attack_delay_timer += 1
 
 func _ready():

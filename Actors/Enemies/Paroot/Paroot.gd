@@ -5,7 +5,7 @@ func _ready():
 	state = Enums.State.MOVE
 	
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	switch_state()
 
 

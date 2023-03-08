@@ -6,7 +6,7 @@ func _ready():
 	SoundPlayer.play_sound("dust")
 
 
-func _process(delta):
+func _process(_delta):
 	modulate.a -= 0.01
 	if !emitting:
 		queue_free()

@@ -22,7 +22,7 @@ func _ready():
 	player = get_parent()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	if not landing and not died_in_the_air:
 		if state == Enums.State.IDLE:
@@ -72,7 +72,7 @@ func _set_state(next_state):
 	state = next_state
 	
 
-func _set_facing(player_facing_direction):
+func _set_facing(player_facing_direction) -> void:
 	facing = player_facing_direction
 	if get_parent().is_on_floor():
 		var landing_dust = preload("res://Particles/puff_of_dust.tscn").instance()

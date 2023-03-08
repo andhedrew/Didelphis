@@ -10,5 +10,6 @@ execute_bullet_scene = ExtResource( 2 )
 bullet_spread = 0.0
 max_lifetime = 7.0
 max_bullet_speed = 600.0
-attack_delay = 5.0
+attack_delay = 20.0
 bullet_collide_with_world = false
+player_knockback = 70.0

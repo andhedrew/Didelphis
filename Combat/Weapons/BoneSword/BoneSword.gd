@@ -8,8 +8,6 @@ func _input(event: InputEvent) -> void:
 	if attack_delay_timer > attack_delay and weapon_active:
 		get_parent().reloading = false
 
-	
-	
 	var up_down_axis := Input.get_axis("up", "down")
 	
 	if up_down_axis < 0:

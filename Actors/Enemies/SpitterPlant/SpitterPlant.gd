@@ -1,6 +1,6 @@
 extends ShootingEnemy 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	timers()
 	apply_gravity()
 	switch_state()

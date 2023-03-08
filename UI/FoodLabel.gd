@@ -5,7 +5,7 @@ func _ready():
 	GameEvents.connect("player_picked_up_pickup", self, "_set_food_amount")
 
 
-func _process(delta):
+func _process(_delta):
 	text = str("Food: " + str(value))
 
 

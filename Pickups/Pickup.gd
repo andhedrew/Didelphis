@@ -17,7 +17,7 @@ func _ready():
 		$Sprite.texture = pickup_texture
 	$Timer.start()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity.y += .3
 	velocity.y = min(velocity.y, max_fall_speed)
 	move_and_collide(velocity)
@@ -32,7 +32,7 @@ func _on_body_entered(body) -> void:
 		set_deferred("monitoring", false)
 		
 
-func _pickup(player) -> void:
+func _pickup(_player) -> void:
 	pass
 
 

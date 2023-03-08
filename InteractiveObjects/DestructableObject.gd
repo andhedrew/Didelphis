@@ -16,7 +16,7 @@ func _process(delta):
 	if execution_timer <= 0:
 		executed = false
 
-func _hitbox_area_entered(hitbox):
+func _hitbox_area_entered(_hitbox):
 	pass
 
 
